@@ -511,7 +511,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    555
+                    558
                 </div>
                 
 
@@ -523,7 +523,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="什么是GCN"><a href="#什么是GCN" class="headerlink" title="什么是GCN"></a>什么是GCN</h2><p>在讨论什么是GCN之前，我们先看一下CNN（Convolutional Neural Network）。</p>
+                <h2 id="什么是GCN">什么是GCN</h2>
+<p>在讨论什么是GCN之前，我们先看一下CNN（Convolutional Neural Network）。</p>
 <p>CNN是在Feedforward Neural Network的基础上添加了卷积层（也可能会有池化层），而卷积层的作用就是通过若干个卷积核来提取图像当中的特征，正因为卷积核在提取特征上的有效性赋予了CNN非常强大的能力。CNN具有如下特点：</p>
 <ul>
 <li>局部连接性（local connection）</li>
@@ -531,13 +532,16 @@
 <li>多层 （multi-layer）</li>
 </ul>
 <p>但美中不足的是CNN无法应用在非欧空间数据（Non Euclidean Data）上，而Non Euclidean Data在现实中又是普遍存在的，如社交网络、论文引用网络和化学分子结构等。</p>
-<h3 id="Non-Euclidean-Data"><a href="#Non-Euclidean-Data" class="headerlink" title="Non Euclidean Data"></a>Non Euclidean Data</h3><p>类似上面的Non Euclidean Data可以通过图论中的拓扑图来表示。这样的数据的一个特点就是不满足平移不变性，但这一特性是CNN所要求。</p>
+<h3 id="Non-Euclidean-Data">Non Euclidean Data</h3>
+<p>类似上面的Non Euclidean Data可以通过图论中的拓扑图来表示。这样的数据的一个特点就是不满足平移不变性，但这一特性是CNN所要求。</p>
 <p>对于视觉任务，平移不变性就是即使物体在图中发生了平移变化，仍然不影响物体的识别。对于Non Euclidean Data，每一个顶点的相邻顶点数都不尽相同，何谈平移不变性。或者从卷积核的角度来考虑，由于每个顶点的相邻节点个数不同，因此无法使用相同大小的卷积核进行特征提取。</p>
 <img src="/img/blog/blog-31-1.png" width=500 alt="">
-
-<h3 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h3><p>现在遇到的问题就是，对于Non Euclidean Data 我们希望使用类似于CNN的方法提取特征，但是CNN的方法又不能直接用于Non Euclidean Data。GCN（Graph Convolutional Network）就应运而生了，这里的Graph指的就是图论中的图结构。<strong>GCN的目的就是将卷积操作泛化到Grph domain上</strong>。目前流行的GCN主要分为两种方法，其一是Spatial approach，另一个是Spectral approach。这篇文章主要是针对Spectral approach的。</p>
-<h2 id="基于谱方法的GCN"><a href="#基于谱方法的GCN" class="headerlink" title="基于谱方法的GCN"></a>基于谱方法的GCN</h2><p>基于谱方法的GCN是使用图谱理论在Graph domain上定义卷积操作，简单的说就是通过在Graph domain上定义傅里叶变换（Fourier Transformation），对图数据和卷积核同时进行傅里叶变换，将数据都转换到频域。因为</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<h3 id="GCN">GCN</h3>
+<p>现在遇到的问题就是，对于Non Euclidean Data 我们希望使用类似于CNN的方法提取特征，但是CNN的方法又不能直接用于Non Euclidean Data。GCN（Graph Convolutional Network）就应运而生了，这里的Graph指的就是图论中的图结构。<strong>GCN的目的就是将卷积操作泛化到Grph domain上</strong>。目前流行的GCN主要分为两种方法，其一是Spatial approach，另一个是Spectral approach。这篇文章主要是针对Spectral approach的。</p>
+<h2 id="基于谱方法的GCN">基于谱方法的GCN</h2>
+<p>基于谱方法的GCN是使用图谱理论在Graph domain上定义卷积操作，简单的说就是通过在Graph domain上定义傅里叶变换（Fourier Transformation），对图数据和卷积核同时进行傅里叶变换，将数据都转换到频域。因为</p>
+<h2 id="Reference">Reference</h2>
+<ol>
 <li>Introduction to Graph Neural Network</li>
 <li></li>
 </ol>
@@ -933,8 +937,8 @@
 上一篇博客提到了在图神经网络中应用比较广泛的GCN（Graph Convolutional Networks），这篇博客就来谈谈GAT(Graph Attention Networks)。
 
 
-
-什么是GAT什么是GAT呢？先看论文的名字
+什么是GAT
+什么是GAT呢？先看论文的名字
                         
                     </div>
                     <div class="publish-info">
@@ -990,8 +994,8 @@
 时间如白驹过隙，大学三年的时光已悄然离去。我仓促而又坎坷的保研之路也将走到尽头，借此国庆假期，百无聊赖之际，抒发一下心中的感慨。
 
 
-
-个人基本情况简单说说我的基本情况
+个人基本情况
+简单说说我的基本情况
 
 学校：目前算是末流985吧
 专业：计算机（最卷的一个）

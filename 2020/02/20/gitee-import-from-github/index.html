@@ -507,7 +507,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    350
+                    351
                 </div>
                 
 
@@ -521,26 +521,26 @@
             <div id="articleContent">
                 <p>有时我们可能需要将项目同时提交到Github和Gitee，通过使用Gitee导入Github仓库我们可以轻松完成这个任务。</p>
 <span id="more"></span>
-
-<h2 id="导入Github仓库"><a href="#导入Github仓库" class="headerlink" title="导入Github仓库"></a>导入Github仓库</h2><p>在新建仓库时最下方有一个 <code>导入已有仓库</code> 的选项，点击后可以输入github仓库的URL链接。如果选择导入，上面的所有信息都不需要填写，即使填写了也会被覆盖。</p>
+<h2 id="导入Github仓库">导入Github仓库</h2>
+<p>在新建仓库时最下方有一个 <code>导入已有仓库</code> 的选项，点击后可以输入github仓库的URL链接。如果选择导入，上面的所有信息都不需要填写，即使填写了也会被覆盖。</p>
 <center>
 <img src="/img/blog/blog-24-1.png" width=600>
 </center>
-
 <p>如果是私有仓库，需要提供Github的账号和密码，如下图：</p>
 <center>
 <img src="/img/blog/blog-24-2.png" width=600>
 </center>
-
 <p>点击创建后，导入Github仓库就成功了。</p>
-<h2 id="同步Github仓库"><a href="#同步Github仓库" class="headerlink" title="同步Github仓库"></a>同步Github仓库</h2><p>通过导入github仓库建立的gitee仓库可以同步在github中原仓库。</p>
+<h2 id="同步Github仓库">同步Github仓库</h2>
+<p>通过导入github仓库建立的gitee仓库可以同步在github中原仓库。</p>
 <center>
 <img src="/img/blog/blog-24-3.png" width=600>
 </center>
-
 <p>点击上图中的强制同步选项，可以直接同步在github中的仓库。</p>
-<p>这样在本地主机上的项目只需要提交到github的服务器之后再同步到gitee中，就可以轻松实现 <strong>将项目同时提交到github和gitee</strong> 。</p>
-<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><h3 id="Gitee与Github的发行版设置不同。"><a href="#Gitee与Github的发行版设置不同。" class="headerlink" title="Gitee与Github的发行版设置不同。"></a>Gitee与Github的发行版设置不同。</h3><ul>
+<p>这样在本地主机上的项目只需要提交到github的服务器之后再同步到gitee中，就可以轻松实现 <strong>将项目同时提交到github和gitee</strong> 。</p>
+<h2 id="存在的问题">存在的问题</h2>
+<h3 id="Gitee与Github的发行版设置不同。">Gitee与Github的发行版设置不同。</h3>
+<ul>
 <li>Github会直接将tags作为发行版，如果创建了一个tag，那么在releases中也可以看到多了一个发行版。</li>
 <li>Gitee的tags和发行版是独立的，创建tag之后，不会自动创建发行版，而是由用户决定是否从该tag创建发行版。</li>
 </ul>
@@ -987,12 +987,15 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目：最长有效括号给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。
-示例 1:
+                            题目：最长有效括号
+给定一个只包含 ( 和 ) 的字符串，找出最长的包含有效括号的子串的长度。
+示例 1:
 输入: &quot;(()&quot;
 输出: 2
-解释: 最长有效括号子串为 &quot;()&quot;示例 2:
-输入:
+解释: 最长有效括号子串为 &quot;()&quot;
+
+示例 2:
+输入: 
                         
                     </div>
                     <div class="publish-info">

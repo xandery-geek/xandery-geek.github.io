@@ -519,57 +519,67 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="submodule的作用"><a href="#submodule的作用" class="headerlink" title="submodule的作用"></a>submodule的作用</h3><p>Git使用submodule(子模块)解决Git仓库的嵌套问题，允许一个 Git 仓库作为另一个 Git 仓库的子目录。 能够将一个仓库同步到自己的项目中的同时，保持Git仓库提交的独立性。详细参见<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">《pro git》子模块</a></p>
-<h3 id="submodule的原理"><a href="#submodule的原理" class="headerlink" title="submodule的原理"></a>submodule的原理</h3><p>submodule的实现很巧妙也很简单。其实submodule只是在原Git仓库中多添加了一条或者几条子模块的记录(保存在 <code>.gitmodule</code> 中)，它记录了仓库中包含的子模块的路径和URL。</p>
+                <h3 id="submodule的作用">submodule的作用</h3>
+<p>Git使用submodule(子模块)解决Git仓库的嵌套问题，允许一个 Git 仓库作为另一个 Git 仓库的子目录。 能够将一个仓库同步到自己的项目中的同时，保持Git仓库提交的独立性。详细参见<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">《pro git》子模块</a></p>
+<h3 id="submodule的原理">submodule的原理</h3>
+<p>submodule的实现很巧妙也很简单。其实submodule只是在原Git仓库中多添加了一条或者几条子模块的记录(保存在 <code>.gitmodule</code> 中)，它记录了仓库中包含的子模块的路径和URL。</p>
 <pre><code>[submodule &quot;project/submodule&quot;]
-    path = project/submodule    # 在项目中的路径，即子模块所在的文件夹是project/submodule
-    url = https://github.com/submodule.git    # 远程仓库的URL</code></pre><p>当需要同步子模块的文件时，通过指定的URL使用HTTP协议下载到本地，同样如果对子模块里的内容做出修改之后，通过该URL可以提交到子模块的远程仓库（而不是提交到依赖该子模块项目的仓库）。</p>
+	path = project/submodule	# 在项目中的路径，即子模块所在的文件夹是project/submodule
+	url = https://github.com/submodule.git	# 远程仓库的URL
+</code></pre>
+<p>当需要同步子模块的文件时，通过指定的URL使用HTTP协议下载到本地，同样如果对子模块里的内容做出修改之后，通过该URL可以提交到子模块的远程仓库（而不是提交到依赖该子模块项目的仓库）。</p>
 <p>为了保证父仓库当前子模块的内容不会随着子模块仓库内容更新而改变，父仓库中还记录了子模块当前指向的提交记录。</p>
 <p>例如：project仓库中包含了一个submodule子模块，当前子模块指向的远程仓库中的索引是 <code>ef34</code> 。Git会对每一次提交建立一个索引，该索引与提交记录一一对应。</p>
 <pre><code>---project
     |---submodule@ef34
-    |---others
-    |---.git</code></pre><p>如果子模块仓库发生了不兼容更新，最新的提交记录是 <code>ty23</code> 。由于父仓库中子模块指向的索引是 <code>ef34</code> ，即使子模块远程仓库中的内容发生了变化，也不会影响依赖于旧代码的项目。project在clone或者pull的时候，拉取的仍然是 <code>ef34</code> 的内容。如果此时project需要使用最新的submodule代码，通过更新子模块即可将子模块的索引修改为 <code>ty23</code> 。</p>
+	|---others
+	|---.git
+</code></pre>
+<p>如果子模块仓库发生了不兼容更新，最新的提交记录是 <code>ty23</code> 。由于父仓库中子模块指向的索引是 <code>ef34</code> ，即使子模块远程仓库中的内容发生了变化，也不会影响依赖于旧代码的项目。project在clone或者pull的时候，拉取的仍然是 <code>ef34</code> 的内容。如果此时project需要使用最新的submodule代码，通过更新子模块即可将子模块的索引修改为 <code>ty23</code> 。</p>
 <pre><code>commit ty23 
 commit ef34
 commit jk93
 ...
-...</code></pre><h3 id="使用submodule"><a href="#使用submodule" class="headerlink" title="使用submodule"></a>使用submodule</h3><h4 id="1、新建submodule"><a href="#1、新建submodule" class="headerlink" title="1、新建submodule"></a>1、新建submodule</h4><p>使用<code>git submodule add</code>添加新的子模块</p>
-<pre class="line-numbers language-sh"><code class="language-sh">$ git submodule add "URL"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+...
+</code></pre>
+<h3 id="使用submodule">使用submodule</h3>
+<h4 id="1、新建submodule">1、新建submodule</h4>
+<p>使用<code>git submodule add</code>添加新的子模块</p>
+<pre class="line-numbers language-language-sh"><code class="language-language-sh">$ git submodule add "URL"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>下图演示了添加名为Game的子模块</p>
 <center>
 <img src="/img/blog/blog-23-1.png" width=600>
 </center>
-
 <p>之后会发现目录下多了一个Game目录和.gitmodules的文件。其中Game目录下是你所希望包含项目的分支代码，而gitmodules的内容如下。也就是之前提到的submodule使用子模块的名称和URL记录本仓库包含的子模块。</p>
 <pre><code>[submodule &quot;Game&quot;]
-    path = Game
-    url = https://github.com/yx1302317313/Game.git</code></pre><p>提交之后查看远程仓库会发现添加的子模块的文件并没有传到远程仓库，子模块的文件夹实际是一个URL，指向了包含子模块本身的远程仓库。</p>
+	path = Game
+	url = https://github.com/yx1302317313/Game.git
+</code></pre>
+<p>提交之后查看远程仓库会发现添加的子模块的文件并没有传到远程仓库，子模块的文件夹实际是一个URL，指向了包含子模块本身的远程仓库。</p>
 <center>
 <img src="/img/blog/blog-23-2.png" width=600>
 </center>
-
-<h4 id="2、克隆包含submodule的项目"><a href="#2、克隆包含submodule的项目" class="headerlink" title="2、克隆包含submodule的项目"></a>2、克隆包含submodule的项目</h4><p>当使用<code>git clone</code>克隆一个包含子模块的项目时，子模块的文件并不会一同并拉取到本地，而只是一个空目录。</p>
+<h4 id="2、克隆包含submodule的项目">2、克隆包含submodule的项目</h4>
+<p>当使用<code>git clone </code>克隆一个包含子模块的项目时，子模块的文件并不会一同并拉取到本地，而只是一个空目录。</p>
 <center>
 <img src="/img/blog/blog-23-3.png" width=600>
 </center>
-
 <p>这时需要使用<code>git submodule init</code>用来初始化本地配置文件,而 <code>git submodule update</code>则从该项目中抓取所有数据并检出父项目中列出的合适的提交。</p>
 <center>
 <img src="/img/blog/blog-23-4.png" width=600>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-23-5.png" width=600>
 </center>
-
-<p>一个更简单的方法是给<code>git clone</code>加上递归选项<code>--recursive</code></p>
-<pre class="line-numbers language-sh"><code class="language-sh">$ git clone --recursive "URL" # 自动初始化并更新仓库中的每一个子模块<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一个更简单的方法是给<code>git clone</code>加上递归选项<code> --recursive</code></p>
+<pre class="line-numbers language-language-sh"><code class="language-language-sh">$ git clone --recursive "URL" # 自动初始化并更新仓库中的每一个子模块
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>[注意]：</strong> 由于git的子模块跟踪的是提交记录(commit id)，所以拉取下来的是一个游离分支，其实是将一个提交记录作为了一个游离的分支。这时候还需要切换到master分支。</p>
-<pre class="line-numbers language-sh"><code class="language-sh">$ cd Game
-$ git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-sh"><code class="language-language-sh">$ cd Game
+$ git checkout master
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>所以整个克隆的步骤如下：</p>
 <ol>
 <li>克隆远程仓库：git clone “URL”</li>
@@ -577,17 +587,20 @@ $ git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>拉取子模块的内容：git submodule update</li>
 <li>进入子模块切换至主分支: git checkout master</li>
 </ol>
-<h4 id="3、更新submodule"><a href="#3、更新submodule" class="headerlink" title="3、更新submodule"></a>3、更新submodule</h4><ol>
+<h4 id="3、更新submodule">3、更新submodule</h4>
+<ol>
 <li>进入submodule的目录。</li>
 <li>使用<code>git fetch</code>和<code>git merge</code>更新submodule,与远程仓库的最新代码合并（当然也可以直接使用<code>git pull</code>）。</li>
 </ol>
-<h5 id="关于-git-fetch-与-git-pull"><a href="#关于-git-fetch-与-git-pull" class="headerlink" title="关于 git fetch 与 git pull"></a>关于 git fetch 与 git pull</h5><blockquote>
+<h5 id="关于-git-fetch-与-git-pull">关于 git fetch 与 git pull</h5>
+<blockquote>
 <p>git pull = git fetch + git merge, 可以参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch">stack overflow</a></p>
 </blockquote>
-<p><strong>更简单的方式</strong>：运行<code>git submodule update
---remote</code>, 使用该命令Git将会进入子模块然后进行抓取并更新。</p>
+<p><strong>更简单的方式</strong>：运行<code>git submodule update --remote</code>, 使用该命令Git将会进入子模块然后进行抓取并更新。</p>
 <p><strong>注意：该命令默认fetch和merge主分支（master），如果是其他分支，需要进行配置（见《pro git》）。</strong></p>
-<h4 id="4、修改并提交submodule"><a href="#4、修改并提交submodule" class="headerlink" title="4、修改并提交submodule"></a>4、修改并提交submodule</h4><h5 id="提交前的fetch"><a href="#提交前的fetch" class="headerlink" title="提交前的fetch"></a>提交前的fetch</h5><p>当修改了submodule的文件时，这里有一个需要注意的地方。一般我们在提交之前都需要查看远程分支是否有更新，会不会有冲突。我们的方法是使用<code>git fetch</code>抓取远程分支查看是否更新然后进行<code>git merge</code>。（使用<code>git pull</code>也没什么太大的问题）。</p>
+<h4 id="4、修改并提交submodule">4、修改并提交submodule</h4>
+<h5 id="提交前的fetch">提交前的fetch</h5>
+<p>当修改了submodule的文件时，这里有一个需要注意的地方。一般我们在提交之前都需要查看远程分支是否有更新，会不会有冲突。我们的方法是使用<code>git fetch</code>抓取远程分支查看是否更新然后进行<code>git merge</code>。（使用<code>git pull</code>也没什么太大的问题）。</p>
 <p>需要注意的地方是<code>git submodule update</code>，之前提到这个命令也可以完成上面的功能，还更方便。</p>
 <p>但是《pro git》中提到</p>
 <blockquote>
@@ -599,31 +612,27 @@ $ git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></
 </blockquote>
 <p>关键是这句话</p>
 <blockquote>
-<p> With no working branch tracking changes, that means even if you commit changes to the submodule, those changes will quite possibly be lost the next time you run git submodule update. </p>
+<p>With no working branch tracking changes, that means even if you commit changes to the submodule, those changes will quite possibly be lost the next time you run git submodule update.</p>
 </blockquote>
 <p>意思就是如果远程仓库发生了改动，并且你本地有未推送到远程仓库的提交（commit），执行<code>git submodule update</code>后你的提交并不会与远程仓库进行合并（merge）。而是成为了一个游离的分支。</p>
 <p>像这样，在update之后，分支变成了a58a3ae,而不再是master（master变成了游离状态）。</p>
 <center>
 <img src="/img/blog/blog-23-11.png" width=600>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-23-12.png" width=600>
 </center>
-
 <p>如果发生了这种情况，处理很简单，使用<code>git checkout master</code></p>
 <center>
 <img src="/img/blog/blog-23-13.png" width=600>
 </center>
-
 <p>正确的做法是使用<code>git submodule update --merge</code>，这个命令会告诉Git进行合并（前提是不发生冲突，如果发生了冲突请看下一节）。</p>
 <center>
 <img src="/img/blog/blog-23-14.png" width=600>
 </center>
-
-<h5 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h5><p><strong>注意：使用git push并不会提交子模块。</strong></p>
+<h5 id="提交">提交</h5>
+<p><strong>注意：使用git push并不会提交子模块。</strong></p>
 <p>为了防止这种错误发生，git推荐提交使用<code>git push --recurse-submodules=check</code>，如果没有提交子模块，会提示你使用两种方法完成子模块的提交。</p>
 <ol>
 <li>进入各个子模块目录使用<code>git push</code>提交各个子模块，然后提交你的项目。</li>
@@ -632,9 +641,9 @@ $ git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></
 <center>
 <img src="/img/blog/blog-23-15.png" width=600>
 </center>
-
 <p>到这里，子模块的使用就快基本完成了。最后一部分是最令人麻烦的conflict。</p>
-<h4 id="5、解决submodule冲突"><a href="#5、解决submodule冲突" class="headerlink" title="5、解决submodule冲突"></a>5、解决submodule冲突</h4><p>解决冲突的步骤如下：</p>
+<h4 id="5、解决submodule冲突">5、解决submodule冲突</h4>
+<p>解决冲突的步骤如下：</p>
 <ol>
 <li>进入子模块目录，解决冲突。（方法同解决正常的git冲突）</li>
 <li>在子模块中提交解决冲突的记录。</li>
@@ -646,37 +655,28 @@ $ git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></
 <img src="/img/blog/blog-23-16.png" width=600>
 <p>git pull 发生冲突</p>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-23-17.png" width=600>
 <p>找到冲突的文件</p>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-23-18.png" width=600>
 <p>解决冲突，并在子模块目录提交记录</p>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-23-19.png" width=600>
 <p>在父目录中提交子模块冲突的提交记录</p>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-23-20.png" width=600>
 <p>成功推送到远程仓库</p>
 </center>
-
-
-<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>当然子模块还有些技巧，比如子模块遍历，命令别名等，见《pro git》。</p>
+<h3 id="写在最后">写在最后</h3>
+<p>当然子模块还有些技巧，比如子模块遍历，命令别名等，见《pro git》。</p>
 
             </div>
             <hr/>
@@ -1062,14 +1062,15 @@ $ git checkout master<span aria-hidden="true" class="line-numbers-rows"><span></
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            系统调用 fork在linux系统中创建进程有两种方式
+                            系统调用 fork
+在linux系统中创建进程有两种方式
 
 一是由操作系统创建。
 二是由父进程创建进程。系统调用函数fork()是创建一个新进程的唯一方式。
 
 fork()函数通过系统调用创建一个与原来进程几乎完全相同的进程。
 
-系统先给新的
+系统先给新
                         
                     </div>
                     <div class="publish-info">
@@ -1126,8 +1127,8 @@ fork()函数通过系统调用创建一个与原来进程几乎完全相同的�
 Python的编码问题可能是很多人都遇到过的问题（没遇到的终将会遇到的），笔者之前也对这个问题很模糊，今天看了《Effective Python》之后总结一下自己的理解。
 
 
-
-Unicode先看ASCII码，ASCII码我们比较熟悉，用
+Unicode
+先看ASCII码，ASCII码我们比较熟悉，用
                         
                     </div>
                     <div class="publish-info">

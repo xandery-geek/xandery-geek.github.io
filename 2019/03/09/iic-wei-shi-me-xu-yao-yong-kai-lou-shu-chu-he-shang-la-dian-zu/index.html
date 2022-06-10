@@ -528,54 +528,56 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>最近在调ICM20602模块(一个六轴陀螺仪和加速度计), 使用IIC通信协议, 这个过程中遇到一个困扰我很长时间的问题.<br>IIC协议正确, 但是一直读取失败.最后发现因为没配置GPIO为开漏输出.</p>
+<p>最近在调ICM20602模块(一个六轴陀螺仪和加速度计), 使用IIC通信协议, 这个过程中遇到一个困扰我很长时间的问题.
+IIC协议正确, 但是一直读取失败.最后发现因为没配置GPIO为开漏输出.</p>
 </blockquote>
 <span id="more"></span>
-
 <center>
 <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/I2C.svg/1920px-I2C.svg.png width=500>
 </center>
-
-<h3 id="推挽输出和开漏输出"><a href="#推挽输出和开漏输出" class="headerlink" title="推挽输出和开漏输出"></a>推挽输出和开漏输出</h3><ul>
+<h3 id="推挽输出和开漏输出">推挽输出和开漏输出</h3>
+<ul>
 <li>推挽输出: 输出逻辑0，则N-MOS激活；输出逻辑1，P-MOS激活。</li>
-<li>开漏输出: <ul>
+<li>开漏输出:
+<ul>
 <li>在不接上拉电阻时, 输出逻辑0，则N-MOS激活；输出逻辑1，P-MOS不会激活, 不会输出高电平。</li>
 <li>在接上拉电阻时, 输出逻辑0，则N-MOS激活；输出逻辑1，P-MOS激活, 可以输出高电平。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p>也就是说开漏输出如果不接上拉电阻, 没有输出高电平的能力.<br>如果需要开漏输出有输出高电平的能力需要接一个上拉电阻. 目前很多单片机GPIO可以通过软件配置上拉电阻.</p>
+<p>也就是说开漏输出如果不接上拉电阻, 没有输出高电平的能力.
+如果需要开漏输出有输出高电平的能力需要接一个上拉电阻. 目前很多单片机GPIO可以通过软件配置上拉电阻.</p>
 </blockquote>
 <center>
 <img src=/img/blog/blog-1-1.png width=500>
 <p>左图为开漏输出(接上拉电阻), 右图为推挽输出</p>
 </center>
-
-<h3 id="开漏输出的作用"><a href="#开漏输出的作用" class="headerlink" title="开漏输出的作用"></a>开漏输出的作用</h3><ul>
-<li>防止短路: 在一些情况下(比如总线), 多个GPIO口可能会连接在同一根线上, 存在某个GPIO输出高电平, 另一个GPIO输出低电平的情况. 如果使用推挽输出, 你会发现这个GPIO的VCC和另一个GPIO的GND接在了一起, 也就是短路了(<del>凉凉了</del>). 如果换成开漏输出呢? VCC和GND多了个电阻, 这样电路就是安全的.<strong>所以总线一般会使用开漏输出.</strong></li>
+<h3 id="开漏输出的作用">开漏输出的作用</h3>
+<ul>
+<li>防止短路: 在一些情况下(比如总线), 多个GPIO口可能会连接在同一根线上, 存在某个GPIO输出高电平, 另一个GPIO输出低电平的情况. 如果使用推挽输出, 你会发现这个GPIO的VCC和另一个GPIO的GND接在了一起, 也就是短路了(<s>凉凉了</s>). 如果换成开漏输出呢? VCC和GND多了个电阻, 这样电路就是安全的.<strong>所以总线一般会使用开漏输出.</strong></li>
 </ul>
 <center>
 <img src=/img/blog/blog-1-2.jpg width=300>
 <p>VCC与GND连到了一起</p>
 </center>
-
 <center>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=480579211&auto=1&height=66"></iframe>
 </center>
-
 <ul>
 <li>线与: 开漏输出还能实现 <strong>线与</strong> (自行百度), 减少一个与门, 简化电路.</li>
 </ul>
 <br>
-
-<h3 id="IIC为什么用开漏输出和上拉电阻"><a href="#IIC为什么用开漏输出和上拉电阻" class="headerlink" title="IIC为什么用开漏输出和上拉电阻"></a>IIC为什么用开漏输出和上拉电阻</h3><blockquote>
+<h3 id="IIC为什么用开漏输出和上拉电阻">IIC为什么用开漏输出和上拉电阻</h3>
+<blockquote>
 <p>其实知道了开漏输出的作用, 这个问题不难回答</p>
 </blockquote>
 <ol>
-<li><p>IIC协议支持多个主设备与多个从设备在一条总线上, 如果不用开漏输出, 而用推挽输出, 会出现主设备之间短路的情况. 至于为什么需要上拉电阻, 那是因为IIC通信需要输出高电平的能力.</p>
+<li>
+<p>IIC协议支持多个主设备与多个从设备在一条总线上, 如果不用开漏输出, 而用推挽输出, 会出现主设备之间短路的情况. 至于为什么需要上拉电阻, 那是因为IIC通信需要输出高电平的能力.</p>
 </li>
-<li><p>为了实现多个主设备抢占总线时的仲裁. </p>
+<li>
+<p>为了实现多个主设备抢占总线时的仲裁.</p>
 <p>IIC只有两根线(SCL和SDA), 怎么判断哪个主设备占用总线(当然是先来后到了). 假设主设备A需要启动IIC, 他需要在SCL高电平时, 将SDA由高电平转换为低电平作为启动信号. 主设备A在把SDA拉高后, 它需要再检查一下SDA的电平.</p>
 <ul>
 <li>SDA是高电平, 说明主设备A可以占用总线, 然后主设备A将SDA拉低, 开始通信.</li>
@@ -987,9 +989,7 @@
 
 
 
-
-
-开学三个星期了, 虽然感觉课不多, 但是一直没有时间写博客. 今天终于在肝完一个动态规划之后还有
+开学三个星期了, 虽然感觉课不多, 但是一直没有时间写博客. 今天终于在肝完一个动态规划之后还有点时
                         
                     </div>
                     <div class="publish-info">
@@ -1040,11 +1040,12 @@
                         
                             声明: 本文有一部分本人自己的观点和理解, 不一定完全正确, 仅供参考. 如果发现错误或者有疑问的地方, 请指出, 谢谢!
 
-
 方向导数
+
 导数和偏导数的概念比较简单而且很多人接触过，这里不进行赘诉。
 
-我们直接看方向导数。对于多变量函数$F
+我们直接看方向导数。
+对于多变量函数$
                         
                     </div>
                     <div class="publish-info">

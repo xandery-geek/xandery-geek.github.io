@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    833
+                    423
                 </div>
                 
 
@@ -527,33 +527,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="OSTU算法"><a href="#OSTU算法" class="headerlink" title="OSTU算法"></a>OSTU算法</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><blockquote>
+                <h3 id="OSTU算法">OSTU算法</h3>
+<h4 id="简介">简介</h4>
+<blockquote>
 <p>OSTU算法(最大类间方差法、大津算法): 用来自动对基于聚类的图像进行二值化,或者说将一个灰度图像退化为二值图像。</p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%B4%A5%E7%AE%97%E6%B3%95">大津算法wiki</a></p>
 <span id="more"></span>
-
 <div align=center>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1312971394&auto=1&height=66"></iframe>
 </div>
-
-<h4 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理:"></a>算法原理:</h4><blockquote>
+<h4 id="算法原理">算法原理:</h4>
+<blockquote>
 <p>通过一个阈值T将图像分为背景和前景, 求出背景的像素均值, 前景的像素均值和整幅图的像素均值, 计算背景和前景的方差. 方差越大意味着背景与前景的区分度越明显, 只要求出使得方差最大的阈值$T_{max}$, 则 $T_{max}$就是最适合的阈值.</p>
 </blockquote>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式:"></a>公式:</h4><p><strong>注意: 如果文中数学公式加载错误, 请刷新后重试</strong></p>
+<h4 id="公式">公式:</h4>
+<p><strong>注意: 如果文中数学公式加载错误, 请刷新后重试</strong></p>
 <ul>
-<li>图像大小: M * N</li>
+<li>图像大小: $M \ast N$</li>
 <li>小于阈值的像素点数量: $N_0$</li>
 <li>大于阈值的像素点数量: $N_1$</li>
 <li>方差: $\sigma^2$</li>
 </ul>
-<p>$$<br>\begin{align}<br>&amp; \omega_0 = \frac {N_0} {M * N} \\<br>&amp; \omega_1 = \frac {N_1} {M * N} \\<br>&amp; \omega_0 + \omega_1 = 1 \\<br>&amp; \mu = \omega_0 * \mu_0 + \omega_1 * \mu_1 \\<br>&amp; \sigma^2 = \omega_0 * (\mu_0 - \mu)^2 + \omega_1 * (\mu_1 - \mu)^2<br>\end{align}<br>$$</p>
+<p>$$
+\begin{align}
+&amp; \omega_0 = \frac {N_0} {M \ast N} \\
+&amp; \omega_1 = \frac {N_1} {M \ast N} \\
+&amp; \omega_0 + \omega_1 = 1 \\
+&amp; \mu = \omega_0 \ast \mu_0 + \omega_1 \ast \mu_1 \\
+&amp; \sigma^2 = \omega_0 \ast (\mu_0 - \mu)^2 + \omega_1 \ast (\mu_1 - \mu)^2
+\end{align}
+$$</p>
 <p>将$\mu$带入$\sigma^2$得到</p>
-<p>$$<br>\sigma^2 = \omega_0 * \omega_1 * (\mu_0 - \mu_1)^2<br>$$</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><ul>
+<p>$$
+\sigma^2 = \omega_0 \ast \omega_1 \ast (\mu_0 - \mu_1)^2
+$$</p>
+<h4 id="算法">算法</h4>
+<ul>
 <li>统计灰度图中各像素的个数, 生成像素直方图.</li>
 <li>计算各像素的概率.</li>
-<li>计算阈值 <ul>
+<li>计算阈值
+<ul>
 <li>遍历每一个像素值(0-255)作为阈值.</li>
 <li>分别计算前景和背景的像素均值以及概率.</li>
 <li>计算全局均值.</li>
@@ -562,141 +576,143 @@
 </ul>
 </li>
 </ul>
-<h4 id="代码-Opencv"><a href="#代码-Opencv" class="headerlink" title="代码(Opencv)"></a>代码(Opencv)</h4><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;opencv/highgui.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;cmath></span></span>
+<h4 id="代码-Opencv">代码(Opencv)</h4>
+<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">#include <opencv/highgui.h>
+#include <opencv2/opencv.hpp>
+#include <cmath>
 
-<span class="token comment" spellcheck="true">//OSTU算法</span>
-<span class="token keyword">int</span> <span class="token function">OSTU</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat<span class="token operator">&amp;</span> src<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> threshold<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//阈值</span>
-    <span class="token keyword">float</span> sigma_temp<span class="token operator">=</span><span class="token number">0.0f</span><span class="token punctuation">;</span>    
-    <span class="token keyword">float</span> sigma_max <span class="token operator">=</span> <span class="token number">0.0f</span><span class="token punctuation">;</span>    
-    <span class="token keyword">int</span> pixel_num <span class="token operator">=</span> src<span class="token punctuation">.</span>rows <span class="token operator">*</span> src<span class="token punctuation">.</span>cols<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//像素点个数</span>
-    <span class="token keyword">int</span> pixel_count<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//各像素个数</span>
-    <span class="token keyword">float</span> pixel_pro<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//各像素概率</span>
+//OSTU算法
+int OSTU(cv::Mat& src)
+&#123;
+	int threshold=0;	//阈值
+	float sigma_temp=0.0f;	
+	float sigma_max = 0.0f;	
+	int pixel_num = src.rows * src.cols;	//像素点个数
+	int pixel_count[256];	//各像素个数
+	float pixel_pro[256];	//各像素概率
 
-    <span class="token comment" spellcheck="true">//初始化</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">256</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        pixel_count<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+	//初始化
+	for(int i=0; i<256; i++)
+	&#123;
+		pixel_count[i] = 0;
+	&#125;
 
-    <span class="token comment" spellcheck="true">// 统计像素个数</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> src<span class="token punctuation">.</span>rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>    
-        uchar<span class="token operator">*</span> data <span class="token operator">=</span> src<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span>uchar<span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	// 统计像素个数
+	for(int i=0; i < src.rows; i++)
+	&#123;	
+		uchar* data = src.ptr<uchar>(i);
 
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> src<span class="token punctuation">.</span>cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            pixel_count<span class="token punctuation">[</span>data<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+		for(int j=0; j < src.cols; j++)
+		&#123;
+			pixel_count[data[j]]++;
+		&#125;
+	&#125;
+		
+	//计算像素概率
+	for(int i=0; i<256; i++)
+	&#123;
+		pixel_pro[i] = (float)(pixel_count[i]) / (float)(pixel_num);
+	&#125;
 
-    <span class="token comment" spellcheck="true">//计算像素概率</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">256</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        pixel_pro<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">(</span>pixel_count<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">(</span>pixel_num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+	//计算阈值
+	for(int i=0; i<256; i++)
+	&#123;
+		float w0=0, w1=0, u0=0, u1=0, u=0;
+		//遍历像素
+		for(int j=0; j<256; j++)
+		&#123;	
+			//背景像素
+			if(j < i)
+			&#123;
+				w0 += pixel_pro[j];
+				u0 += pixel_pro[j] * j;	
+			&#125;
+			else	//前景像素
+			&#123;
+				u1 += pixel_pro[j] * j;
+			&#125;
+		&#125;
 
-    <span class="token comment" spellcheck="true">//计算阈值</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">256</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">float</span> w0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> w1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> u0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> u1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> u<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//遍历像素</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span><span class="token number">256</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>    
-            <span class="token comment" spellcheck="true">//背景像素</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>j <span class="token operator">&lt;</span> i<span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                w0 <span class="token operator">+</span><span class="token operator">=</span> pixel_pro<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                u0 <span class="token operator">+</span><span class="token operator">=</span> pixel_pro<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">*</span> j<span class="token punctuation">;</span>    
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span>    <span class="token comment" spellcheck="true">//前景像素</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                u1 <span class="token operator">+</span><span class="token operator">=</span> pixel_pro<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">*</span> j<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+		//全图像素均值
+		//u = w0 * u0 + (1-w0) * u1;
+		
+		//方差
+		sigma_temp = w0 * (1-w0) * pow((u0 - u1), 2);
+		
+		//更新阈值
+		if(sigma_temp > sigma_max)
+		&#123;
+			sigma_max = sigma_temp;
+			threshold = i;
+		&#125;
+	&#125;
 
-        <span class="token comment" spellcheck="true">//全图像素均值</span>
-        <span class="token comment" spellcheck="true">//u = w0 * u0 + (1-w0) * u1;</span>
+	return threshold;
+&#125;
 
-        <span class="token comment" spellcheck="true">//方差</span>
-        sigma_temp <span class="token operator">=</span> w0 <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">-</span>w0<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">pow</span><span class="token punctuation">(</span><span class="token punctuation">(</span>u0 <span class="token operator">-</span> u1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+//二值化图像
+void BinaryImage(cv::Mat& src, cv::Mat& des, int threshold)
+&#123;
+	for(int i=0; i < src.rows; i++)
+	&#123;	
+		uchar* src_data = src.ptr<uchar>(i);
+		uchar* des_data = des.ptr<uchar>(i);
 
-        <span class="token comment" spellcheck="true">//更新阈值</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>sigma_temp <span class="token operator">></span> sigma_max<span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            sigma_max <span class="token operator">=</span> sigma_temp<span class="token punctuation">;</span>
-            threshold <span class="token operator">=</span> i<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+		for(int j=0; j < src.cols; j++)
+		&#123;
+			if(src_data[j] < threshold)
+			&#123;
+				des_data[j] = 0;
+			&#125;
+			else
+			&#123;
+				des_data[j] = 255;
+			&#125;
+		&#125;
+	&#125;
+&#125;
 
-    <span class="token keyword">return</span> threshold<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+int main()
+&#123;	
+	cv::Mat src, gray;
 
-<span class="token comment" spellcheck="true">//二值化图像</span>
-<span class="token keyword">void</span> <span class="token function">BinaryImage</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat<span class="token operator">&amp;</span> src<span class="token punctuation">,</span> cv<span class="token operator">::</span>Mat<span class="token operator">&amp;</span> des<span class="token punctuation">,</span> <span class="token keyword">int</span> threshold<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> src<span class="token punctuation">.</span>rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>    
-        uchar<span class="token operator">*</span> src_data <span class="token operator">=</span> src<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span>uchar<span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        uchar<span class="token operator">*</span> des_data <span class="token operator">=</span> des<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span>uchar<span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> src<span class="token punctuation">.</span>cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>src_data<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;</span> threshold<span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                des_data<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                des_data<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">255</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>    
-    cv<span class="token operator">::</span>Mat src<span class="token punctuation">,</span> gray<span class="token punctuation">;</span>
-
-    cv<span class="token operator">::</span><span class="token function">namedWindow</span><span class="token punctuation">(</span><span class="token string">"src"</span><span class="token punctuation">,</span> cv<span class="token operator">::</span>WINDOW_NORMAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token operator">::</span><span class="token function">namedWindow</span><span class="token punctuation">(</span><span class="token string">"gray"</span><span class="token punctuation">,</span> cv<span class="token operator">::</span>WINDOW_NORMAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token operator">::</span><span class="token function">namedWindow</span><span class="token punctuation">(</span><span class="token string">"binary"</span><span class="token punctuation">,</span> cv<span class="token operator">::</span>WINDOW_NORMAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	cv::namedWindow("src", cv::WINDOW_NORMAL);
+	cv::namedWindow("gray", cv::WINDOW_NORMAL);
+	cv::namedWindow("binary", cv::WINDOW_NORMAL);
 
 
-    src <span class="token operator">=</span> cv<span class="token operator">::</span><span class="token function">imread</span><span class="token punctuation">(</span><span class="token string">"../wallhaven-698240.jpg"</span><span class="token punctuation">,</span> cv<span class="token operator">::</span>IMREAD_COLOR<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token operator">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> cv<span class="token operator">::</span>COLOR_RGB2GRAY<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//转换成灰度图</span>
+	src = cv::imread("../wallhaven-698240.jpg", cv::IMREAD_COLOR);
+	cv::cvtColor(src, gray, cv::COLOR_RGB2GRAY);	//转换成灰度图
 
-    <span class="token keyword">int</span> threshold <span class="token operator">=</span> <span class="token function">OSTU</span><span class="token punctuation">(</span>gray<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">//计算阈值</span>
+	int threshold = OSTU(gray);		//计算阈值
 
-    cv<span class="token operator">::</span>Mat binary <span class="token operator">=</span> cv<span class="token operator">::</span><span class="token function">Mat</span><span class="token punctuation">(</span>gray<span class="token punctuation">.</span>rows<span class="token punctuation">,</span> gray<span class="token punctuation">.</span>cols<span class="token punctuation">,</span> CV_8U<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">//初始化二值化图像</span>
-    <span class="token function">BinaryImage</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> binary<span class="token punctuation">,</span> threshold<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	cv::Mat binary = cv::Mat(gray.rows, gray.cols, CV_8U);		//初始化二值化图像
+	BinaryImage(gray, binary, threshold);
 
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"threshold: %d\n"</span><span class="token punctuation">,</span> threshold<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	printf("threshold: %d\n", threshold);
 
-    <span class="token comment" spellcheck="true">//显示RGB图像, 灰度图像, 二值化图像</span>
-    cv<span class="token operator">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"src"</span><span class="token punctuation">,</span> src<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token operator">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"gray"</span><span class="token punctuation">,</span> gray<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token operator">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"binary"</span><span class="token punctuation">,</span> binary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	//显示RGB图像, 灰度图像, 二值化图像
+	cv::imshow("src", src);
+	cv::imshow("gray", gray);
+	cv::imshow("binary", binary);
 
-    cv<span class="token operator">::</span><span class="token function">waitKey</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	cv::waitKey(0);
 
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="RGB图像-原图"><a href="#RGB图像-原图" class="headerlink" title="RGB图像(原图)"></a>RGB图像(原图)</h5><div align=center>
+	return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="RGB图像-原图">RGB图像(原图)</h5>
+<div align=center>
 <img src="/img/blog/OSTU1.png" width=500>
 </div>
-
-<h5 id="灰度图像-经过Opencv转化"><a href="#灰度图像-经过Opencv转化" class="headerlink" title="灰度图像(经过Opencv转化)"></a>灰度图像(经过Opencv转化)</h5><div align=center>
+<h5 id="灰度图像-经过Opencv转化">灰度图像(经过Opencv转化)</h5>
+<div align=center>
 <img src="/img/blog/OSTU2.png" width=500>
 </div>
-
-<h5 id="二值化图像-OSTU算法"><a href="#二值化图像-OSTU算法" class="headerlink" title="二值化图像(OSTU算法)"></a>二值化图像(OSTU算法)</h5><div align=center>
+<h5 id="二值化图像-OSTU算法">二值化图像(OSTU算法)</h5>
+<div align=center>
 <img src="/img/blog/OSTU3.png" width=500>
 </div>
-
 
             </div>
             <hr/>
@@ -1091,7 +1107,8 @@
                     <div class="summary block-with-text">
                         
                             
-最近学习卡尔曼滤波, 发现了一篇很好的博客. 也就是从这篇博客开始, 才逐渐开始理解卡尔曼滤波.这篇博客没有像其他很多教程那样用一大堆公式让初学者望而却步. 但是看完之后, 你会发现你不仅理解了卡尔曼滤波的过程, 也对那些看着头痛欲裂的数
+最近学习卡尔曼滤波, 发现了一篇很好的博客. 也就是从这篇博客开始, 才逐渐开始理解卡尔曼滤波.
+这篇博客没有像其他很多教程那样用一大堆公式让初学者望而却步. 但是看完之后, 你会发现你不仅理解了卡尔曼滤波的过程, 也对那些看着头痛欲裂的
                         
                     </div>
                     <div class="publish-info">
@@ -1113,12 +1130,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Algorithm/">
-                        <span class="chip bg-color">Algorithm</span>
-                    </a>
-                    
                     <a href="/tags/Math/">
                         <span class="chip bg-color">Math</span>
+                    </a>
+                    
+                    <a href="/tags/Algorithm/">
+                        <span class="chip bg-color">Algorithm</span>
                     </a>
                     
                     <a href="/tags/Siginal/">
@@ -1152,8 +1169,8 @@
 Ubuntu默认的登录界面有点不敢恭维, 实在不符合现代人的审美。为此找了半天找哪里可以修改, 但是最终还是要求助Google。
 
 
-
-1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background$ mv your
+1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background
+$ mv your
                         
                     </div>
                     <div class="publish-info">

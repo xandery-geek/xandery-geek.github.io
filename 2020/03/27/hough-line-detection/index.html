@@ -472,16 +472,16 @@
                                 <span class="chip bg-color">Code</span>
                             </a>
                         
-                            <a href="/tags/Algorithm/">
-                                <span class="chip bg-color">Algorithm</span>
-                            </a>
-                        
                             <a href="/tags/DIP/">
                                 <span class="chip bg-color">DIP</span>
                             </a>
                         
                             <a href="/tags/Math/">
                                 <span class="chip bg-color">Math</span>
+                            </a>
+                        
+                            <a href="/tags/Algorithm/">
+                                <span class="chip bg-color">Algorithm</span>
                             </a>
                         
                     </div>
@@ -519,7 +519,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1k
                 </div>
                 
 
@@ -531,32 +531,40 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Hough（霍夫）直线检测"><a href="#Hough（霍夫）直线检测" class="headerlink" title="Hough（霍夫）直线检测"></a>Hough（霍夫）直线检测</h2><p><strong>直线检测</strong>：对于边界上有 n 个点的点集,找出共线的点集和直线方程。</p>
-<h2 id="Hough-变换的原理"><a href="#Hough-变换的原理" class="headerlink" title="Hough 变换的原理"></a>Hough 变换的原理</h2><img src="/img/blog/blog-29-3.png" width=500>
-
-
+                <h2 id="Hough（霍夫）直线检测">Hough（霍夫）直线检测</h2>
+<p><strong>直线检测</strong>：对于边界上有 n 个点的点集,找出共线的点集和直线方程。</p>
+<h2 id="Hough-变换的原理">Hough 变换的原理</h2>
+<img src="/img/blog/blog-29-3.png" width=500>
 <p>对于直线$y = a*x + b$，从原点做其垂线，如图中的$CD$。如果将其看做极坐标系，则$CD$可以用$(\rho, \theta)$表示。</p>
-<p>怎么表达AB与CD的关系呢？<br><img src="/img/blog/blog-29-4.png" width=500></p>
-<p>任取AB上一点E(x,y),做CD的垂线GH，AB的垂线GI。从而我们可以得到角度关系$\angle{IGE} = \angle {GHC} = \angle{DCB} = \theta$。<br>所以，$CH = y sin\theta, HD = GI = x cos\theta$，从而$CD = CH+HD = xcos\theta + ysin\theta$，即$\rho = xcos\theta + ysin\theta$。可以证明对于直线AB上的任意一点，都满足上式，即$\rho = xcos\theta + ysin\theta$是直线AB的表达式。</p>
+<p>怎么表达AB与CD的关系呢？
+<img src="/img/blog/blog-29-4.png" width=500></p>
+<p>任取AB上一点E(x,y),做CD的垂线GH，AB的垂线GI。从而我们可以得到角度关系$\angle{IGE} = \angle {GHC} = \angle{DCB} = \theta$。
+所以，$CH = y sin\theta, HD = GI = x cos\theta$，从而$CD = CH+HD = xcos\theta + ysin\theta$，即$\rho = xcos\theta + ysin\theta$。可以证明对于直线AB上的任意一点，都满足上式，即$\rho = xcos\theta + ysin\theta$是直线AB的表达式。</p>
 <p>再看$\rho = xcos\theta + ysin\theta$，如果我们固定$x,y$，将$\theta$作为自变量，可以得到一个$\rho - \theta$的一个函数关系式。当$\theta$变化时（CD绕原点旋转时），AB也会随之变化（转动）。由于固定了$x,y$，所以直线AB一定会经过点$（x,y）$，所以它表达了经过点$(x,y)$的<strong>所有直线。</strong></p>
-<p>例如：$\rho = 3cos\theta + 2sin\theta$，曲线上每一个点$(\rho, \theta)$都可以表示一条经过点$(3,2)$的直线。<br><img src="/img/blog/blog-29-5.png" width=500></p>
-<p>下图分别是$\rho = 3cos\theta + 2sin\theta$，$\rho = 2cos\theta + sin\theta$，$\rho = cos\theta$的图像，则分别表示所有经过点$(3,2)$，$(2,1)$，$(1,0)$的所有直线。那么图中的<strong>交点A</strong>表示什么？<br>经过点$(3,2)$，$(2,1)$，$(1,0)$的直线是<strong>同一条线</strong>。Amazing！这不就是说明$(3,2)$，$(2,1)$，$(1,0)$<strong>三点共线</strong>吗，感觉忽然发现了新大陆。<br><img src="/img/blog/blog-29-6.png" width=500></p>
+<p>例如：$\rho = 3cos\theta + 2sin\theta$，曲线上每一个点$(\rho, \theta)$都可以表示一条经过点$(3,2)$的直线。
+<img src="/img/blog/blog-29-5.png" width=500></p>
+<p>下图分别是$\rho = 3cos\theta + 2sin\theta$，$\rho = 2cos\theta + sin\theta$，$\rho = cos\theta$的图像，则分别表示所有经过点$(3,2)$，$(2,1)$，$(1,0)$的所有直线。那么图中的<strong>交点A</strong>表示什么？
+经过点$(3,2)$，$(2,1)$，$(1,0)$的直线是<strong>同一条线</strong>。Amazing！这不就是说明$(3,2)$，$(2,1)$，$(1,0)$<strong>三点共线</strong>吗，感觉忽然发现了新大陆。
+<img src="/img/blog/blog-29-6.png" width=500></p>
 <p>现在，我们已经找到了证明多个点共线的方法了。让我们重新梳理一下：</p>
 <ol>
 <li>设有一个点集$R$，可得到$R$中任意点$(x_i,y_i)$对应的曲线$\rho_i = x_icos\theta + y_isin\theta$，$\theta \in [0, 2\pi)$。它表示了经过该点的所有直线。</li>
-<li>设$(x_i, y_i),(x_j,y_j) \in R,i \ne j$ ，如果$\rho_i = x_icos\theta + y_isin\theta$与$\rho_j = x_jcos\theta + y_jsin\theta$有交点$A_{ij}(p_{ij}, \theta_{ij}$)，就说明$(x_i, y_i),(x_j,y_j) $两点共线。</li>
+<li>设$(x_i, y_i),(x_j,y_j) \in R,i \ne j$ ，如果$\rho_i = x_icos\theta + y_isin\theta$与$\rho_j = x_jcos\theta + y_jsin\theta$有交点$A_{ij}(p_{ij}, \theta_{ij}$)，就说明$(x_i, y_i),(x_j,y_j) $两点共线。</li>
 <li>由$A_{ij}(p_{ij}, \theta_{ij})$可得到$(x_i, y_i),(x_j,y_j) $所在的直线$\rho_{ij} = xcos\theta_{ij} + ysin\theta_{ij}$。</li>
 </ol>
-<p>刚才分析的都是基于连续的函数，如果要用算法实现，则需要将其<strong>离散化</strong>。<br>因为$\theta \in [0, 2\pi)$，但是如果用程序实现只能将$\theta$离散化，如令<code>theta = range(0, 360)</code> 取360个离散的值（具体的精度根据实际情况决定）。</p>
-<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><ol>
+<p>刚才分析的都是基于连续的函数，如果要用算法实现，则需要将其<strong>离散化</strong>。
+因为$\theta \in [0, 2\pi)$，但是如果用程序实现只能将$\theta$离散化，如令<code>theta = range(0, 360)</code> 取360个离散的值（具体的精度根据实际情况决定）。</p>
+<h2 id="算法实现">算法实现</h2>
+<ol>
 <li>输入一幅RGB图</li>
 <li>检测图中的边缘，可以使用Canny边缘检测得到一幅<strong>二值图像</strong></li>
-<li>开辟一个二维数组 <code>array</code> ，初始值全部为0，用于存储共线点的个数；确定$\theta$的精度。</li>
-<li>对于每一个边缘点$(x_i,y_i)$，使用公式$\rho_i = x_icos\theta + y_isin\theta$计算每一个$\theta$对应的,将作为数组 <code>array</code> 的索引，将对应的数组元素值加 <code>1</code> 。</li>
+<li>开辟一个二维数组 <code>array</code> ，初始值全部为0，用于存储共线点的个数；确定$\theta$的精度。</li>
+<li>对于每一个边缘点$(x_i,y_i)$，使用公式$\rho_i = x_icos\theta + y_isin\theta$计算每一个$\theta$对应的,将作为数组 <code>array</code> 的索引，将对应的数组元素值加 <code>1</code> 。</li>
 <li>设定一个阈值，过滤出共线点较多的直线（也可以选取共线点最多的几条直线）。</li>
 <li>将检测出的直线绘制到原图上。</li>
 </ol>
-<h2 id="Code-Python"><a href="#Code-Python" class="headerlink" title="Code[Python]"></a>Code[Python]</h2><ul>
+<h2 id="Code-Python">Code[Python]</h2>
+<ul>
 <li>hough_without_canny 中直接使用的是经过Canny检测后的二值图像。</li>
 <li>hough_with_canny 中调用了之前写过的Canny算法。（有时间会把Canny检测的代码也贴出来）</li>
 </ul>
@@ -565,145 +573,143 @@
 <img src="/img/blog/blog-29-1.jpg" width=500>
 <p>原图</p>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-29-2.jpg" width=500>
 <p>直线检测</p>
 </center>
-
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> PIL <span class="token keyword">import</span> Image
-<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
-<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-<span class="token keyword">import</span> canny
-<span class="token keyword">import</span> math
-
-
-<span class="token keyword">def</span> <span class="token function">to_gray</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    height<span class="token punctuation">,</span> width<span class="token punctuation">,</span> _ <span class="token operator">=</span> img<span class="token punctuation">.</span>shape
-    gray <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">)</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>uint8<span class="token punctuation">)</span>
-    k <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.299</span><span class="token punctuation">,</span> <span class="token number">0.587</span><span class="token punctuation">,</span> <span class="token number">0.114</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            gray<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>k <span class="token operator">*</span> img<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>sum<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> gray
+<pre class="line-numbers language-language-python"><code class="language-language-python">from PIL import Image
+import matplotlib.pyplot as plt
+import numpy as np
+import canny
+import math
 
 
-<span class="token keyword">def</span> <span class="token function">to_rgb</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    height<span class="token punctuation">,</span> width <span class="token operator">=</span> img<span class="token punctuation">.</span>shape
-    rgb <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>uint8<span class="token punctuation">)</span>
+def to_gray(img):
+    height, width, _ = img.shape
+    gray = np.zeros((height, width), dtype=np.uint8)
+    k = np.array([0.299, 0.587, 0.114])
 
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            rgb<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>img<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">3</span>
+    for i in range(height):
+        for j in range(width):
+            gray[i][j] = (k * img[i][j]).sum()
 
-    <span class="token keyword">return</span> rgb
-
-
-<span class="token keyword">def</span> <span class="token function">plot_line</span><span class="token punctuation">(</span>img<span class="token punctuation">,</span> expression<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> len<span class="token punctuation">(</span>img<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">3</span> <span class="token operator">or</span> img<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">3</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'The image shape must be (height, width, 3)'</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> img
-
-    height <span class="token operator">=</span> img<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-    width <span class="token operator">=</span> img<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
-
-    <span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> int<span class="token punctuation">(</span>a <span class="token operator">*</span> x <span class="token operator">+</span> b<span class="token punctuation">)</span>
-
-    <span class="token keyword">for</span> exp <span class="token keyword">in</span> expression<span class="token punctuation">:</span>
-        a<span class="token punctuation">,</span> b <span class="token operator">=</span> exp
-        point <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> func<span class="token punctuation">(</span>x<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span>width<span class="token punctuation">)</span>
-                 <span class="token keyword">if</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> func<span class="token punctuation">(</span>x<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">&lt;</span> height<span class="token punctuation">]</span>
-
-        <span class="token keyword">for</span> x<span class="token punctuation">,</span> y <span class="token keyword">in</span> point<span class="token punctuation">:</span>
-            img<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span>
-
-    <span class="token keyword">return</span> img
+    return gray
 
 
-<span class="token keyword">def</span> <span class="token function">hough_check</span><span class="token punctuation">(</span>img<span class="token punctuation">,</span> precision<span class="token operator">=</span><span class="token number">360</span><span class="token punctuation">,</span> threshold<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> number<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    height<span class="token punctuation">,</span> width <span class="token operator">=</span> img<span class="token punctuation">.</span>shape
-    theta <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> precision<span class="token punctuation">)</span>
-    factor <span class="token operator">=</span> <span class="token number">360</span> <span class="token operator">/</span> precision
+def to_rgb(img):
+    height, width = img.shape
+    rgb = np.zeros((height, width, 3), dtype=np.uint8)
 
-    tab_height <span class="token operator">=</span> len<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-    tab_width <span class="token operator">=</span> <span class="token punctuation">(</span>height <span class="token operator">+</span> width<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">1</span>
-    tab <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> tab_width <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>tab_height<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    for i in range(height):
+        for j in range(width):
+            rgb[i][j] = [img[i][j]] * 3
 
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> img<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">255</span><span class="token punctuation">:</span>
-                <span class="token keyword">for</span> k <span class="token keyword">in</span> theta<span class="token punctuation">:</span>
-                    arc <span class="token operator">=</span> k <span class="token operator">*</span> factor <span class="token operator">*</span> math<span class="token punctuation">.</span>pi <span class="token operator">/</span> <span class="token number">180</span>
-                    rho <span class="token operator">=</span> int<span class="token punctuation">(</span>j <span class="token operator">*</span> math<span class="token punctuation">.</span>cos<span class="token punctuation">(</span>arc<span class="token punctuation">)</span> <span class="token operator">+</span> i <span class="token operator">*</span> math<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>arc<span class="token punctuation">)</span><span class="token punctuation">)</span>
-                    tab<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>rho <span class="token operator">+</span> height <span class="token operator">+</span> width<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-
-    line <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>tab_height<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>tab_width<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> tab<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> threshold<span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># append theta (0-360) and rho to line</span>
-                line<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">*</span> factor<span class="token punctuation">,</span> j <span class="token operator">-</span> height <span class="token operator">-</span> width<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">if</span> number <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">or</span> len<span class="token punctuation">(</span>line<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> number<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> line
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        line<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> tab<span class="token punctuation">[</span>int<span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">/</span> factor<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> height <span class="token operator">+</span> width<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> line<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span>number<span class="token punctuation">]</span>
+    return rgb
 
 
-<span class="token keyword">def</span> <span class="token function">get_expression</span><span class="token punctuation">(</span>pair<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    theta<span class="token punctuation">,</span> rho <span class="token operator">=</span> pair
-    theta <span class="token operator">=</span> theta <span class="token operator">*</span> math<span class="token punctuation">.</span>pi <span class="token operator">/</span> <span class="token number">180</span>
-    k <span class="token operator">=</span> <span class="token operator">-</span>math<span class="token punctuation">.</span>cos<span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>math<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1e</span><span class="token operator">-</span><span class="token number">8</span><span class="token punctuation">)</span>
-    b <span class="token operator">=</span> rho <span class="token operator">/</span> <span class="token punctuation">(</span>math<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1e</span><span class="token operator">-</span><span class="token number">8</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> k<span class="token punctuation">,</span> b
+def plot_line(img, expression):
+    if len(img.shape) != 3 or img.shape[2] != 3:
+        print('The image shape must be (height, width, 3)')
+        return img
+
+    height = img.shape[0]
+    width = img.shape[1]
+
+    def func(x, a, b):
+        return int(a * x + b)
+
+    for exp in expression:
+        a, b = exp
+        point = [(x, func(x, a, b)) for x in range(width)
+                 if 0 <= func(x, a, b) < height]
+
+        for x, y in point:
+            img[y][x] = [255, 0, 0]
+
+    return img
 
 
-<span class="token keyword">def</span> <span class="token function">hough_with_canny</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    filename <span class="token operator">=</span> <span class="token string">'hf.jpg'</span>
-    rgb_img <span class="token operator">=</span> Image<span class="token punctuation">.</span>open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
-    gray_img <span class="token operator">=</span> rgb_img<span class="token punctuation">.</span>convert<span class="token punctuation">(</span><span class="token string">'L'</span><span class="token punctuation">)</span>
-    gray_array <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>gray_img<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># img = to_gray(img_array)</span>
-    gray_array <span class="token operator">=</span> canny<span class="token punctuation">.</span>canny<span class="token punctuation">(</span>gray_array<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+def hough_check(img, precision=360, threshold=50, number=-1):
+    height, width = img.shape
+    theta = range(0, precision)
+    factor = 360 / precision
 
-    line <span class="token operator">=</span> hough_check<span class="token punctuation">(</span>gray_array<span class="token punctuation">,</span> number<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'The number of lines is &amp;#123;&amp;#125;'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    expression <span class="token operator">=</span> <span class="token punctuation">[</span>get_expression<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> line<span class="token punctuation">]</span>
-    rgb_array <span class="token operator">=</span> to_rgb<span class="token punctuation">(</span>gray_array<span class="token punctuation">)</span>
-    rgb_array <span class="token operator">=</span> plot_line<span class="token punctuation">(</span>rgb_array<span class="token punctuation">,</span> expression<span class="token punctuation">)</span>
+    tab_height = len(theta)
+    tab_width = (height + width) << 1
+    tab = [[0] * tab_width for i in range(tab_height)]
 
-    plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>rgb_array<span class="token punctuation">)</span>
-    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    for i in range(height):
+        for j in range(width):
+            if img[i][j] == 255:
+                for k in theta:
+                    arc = k * factor * math.pi / 180
+                    rho = int(j * math.cos(arc) + i * math.sin(arc))
+                    tab[k][rho + height + width] += 1
 
+    line = []
+    for i in range(tab_height):
+        for j in range(tab_width):
+            if tab[i][j] > threshold:
+                # append theta (0-360) and rho to line
+                line.append((i * factor, j - height - width))
 
-<span class="token keyword">def</span> <span class="token function">hough_without_canny</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    filename <span class="token operator">=</span> <span class="token string">'gray.jpg'</span>
-    rgb_img <span class="token operator">=</span> Image<span class="token punctuation">.</span>open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
-    gray_img <span class="token operator">=</span> rgb_img<span class="token punctuation">.</span>convert<span class="token punctuation">(</span><span class="token string">'L'</span><span class="token punctuation">)</span>
-
-    gray_array <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>gray_img<span class="token punctuation">)</span>
-    rgb_array <span class="token operator">=</span> to_rgb<span class="token punctuation">(</span>gray_array<span class="token punctuation">)</span>
-
-    line <span class="token operator">=</span> hough_check<span class="token punctuation">(</span>gray_array<span class="token punctuation">,</span> number<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'The number of lines is &amp;#123;&amp;#125;'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    expression <span class="token operator">=</span> <span class="token punctuation">[</span>get_expression<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> line<span class="token punctuation">]</span>
-    rgb_array <span class="token operator">=</span> plot_line<span class="token punctuation">(</span>rgb_array<span class="token punctuation">,</span> expression<span class="token punctuation">)</span>
-
-    plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>rgb_array<span class="token punctuation">)</span>
-    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    if number == -1 or len(line) <= number:
+        return line
+    else:
+        line.sort(key=lambda x: tab[int(x[0] / factor)][x[1] + height + width])
+        return line[0:number]
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># main()</span>
-    hough_without_canny<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+def get_expression(pair):
+    theta, rho = pair
+    theta = theta * math.pi / 180
+    k = -math.cos(theta) / (math.sin(theta) + 1e-8)
+    b = rho / (math.sin(theta) + 1e-8)
+    return k, b
+
+
+def hough_with_canny():
+    filename = 'hf.jpg'
+    rgb_img = Image.open(filename)
+    gray_img = rgb_img.convert('L')
+    gray_array = np.array(gray_img)
+    # img = to_gray(img_array)
+    gray_array = canny.canny(gray_array, (3, 3))
+
+    line = hough_check(gray_array, number=5)
+    print('The number of lines is &#123;&#125;'.format(len(line)))
+    expression = [get_expression(x) for x in line]
+    rgb_array = to_rgb(gray_array)
+    rgb_array = plot_line(rgb_array, expression)
+
+    plt.figure()
+    plt.imshow(rgb_array)
+    plt.show()
+
+
+def hough_without_canny():
+    filename = 'gray.jpg'
+    rgb_img = Image.open(filename)
+    gray_img = rgb_img.convert('L')
+
+    gray_array = np.array(gray_img)
+    rgb_array = to_rgb(gray_array)
+
+    line = hough_check(gray_array, number=5)
+    print('The number of lines is &#123;&#125;'.format(len(line)))
+    expression = [get_expression(x) for x in line]
+    rgb_array = plot_line(rgb_array, expression)
+
+    plt.figure()
+    plt.imshow(rgb_array)
+    plt.show()
+
+
+if __name__ == '__main__':
+    # main()
+    hough_without_canny()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -771,16 +777,16 @@
                                     <span class="chip bg-color">Code</span>
                                 </a>
                             
-                                <a href="/tags/Algorithm/">
-                                    <span class="chip bg-color">Algorithm</span>
-                                </a>
-                            
                                 <a href="/tags/DIP/">
                                     <span class="chip bg-color">DIP</span>
                                 </a>
                             
                                 <a href="/tags/Math/">
                                     <span class="chip bg-color">Math</span>
+                                </a>
+                            
+                                <a href="/tags/Algorithm/">
+                                    <span class="chip bg-color">Algorithm</span>
                                 </a>
                             
                         </div>
@@ -1103,8 +1109,7 @@
                         
                             傅里叶变换是一种线性积分变换，用于信号在时域和频域之间的变换。由法国学者约瑟夫·傅里叶系统地提出，所以以其名字来命名以示纪念。本文主要讲解傅里叶变换的公式推导和快速傅里叶变换算法的原理及实现。
 
-
-笔者并没有在课程中学习过傅里叶变换，最初的
+笔者并没有在课程中学习过傅里叶变换，最初的基
                         
                     </div>
                     <div class="publish-info">
@@ -1130,12 +1135,12 @@
                         <span class="chip bg-color">Code</span>
                     </a>
                     
-                    <a href="/tags/Algorithm/">
-                        <span class="chip bg-color">Algorithm</span>
-                    </a>
-                    
                     <a href="/tags/Math/">
                         <span class="chip bg-color">Math</span>
+                    </a>
+                    
+                    <a href="/tags/Algorithm/">
+                        <span class="chip bg-color">Algorithm</span>
                     </a>
                     
                     <a href="/tags/Signal/">
@@ -1166,11 +1171,13 @@
                     <div class="summary block-with-text">
                         
                             在读
+
 经济学原理-微观经济学
 北欧神话
 浩荡两千年
 
 经济类
+
  经济学原理-微观经济学
  经济学原理-宏观经济学
  浩荡两千年
@@ -1178,12 +1185,12 @@
  激荡三十年
 
 计算机类
+
  人月神话
  摩托车维修艺术
  设计模式之禅
  浪潮之巅
- AI未来
- 
+ AI未
                         
                     </div>
                     <div class="publish-info">
