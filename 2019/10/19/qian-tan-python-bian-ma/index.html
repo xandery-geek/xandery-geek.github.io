@@ -511,7 +511,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    903
+                    936
                 </div>
                 
 
@@ -527,22 +527,20 @@
 <p>Python的编码问题可能是很多人都遇到过的问题（没遇到的终将会遇到的），笔者之前也对这个问题很模糊，今天看了《Effective Python》之后总结一下自己的理解。</p>
 </blockquote>
 <span id="more"></span>
-<h3 id="Unicode">Unicode</h3>
-<p>先看ASCII码，ASCII码我们比较熟悉，用一个字节表示了128个字符，其中包含标点符号，数字，英文字母等。</p>
+
+<h3 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h3><p>先看ASCII码，ASCII码我们比较熟悉，用一个字节表示了128个字符，其中包含标点符号，数字，英文字母等。</p>
 <p>但是ASCII有一个问题，就是一个字节只有8位最多只能表示256个字符，不可能表示世界各个国家的字符。于是有了Unicode码。</p>
 <p>Unicode码（统一码，万国码）：用多个字节表示全世界的所有字符，为每一个字符分配了一个唯一的标识（一个整数），在表示一个 Unicode 的字符时，通常会用“U+”然后紧接着一组十六进制的数字来表示这一个字符。</p>
 <p><strong>来自Wiki百科</strong>：在文字处理方面，统一码为每一个字符而非字形定义唯一的代码（即一个整数）。换句话说，统一码以一种抽象的方式（即数字）来处理字符，并将视觉上的演绎工作（例如字体大小、外观形状、字体形态、文体等）留给其他软件来处理，例如网页浏览器或是文字处理器。</p>
-<h3 id="UTF-8">UTF-8</h3>
-<p>UTF-8：由于Unicode只是给每一个字符分配了一个整数值，但是没有规定如何存储这个整数值（比如：用几个字节存储），所以需要utf-8等编码。utf-8是一种将Unicode码转换成字节序列编码方式，是一种可变长编码。</p>
+<h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p>UTF-8：由于Unicode只是给每一个字符分配了一个整数值，但是没有规定如何存储这个整数值（比如：用几个字节存储），所以需要utf-8等编码。utf-8是一种将Unicode码转换成字节序列编码方式，是一种可变长编码。</p>
 <p>可以这样理解：</p>
 <ul>
 <li>Unicode -&gt; utf-8编码 -&gt; bytes</li>
-<li>bytes -&gt; utf-8解码 -&gt; Unicode</li>
+<li>bytes -&gt; utf-8解码 -&gt; Unicode  </li>
 </ul>
 <p>UTF-8只是Unicode与字节流编码方式中的一种，还有UTF-16, GB-2312, GBK（windows系统的中文编码是GBK）编码等等。这些编码做的工作就是将Unicode规定字符对应的整数值用一个或多个字节表示出来。</p>
 <p>因为IO，网络数据传输都是通过字节流的方式，所以在编程时需要将Unicode码转换成字节流再进行传输；同样需要将从IO，网络接收到的字节流转换成Unicode码。</p>
-<h3 id="bytes、str与unicode">bytes、str与unicode</h3>
-<p>Python2和Python3的不同点之一就是编码问题。其中str和unicode是Python2中的编码，而bytes和str是Python3中的编码。</p>
+<h3 id="bytes、str与unicode"><a href="#bytes、str与unicode" class="headerlink" title="bytes、str与unicode"></a>bytes、str与unicode</h3><p>Python2和Python3的不同点之一就是编码问题。其中str和unicode是Python2中的编码，而bytes和str是Python3中的编码。</p>
 <p>Python2中的编码：</p>
 <ul>
 <li>str：bytes序列的字符串</li>
@@ -554,68 +552,59 @@
 <li>str: unicode码点序列 的字符串。</li>
 </ul>
 <p>让人疑惑的是str，str在Python2和Python3中表示不同的编码，Python2中表示字节序列，即bytes; Python3中表示Unicode码。<strong>个人理解是Python3想让在程序中定义的字符串使用Unicode码表示，而不是Python2中用字节流表示。</strong></p>
-<h4 id="Python2">Python2</h4>
-<pre class=" language-language-python"><code class="language-language-python">>>> string = "python"
->>> type(string)
-<type 'str'>
->>> u_str = u"python"
->>> type(u_str)
-<type 'unicode'>
-</code></pre>
-<h4 id="Python3">Python3</h4>
-<pre class=" language-language-python"><code class="language-language-python">>>> string = "python"
->>> bytes = b"python"
->>> type(string)
-<class 'str'>
->>> type(bytes)
-<class 'bytes'>
-</code></pre>
-<h3 id="encode与decode">encode与decode</h3>
-<blockquote>
+<h4 id="Python2"><a href="#Python2" class="headerlink" title="Python2"></a>Python2</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> string <span class="token operator">=</span> <span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>string<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>type <span class="token string">'str'</span><span class="token operator">></span>
+<span class="token operator">>></span><span class="token operator">></span> u_str <span class="token operator">=</span> u<span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>u_str<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>type <span class="token string">'unicode'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Python3"><a href="#Python3" class="headerlink" title="Python3"></a>Python3</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> string <span class="token operator">=</span> <span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> bytes <span class="token operator">=</span> b<span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>string<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'str'</span><span class="token operator">></span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'bytes'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="encode与decode"><a href="#encode与decode" class="headerlink" title="encode与decode"></a>encode与decode</h3><blockquote>
 <p>encode()和decode()是Python中用于bytes字节序列与Unicode序列转换的函数。</p>
 </blockquote>
 <ul>
 <li>unicode.encode() -&gt; bytes:只有对于unicode对象我们才应该使用.encode()方法。这一方法用来将一系列unicode编码为bytes流。</li>
 <li>bytes.decode() -&gt; unicode: 只有对于bytes，或说Python2中的str对象，我们才应该调用.decode()方法。这一方法将一系列bytes流解码为原本的unicode码点。</li>
 </ul>
-<h4 id="Python2-2">Python2</h4>
-<pre class=" language-language-python"><code class="language-language-python"># str 与 unicode
->>> string = "python"
->>> type(string)
-<type 'str'>
->>> u_str = u"python"
->>> type(u_str)
-<type 'unicode'>
+<h4 id="Python2-1"><a href="#Python2-1" class="headerlink" title="Python2"></a>Python2</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># str 与 unicode</span>
+<span class="token operator">>></span><span class="token operator">></span> string <span class="token operator">=</span> <span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>string<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>type <span class="token string">'str'</span><span class="token operator">></span>
+<span class="token operator">>></span><span class="token operator">></span> u_str <span class="token operator">=</span> u<span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>u_str<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>type <span class="token string">'unicode'</span><span class="token operator">></span>
 
-# str解码 -> Unicode
->>> de_string = string.decode()
->>> type(de_string)
-<type 'unicode'>
+<span class="token comment" spellcheck="true"># str解码 -> Unicode</span>
+<span class="token operator">>></span><span class="token operator">></span> de_string <span class="token operator">=</span> string<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>de_string<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>type <span class="token string">'unicode'</span><span class="token operator">></span>
 
-# unicode 编码 -> str
->>> en_u_str = u_str.encode()
->>> type(en_u_str)
-<type 'str'>
-</code></pre>
-<h4 id="Python3-2">Python3</h4>
-<pre class=" language-language-python"><code class="language-language-python"># str 与 bytes
->>> string = "python"
->>> bytes = b"python"
->>> type(string)
-<class 'str'>
->>> type(bytes)
-<class 'bytes'>
+<span class="token comment" spellcheck="true"># unicode 编码 -> str</span>
+<span class="token operator">>></span><span class="token operator">></span> en_u_str <span class="token operator">=</span> u_str<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>en_u_str<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>type <span class="token string">'str'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Python3-1"><a href="#Python3-1" class="headerlink" title="Python3"></a>Python3</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># str 与 bytes</span>
+<span class="token operator">>></span><span class="token operator">></span> string <span class="token operator">=</span> <span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> bytes <span class="token operator">=</span> b<span class="token string">"python"</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>string<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'str'</span><span class="token operator">></span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'bytes'</span><span class="token operator">></span>
 
-# str编码 -> butes
->>> en_string = string.encode()
->>> type(en_string)
-<class 'bytes'>
+<span class="token comment" spellcheck="true"># str编码 -> butes</span>
+<span class="token operator">>></span><span class="token operator">></span> en_string <span class="token operator">=</span> string<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>en_string<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'bytes'</span><span class="token operator">></span>
 
-# bytes 解码 -> str
->>> de_bytes = bytes.decode()
->>> type(de_bytes)
-<class 'str'>
-</code></pre>
+<span class="token comment" spellcheck="true"># bytes 解码 -> str</span>
+<span class="token operator">>></span><span class="token operator">></span> de_bytes <span class="token operator">=</span> bytes<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>de_bytes<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'str'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -1005,8 +994,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            submodule的作用
-Git使用submodule(子模块)解决Git仓库的嵌套问题，允许一个 Git 仓库作为另一个 Git 仓库的子目录。 能够将一个仓库同步到自己的项目中的同时，保持Git仓库提交的独立性。详细参见《pro git
+                            submodule的作用Git使用submodule(子模块)解决Git仓库的嵌套问题，允许一个 Git 仓库作为另一个 Git 仓库的子目录。 能够将一个仓库同步到自己的项目中的同时，保持Git仓库提交的独立性。详细参见《pro git》
                         
                     </div>
                     <div class="publish-info">
@@ -1057,14 +1045,16 @@ Git使用submodule(子模块)解决Git仓库的嵌套问题，允许一个 Git �
                         
                             
 
+
 考试周的时候重新看了刘慈欣的《球状闪电》，个人一直很喜欢这本书，甚至超过了《三体》。但是一直没时间为这本书写一点东西，趁机抓住国庆假期的尾巴，写写我的体会。
 
 
 
 
 
-前言
-第一次看《球状闪电》是一场意外。本来在看三体，第一部看完之后，
+
+
+前言第一次看《球状闪电》是一场意外。本来在看三体，第一部看完之
                         
                     </div>
                     <div class="publish-info">
@@ -1225,7 +1215,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1481,9 +1471,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

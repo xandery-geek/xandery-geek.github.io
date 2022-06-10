@@ -523,19 +523,18 @@
 <p>昨天,在2019年网络安全周的第一天,搭建不到一个月的国外VPS被封了…特来记录一下最近的搭建过程.</p>
 </blockquote>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>昨天荷兰和西雅图的VPS都被封了.期间还用traceroute(之后会介绍)分析了半天节点也没找到问题. 之后才知道是网络安全周. 据说, 网络安全周是特殊情况,之后可能会被解封.  <strong>Waiting…</strong></p>
-<p>再说使用国外VPS会不会被请去喝茶的问题. 只要是 <strong>正常访问</strong> Facebook,Google,YouTube之类的都没什么问题. 不过具体的我也不清楚,想知道请查阅国家法律或者咨询法律人士. 但是如果自己搭建网络代理然后出售VPN一类的东西好像是违法的,网上也有一些案例. 自己搭个服务器自己玩就行了,不要去碰这种生意. 还有也不要浏览什么政治敏感话题,更不要在这些方面发表不适合的言论.</p>
-<h2 id="国外VPS购买">国外VPS购买</h2>
-<p>提供国外VPS的公司有很多, 比如Vultr, DigitalOcean, hostwinds等等.我用的是<a target="_blank" rel="noopener" href="https://clients.hostwinds.com">hostwinds</a>, 因为hostwinds相对比较便宜, 最低配版一个月$4.49元. 不过大部分价格差不多,每个月5美元左右. 有的也提供一些更便宜的服务器, 比如3美元左右, 但是现在基本已经售空了, 一般很难抢到. 如果你发现了一定要快点下手, 并且通过邮箱通知我一下. 哈哈…</p>
-<p>对于服务器配置, 如果只是自己搭建Shadowsocks, 搭建个人博客, 做FTP, 做图床等等, 最低配就够用了.</p>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天荷兰和西雅图的VPS都被封了.期间还用traceroute(之后会介绍)分析了半天节点也没找到问题. 之后才知道是网络安全周. 据说, 网络安全周是特殊情况,之后可能会被解封.  <strong>Waiting…</strong></p>
+<p> 再说使用国外VPS会不会被请去喝茶的问题. 只要是 <strong>正常访问</strong> Facebook,Google,YouTube之类的都没什么问题. 不过具体的我也不清楚,想知道请查阅国家法律或者咨询法律人士. 但是如果自己搭建网络代理然后出售VPN一类的东西好像是违法的,网上也有一些案例. 自己搭个服务器自己玩就行了,不要去碰这种生意. 还有也不要浏览什么政治敏感话题,更不要在这些方面发表不适合的言论.</p>
+<h2 id="国外VPS购买"><a href="#国外VPS购买" class="headerlink" title="国外VPS购买"></a>国外VPS购买</h2><p>提供国外VPS的公司有很多, 比如Vultr, DigitalOcean, hostwinds等等.我用的是<a target="_blank" rel="noopener" href="https://clients.hostwinds.com">hostwinds</a>, 因为hostwinds相对比较便宜, 最低配版一个月$4.49元. 不过大部分价格差不多,每个月5美元左右. 有的也提供一些更便宜的服务器, 比如3美元左右, 但是现在基本已经售空了, 一般很难抢到. 如果你发现了一定要快点下手, 并且通过邮箱通知我一下. 哈哈…</p>
+<p>对于服务器配置, 如果只是自己搭建Shadowsocks, 搭建个人博客, 做FTP, 做图床等等, 最低配就够用了. </p>
 <p>下图是某网站发布的2019国外VPS服务商排行, 可以参考一下, 然后根据自己的需求选择即可.</p>
 <center>
 <img src="/img/blog/blog-20-1.png">
 </center>
-<h2 id="Shadowsocks服务端搭建">Shadowsocks服务端搭建</h2>
-<p>买完服务器之后就可以开始Shadowsocks服务器的搭建了.</p>
-<p>通过ssh远程登录服务器 <s>(既然都准备自己搭建服务器了, 这个应该都会吧)</s>. 可以先对服务器配置一下, 再开始.</p>
+
+<h2 id="Shadowsocks服务端搭建"><a href="#Shadowsocks服务端搭建" class="headerlink" title="Shadowsocks服务端搭建"></a>Shadowsocks服务端搭建</h2><p>买完服务器之后就可以开始Shadowsocks服务器的搭建了. </p>
+<p>通过ssh远程登录服务器 <del>(既然都准备自己搭建服务器了, 这个应该都会吧)</del>. 可以先对服务器配置一下, 再开始.</p>
 <ul>
 <li>创建个普通用户, 尽量少用root用户.</li>
 <li>换换终端, 强烈推荐zsh, 让终端操作更加丝滑.</li>
@@ -543,15 +542,12 @@
 </ul>
 <p>好了, 正式开始!</p>
 <ol>
-<li>服务器上安装Shadowsocks, 下面是一个一键安装脚本. 在终端运行下面的命令</li>
-</ol>
-<pre class=" language-language-sh"><code class="language-language-sh">wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
+<li><p>服务器上安装Shadowsocks, 下面是一个一键安装脚本. 在终端运行下面的命令</p>
+<pre class="line-numbers language-sh"><code class="language-sh">wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
 chmod +x shadowsocks-all.sh
-./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
-</code></pre>
-<ol start="2">
-<li>
-<p>运行之后需要选择一些选项</p>
+./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>运行之后需要选择一些选项</p>
 <ul>
 <li>选择ss服务端的版本, 有Python, R, 和Go等等, 我选择的是Go.</li>
 <li>输入密码: 输入自己想要设定的密码.</li>
@@ -559,112 +555,95 @@ chmod +x shadowsocks-all.sh
 <li>输入加密方式: 同样选默认, 回车.</li>
 </ul>
 </li>
-<li>
-<p>按任意健开始, 或者按Ctrl + C 取消. 当然是开始了.</p>
+<li><p>按任意健开始, 或者按Ctrl + C 取消. 当然是开始了.</p>
 </li>
-<li>
-<p>等待安装完成. 然后将ip, 端口等信息截图保存一下.</p>
+<li><p>等待安装完成. 然后将ip, 端口等信息截图保存一下.</p>
 </li>
-<li>
-<p>完成, Enjoy it!</p>
+<li><p>完成, Enjoy it!</p>
 </li>
 </ol>
 <p><strong>[注意]</strong>: 密码,端口和加密方式需要记住, 因为配置客户端时要用. 安装完成后会显示这些信息, 到时候截个图就可以. 同时会生成一个二维码, 可以使用手机扫描, 或者使用电脑读取二维码配置客户端. 至于怎么把二维码从服务器下载下来… 可以利用vsftpd搭一个FTP服务器, 然后下载. 不过这里使用手动配置.</p>
 <p>完成之后可以看一下ss服务是否启动</p>
-<pre class=" language-language-sh"><code class="language-language-sh">$ systemctl list-units --type=service | grep Shadowsocks
-</code></pre>
+<pre class="line-numbers language-sh"><code class="language-sh">$ systemctl list-units --type=service | grep Shadowsocks<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果看到有Shadowsocks服务, 并且状态是active和running, 则服务已经启动. 服务端配置就完成了.</p>
-<h2 id="Shadowsocks客户端">Shadowsocks客户端</h2>
-<p>在Github上有各个平台的Shadowsocks客户端. <a target="_blank" rel="noopener" href="https://github.com/shadowsocks">Shadowsocks</a></p>
-<h3 id="Android">Android</h3>
-<p>国内的应用商店肯定是没有shadowsocks应用的, 直接下github上的apk安装包安装即可.<s>(不过墙内好像下载速度极慢)</s>.</p>
+<h2 id="Shadowsocks客户端"><a href="#Shadowsocks客户端" class="headerlink" title="Shadowsocks客户端"></a>Shadowsocks客户端</h2><p>在Github上有各个平台的Shadowsocks客户端. <a target="_blank" rel="noopener" href="https://github.com/shadowsocks">Shadowsocks</a></p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p>国内的应用商店肯定是没有shadowsocks应用的, 直接下github上的apk安装包安装即可.<del>(不过墙内好像下载速度极慢)</del>.</p>
 <p>打开Android端Shadowsocks.</p>
 <center>
 <img src="/img/blog/blog-21-1.jpg" height=500>
 </center>
+
 <p>点击右上角的添加图标, 选择手动设置.</p>
 <center>
 <img src="/img/blog/blog-21-2.jpg" height=500>
 </center>
+
 <p>现在就用到之前保留的截图了, 按照服务器的配置信息依次设置服务器IP, 服务器端口, 密码, 以及加密方式.</p>
 <p><strong>[注意]</strong>: 最下面的路由选择 <strong>绕过局域网及中国大陆地址</strong> , 这样访问局域网的网址和大陆网址时不使用代理. 你访问国内网站, 总不想绕大半个地球到欧洲或者北美再回来吧.</p>
 <p>还有, 国内某些网站是不对国外的IP提供服务的, 比如网易云音乐, 如果使用国外的IP访问, 不能播放音乐, 更不能下载了.</p>
 <center>
 <img src="/img/blog/blog-21-3.jpg" height=500>
 </center>
-<h3 id="Windows">Windows</h3>
-<p>Windows安装之后, 打开应用之后会直接显示在底栏的右下角. 右键进行手动配置, 基本同Android端配置一样.</p>
+
+
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows安装之后, 打开应用之后会直接显示在底栏的右下角. 右键进行手动配置, 基本同Android端配置一样.</p>
 <p>同样, 为了访问局域网的网址和大陆网址时不使用代理, 也需要进行相应的配置, 在右键菜单中找到系统代理这一项, 将默认的全局模式改为PAC模式.</p>
 <p>由于电脑上没有Windows系统, 就不截图了. Windows具体配置见<a target="_blank" rel="noopener" href="https://github.com/Shadowsocks-Wiki/shadowsocks/blob/master/2-windows-setup-guide-cn.md">Windows Shadowsocks配置</a>.</p>
-<h3 id="Linux">Linux</h3>
-<blockquote>
-<p>Linux当然是最&quot;麻烦&quot;的了.</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><blockquote>
+<p>Linux当然是最”麻烦”的了.</p>
 </blockquote>
 <p>我的Linux发行版是Ubuntu18，不同发行版之间操作可能不同。</p>
-<h4 id="全局代理">全局代理</h4>
-<ol>
-<li>
-<p>打开设置-&gt;网络-&gt;网络代理</p>
+<h4 id="全局代理"><a href="#全局代理" class="headerlink" title="全局代理"></a>全局代理</h4><ol>
+<li><p>打开设置-&gt;网络-&gt;网络代理</p>
 </li>
-<li>
-<p>选择网络代理中的手动代理，再选择sockts主机为本地IP地址：172.0.0.1，端口为1080。具体设置见下图</p>
+<li><p>选择网络代理中的手动代理，再选择sockts主机为本地IP地址：172.0.0.1，端口为1080。具体设置见下图</p>
 </li>
 </ol>
 <center>
 <img src="/img/blog/blog-21-7.png">
 </center>
-<h5 id="终端的全局代理">终端的全局代理</h5>
-<p>在shell的配置文件(.bashrc、.zshrc等等)中添加下面内容</p>
-<pre class=" language-language-sh"><code class="language-language-sh">export http_proxy="socks5://127.0.0.1:1080"
-export https_proxy="socks5://127.0.0.1:1080"
-</code></pre>
+
+<h5 id="终端的全局代理"><a href="#终端的全局代理" class="headerlink" title="终端的全局代理"></a>终端的全局代理</h5><p>在shell的配置文件(.bashrc、.zshrc等等)中添加下面内容</p>
+<pre class="line-numbers language-sh"><code class="language-sh">export http_proxy="socks5://127.0.0.1:1080"
+export https_proxy="socks5://127.0.0.1:1080"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>目前还没有找到终端使用PAC代理的方法，我在终端使用的还是全局代理。。。</strong></p>
-<h4 id="PAC代理">PAC代理</h4>
-<blockquote>
+<h4 id="PAC代理"><a href="#PAC代理" class="headerlink" title="PAC代理"></a>PAC代理</h4><blockquote>
 <p>PAC，一个自动代理配置脚本，包含了很多使用 JavaScript 编写的规则，它能够决定网络流量走默认通道还是代理服务器通道，控制的流量类型包括：HTTP、HTTPS 和 FTP。</p>
 </blockquote>
-<h5 id="系统的PAC代理">系统的PAC代理</h5>
-<ul>
+<h5 id="系统的PAC代理"><a href="#系统的PAC代理" class="headerlink" title="系统的PAC代理"></a>系统的PAC代理</h5><ul>
 <li>安装pip（很多人可能已经装了）</li>
 </ul>
-<pre class=" language-language-sh"><code class="language-language-sh">sudo apt-get install python-pip python-dev build-essential 
+<pre class="line-numbers language-sh"><code class="language-sh">sudo apt-get install python-pip python-dev build-essential 
 sudo pip install --upgrade pip 
-sudo pip install --upgrade virtualenv
-</code></pre>
+sudo pip install --upgrade virtualenv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>安装genpac</li>
 </ul>
-<pre class=" language-language-sh"><code class="language-language-sh">sudo pip install genpac
-</code></pre>
+<pre class="line-numbers language-sh"><code class="language-sh">sudo pip install genpac<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li>建立一个存放pac文件的目录，进入该目录。（注意，在执行时需挂系统代理 sock5，否则会出现获取 gfwlist 失败的情况）</li>
 </ul>
-<pre class=" language-language-sh"><code class="language-language-sh">genpac --proxy="SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" -o autoproxy.pac --gfwlist-url="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" 
-</code></pre>
+<pre class="line-numbers language-sh"><code class="language-sh">genpac --proxy="SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" -o autoproxy.pac --gfwlist-url="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li>选择网络代理中的自动代理，url 填写刚生成的 pac 文件的路径file:///path/autoproxy.pac (# 这个文件是一个JS脚本文件，里面存放着目前大部分被gfw屏蔽的域名)，<strong>如果有需要添加的域名，可以自己手动添加进去。</strong></li>
 </ul>
-<h5 id="Chrome的PAC代理">Chrome的PAC代理</h5>
-<ol>
+<h5 id="Chrome的PAC代理"><a href="#Chrome的PAC代理" class="headerlink" title="Chrome的PAC代理"></a>Chrome的PAC代理</h5><ol>
 <li>安装chrome插件SwitchyOmega</li>
 <li>打开SwitchyOmega配置</li>
 <li>新建情景模式，选择PAC情景模式</li>
 <li>在PAC脚本内复制下载的PAC文件的内容，也可以通过填写PAC网址从网站下载PAC文件。</li>
 <li>选择SwitchyOmega的模式是刚刚新建的情景模式。</li>
 </ol>
-<h5 id="Firefox的PAC代理">Firefox的PAC代理</h5>
-<ol>
+<h5 id="Firefox的PAC代理"><a href="#Firefox的PAC代理" class="headerlink" title="Firefox的PAC代理"></a>Firefox的PAC代理</h5><ol>
 <li>打开：设置 -&gt;首选项 -&gt;常规 -&gt;最下方的网络设置。</li>
 <li>点击设置-&gt; 选择自动代理配置URL（PAC）</li>
 <li>填写下载的PAC文件的路径，例如： file:///path/autoproxy.pac</li>
 <li>确认</li>
 </ol>
-<h2 id="traceroute分析">traceroute分析</h2>
-<blockquote>
+<h2 id="traceroute分析"><a href="#traceroute分析" class="headerlink" title="traceroute分析"></a>traceroute分析</h2><blockquote>
 <p>说说traceroute, 这是一个Linux命令(在Windows下相应命令为tracert). 它的作用就是跟踪消息在网络核心之间的传输, 也就是在各个路由器之间的传输. 通过这个命令我们可以看到网络传输中的时延和丢包现象.</p>
 </blockquote>
-<h3 id="原理">原理</h3>
-<p>traceroute主要使用了IP头部生存时间(time to live, TTL), TTL值在每经过一个路由之后会减去1, 当TTL值为0时, 路由器认为发送超时, 将报文丢弃并向源主机发送ICMP超时差错报文. 报文中包含了路由器的IP.</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>traceroute主要使用了IP头部生存时间(time to live, TTL), TTL值在每经过一个路由之后会减去1, 当TTL值为0时, 路由器认为发送超时, 将报文丢弃并向源主机发送ICMP超时差错报文. 报文中包含了路由器的IP.</p>
 <p>利用TTL的这种工作原理, traceroute可以依次得到每一个路由器的IP地址.</p>
 <ul>
 <li>源主机将TTL值设置为1发送报文, 在报文到达第一个路由器时, $TTL - 1 = 0$, 于是路由器认为超时, 发送一份ICMP超时差错报文给源主机, 得到第一个路由器的IP.</li>
@@ -674,19 +653,22 @@ sudo pip install --upgrade virtualenv
 <li>停止发送报文.</li>
 </ul>
 <p>通过上述方法可以得到从源主机到目的主机过程中各个路由器的IP地址, 由于源主机收到路由器或者目的主机的消息所用的时间是从源主机到路由器或者目的主机的2倍, 可以简单的将这个时间除以2得到从源主机到路由器或者目的主机的时间. 通过这个时间我们可以分析传输时延和丢包现象.</p>
-<h3 id="分析">分析</h3>
-<p>这是traceroute访问百度的过程, 其中*表示丢包.</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这是traceroute访问百度的过程, 其中*表示丢包.</p>
 <center>
 <img src="/img/blog/blog-21-4.png" width=800>
 </center>
+
 <p>访问cnn, 其中202.97.50.54是电信主干网, 之后的一个IP 38.104.138.105就已经到了美国了.</p>
 <center>
 <img src="/img/blog/blog-21-5.png" width=800>
 </center>
+
 <p>再看youtube, 在电信主干网就挂掉了, 连走出国门的机会都没有(-_-).</p>
 <center>
 <img src="/img/blog/blog-21-6.png" width=800>
 </center>
+
+
 
             </div>
             <hr/>
@@ -1074,8 +1056,8 @@ sudo pip install --upgrade virtualenv
                         
                             蓬莱市为山东省烟台市的一个县级市，位于渤海和黄海的交界之处。“八仙过海”的神话传说，便发生在这里。中国四大名楼之一的蓬莱阁也坐落在这里。
 
-多图预警，小心流量
 
+多图预警，小心流量
 
 
 
@@ -1171,9 +1153,9 @@ sudo pip install --upgrade virtualenv
 
 
 
-Why
-为什么想要一次旅行
 
+
+Why为什么想要一次旅行
 当
                         
                     </div>
@@ -1335,7 +1317,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1591,9 +1573,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

@@ -468,16 +468,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/AI/">
-                                <span class="chip bg-color">AI</span>
-                            </a>
-                        
                             <a href="/tags/Ubuntu/">
                                 <span class="chip bg-color">Ubuntu</span>
                             </a>
                         
                             <a href="/tags/GO/">
                                 <span class="chip bg-color">GO</span>
+                            </a>
+                        
+                            <a href="/tags/AI/">
+                                <span class="chip bg-color">AI</span>
                             </a>
                         
                     </div>
@@ -531,10 +531,9 @@
 <p>最近一个多月开始学习围棋，因为平时常用的系统是Linux，所以想要在Linux上安装一个围棋AI，可以借助AI分析棋局。经过一番查找，决定使用q5go和katago，安装还是挺复杂的，特地记录（/摸鱼）一下。</p>
 </blockquote>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>目前大部分的围棋AI软件都是由两部分组成，一部分是围棋GUI，即围棋的图形程序；另一部分是AI引擎（Engine）。Windows系统有很多直接组合好的软件，开箱即用。不过Linux和Mac上很少，就只能自己找了。</p>
-<h2 id="q5go安装">q5go安装</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/bernds/q5Go">q5go</a>是一个开源的围棋GUI，使用qt5开发。大致功能如下：</p>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前大部分的围棋AI软件都是由两部分组成，一部分是围棋GUI，即围棋的图形程序；另一部分是AI引擎（Engine）。Windows系统有很多直接组合好的软件，开箱即用。不过Linux和Mac上很少，就只能自己找了。</p>
+<h2 id="q5go安装"><a href="#q5go安装" class="headerlink" title="q5go安装"></a>q5go安装</h2><p><a target="_blank" rel="noopener" href="https://github.com/bernds/q5Go">q5go</a>是一个开源的围棋GUI，使用qt5开发。大致功能如下：</p>
 <ul>
 <li>SGF editor</li>
 <li>Analysis frontend for KataGo, Leela Zero or compatible engines</li>
@@ -544,46 +543,40 @@
 <li>Export to a variety of formats</li>
 </ul>
 <p>安装很简单，就是常规的编译过程。先下载<a target="_blank" rel="noopener" href="https://github.com/bernds/q5Go/releases">发布版的源码</a></p>
-<pre class=" language-language-shell"><code class="language-language-shell">unzip q5go-2.0.zip
+<pre class="line-numbers language-shell"><code class="language-shell">unzip q5go-2.0.zip
 cd q5Go-q5go-2.0
 mkdir build
 cd build
 qmake ../src/q5go.pro PREFIX=/opt/q5go
 make -j4
 mkdir /opt/q5go
-make install /opt/q5go
-</code></pre>
+make install /opt/q5go<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>之后就可以在 <code>/opt/q5go/bin</code> 目录找到可执行文件q5go了</p>
 <p>为了方便，也可以在<code>/usr/share/applications</code> 添加<code>.desktop</code>文件创建快捷方式。</p>
-<h2 id="katago安装">katago安装</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo">katago</a> 是一个很强的开源围棋AI Engine。katago仅仅实现了一个engine，并没有GUI界面，因此需要联合像q5go这样的GUI程序才能使用。</p>
+<h2 id="katago安装"><a href="#katago安装" class="headerlink" title="katago安装"></a>katago安装</h2><p><a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo">katago</a> 是一个很强的开源围棋AI Engine。katago仅仅实现了一个engine，并没有GUI界面，因此需要联合像q5go这样的GUI程序才能使用。</p>
 <p>katago的安装比较麻烦，主要是因为NVIDIA的cuda环境不容易配置。</p>
 <p><strong>[声明]</strong>：由于不同Linux发行版的安装差异，下面安装过程中的命令很可能不好用，如果出现问题，请参考官方教程！！！</p>
-<h3 id="katago下载">katago下载</h3>
-<p>首先下载cuda版本的<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/releases/tag/v1.8.1">katago engine </a>。
-然后下载<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/releases/tag/v1.4.5">神经网络的文件</a>，katago针对不同电脑的性能提供了三套不同的文件，分别是20block、30block、40block的网络。如果GPU性能比较差，就选择20block的网络，GPU性能很好的，可以选择40block的。</p>
+<h3 id="katago下载"><a href="#katago下载" class="headerlink" title="katago下载"></a>katago下载</h3><p>首先下载cuda版本的<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/releases/tag/v1.8.1">katago engine </a>。<br>然后下载<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/releases/tag/v1.4.5">神经网络的文件</a>，katago针对不同电脑的性能提供了三套不同的文件，分别是20block、30block、40block的网络。如果GPU性能比较差，就选择20block的网络，GPU性能很好的，可以选择40block的。</p>
 <ul>
 <li>g170-b30c320x2-s4824661760-d1229536699 (“g170 30 block d1229M”) - Final 30 block network!</li>
 <li>g170-b40c256x2-s5095420928-d1229425124 (“g170 40 block d1229M”) - Final 40 block network!</li>
 <li>g170e-b20c256x2-s5303129600-d1228401921 (“g170e 20 block d1228M”) - Final 20 block network!</li>
 </ul>
-<p>将katago的文件夹放到q5go的目录下，即<code>/opt/q5go</code>目录下，主要是为了方便管理，放在其他目录也可以。
-目录结构如下，其中<code> katago_cuda</code>就是katago的目录。</p>
-<pre class=" language-language-shell"><code class="language-language-shell">$ tree -d /opt/q5go
+<p>将katago的文件夹放到q5go的目录下，即<code>/opt/q5go</code>目录下，主要是为了方便管理，放在其他目录也可以。<br>目录结构如下，其中<code>katago_cuda</code>就是katago的目录。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ tree -d /opt/q5go
 /opt/q5go
 ├── bin
 ├── katago_cuda
-│   └── gtp_logs
+│   └── gtp_logs
 └── share
     ├── doc
-    │   └── q5go
-    │       └── html
-    │           └── screens
+    │   └── q5go
+    │       └── html
+    │           └── screens
     └── q5go
-        └── translations
-</code></pre>
-<p>然后将下载的神经网络参数文件，就是那个<code>*.bin.gz</code>的文件放到katago的目录下,目录结构如下，其中<code> 20block.bin.gz</code>就是神经网络参数文件。</p>
-<pre class=" language-language-shell"><code class="language-language-shell">$ tree /opt/q5go/katago_cuda
+        └── translations<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后将下载的神经网络参数文件，就是那个<code>*.bin.gz</code>的文件放到katago的目录下,目录结构如下，其中<code>20block.bin.gz</code>就是神经网络参数文件。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ tree /opt/q5go/katago_cuda
 /opt/q5go/katago_cuda
 ├── 20block.bin.gz
 ├── analysis_example.cfg
@@ -591,18 +584,15 @@ make install /opt/q5go
 ├── contribute_example.cfg
 ├── default_gtp.cfg
 ├── gtp_logs
-│   └── 20210402-192452-A95FDD19.log
+│   └── 20210402-192452-A95FDD19.log
 ├── katago
 ├── match_example.cfg
-└── README.txt
-</code></pre>
+└── README.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>至此，katago就下载好了，只要配置好环境就可以run了。</p>
-<h3 id="环境配置">环境配置</h3>
-<p>因为katago需要使用GPU，所以要配置GPU环境。详细的安装可以参考<a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html">NVIDIA的官方教程</a>，如果不想看如此长的英文安装教程，可以看下面的，哈哈哈(<sup>-</sup>)。下面的安装教程是基于<code>Ubuntu18.04</code>的，如果是其他的Linux发行版，还是看官方教程吧。</p>
-<h4 id="安装NVIDIA显卡驱动">安装NVIDIA显卡驱动</h4>
-<p>NVIDIA显卡驱动很多电脑应该是有的，这里就不赘述了。</p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>因为katago需要使用GPU，所以要配置GPU环境。详细的安装可以参考<a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html">NVIDIA的官方教程</a>，如果不想看如此长的英文安装教程，可以看下面的，哈哈哈(^-^)。下面的安装教程是基于<code>Ubuntu18.04</code>的，如果是其他的Linux发行版，还是看官方教程吧。</p>
+<h4 id="安装NVIDIA显卡驱动"><a href="#安装NVIDIA显卡驱动" class="headerlink" title="安装NVIDIA显卡驱动"></a>安装NVIDIA显卡驱动</h4><p>NVIDIA显卡驱动很多电脑应该是有的，这里就不赘述了。</p>
 <p>输入下面的命令，如果可以得到类似的输出（本人电脑的GPU比较垃圾，见笑了），则说明显卡驱动已经装好了。没有的话，请参考<a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#installdriver"> Installing NVIDIA Graphics Drivers</a>。</p>
-<pre class=" language-language-shell"><code class="language-language-shell">$ nvidia-smi
+<pre class="line-numbers language-shell"><code class="language-shell">$ nvidia-smi
 Fri Apr  2 20:53:54 2021       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 460.39       Driver Version: 460.39       CUDA Version: 11.2     |
@@ -615,7 +605,7 @@ Fri Apr  2 20:53:54 2021
 | N/A   36C    P0    N/A /  N/A |    274MiB /  2004MiB |      9%      Default |
 |                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
-                                                                               
+
 +-----------------------------------------------------------------------------+
 | Processes:                                                                  |
 |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
@@ -625,12 +615,9 @@ Fri Apr  2 20:53:54 2021
 |    0   N/A  N/A      2091      G   /usr/bin/gnome-shell               27MiB |
 |    0   N/A  N/A      2583      G   ...gAAAAAAAAA --shared-files       52MiB |
 |    0   N/A  N/A     25504      G   ...AAAAAAAA== --shared-files       26MiB |
-+-----------------------------------------------------------------------------+
-</code></pre>
-<h4 id="安装cuda">安装cuda</h4>
-<p>cuda是NVIDIA的并行计算平台。通过利用图形处理单元（GPU），可以提高计算机的计算性能。
-<a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">cuda官网安装教程</a>，又是一个贼长的英文文档。。。</p>
-<pre class=" language-language-shell"><code class="language-language-shell">wget https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda-repo-ubuntu1804-11-1-local_11.1.0-455.23.05-1_amd64.deb
++-----------------------------------------------------------------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="安装cuda"><a href="#安装cuda" class="headerlink" title="安装cuda"></a>安装cuda</h4><p>cuda是NVIDIA的并行计算平台。通过利用图形处理单元（GPU），可以提高计算机的计算性能。<br><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">cuda官网安装教程</a>，又是一个贼长的英文文档。。。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">wget https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda-repo-ubuntu1804-11-1-local_11.1.0-455.23.05-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1804-11-1-local_11.1.0-455.23.05-1_amd64.deb
 sudo apt-key add /var/cuda-repo-ubuntu1804-11-1-local/7fa2af80.pub
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
@@ -638,91 +625,67 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/
 sudo mkdir /etc/preferences.d
 sudo mv cuda-ubuntu1804.pin /etc/preferences.d/cuda-repository-pin-600
 sudo apt-get update
-sudo apt-get install cuda
-</code></pre>
+sudo apt-get install cuda<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>一般cuda的安装目录在<code>/usr/local/cuda/</code>,安装完可以检测一下是否成功</p>
-<h4 id="添加环境变量">添加环境变量</h4>
-<p>将下面的语句添加到<code>.bashrc</code>中</p>
-<pre class=" language-language-bash"><code class="language-language-bash">export PATH=/usr/local/cuda/bin:$&#123;PATH&#125;
-</code></pre>
+<h4 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h4><p>将下面的语句添加到<code>.bashrc</code>中</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/cuda/bin:$<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;PATH&amp;#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>更新环境变量</p>
-<pre class=" language-language-shell"><code class="language-language-shell">source ~/.bashrc
-</code></pre>
-<h4 id="安装cudnn">安装cudnn</h4>
-<p>cuDNN(NVIDIA CUDA Deep Neural Network library)是为了实现GPU加速的深度神经网络原语库。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">source ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="安装cudnn"><a href="#安装cudnn" class="headerlink" title="安装cudnn"></a>安装cudnn</h4><p>cuDNN(NVIDIA CUDA Deep Neural Network library)是为了实现GPU加速的深度神经网络原语库。</p>
 <p>cudnn的安装过程不同的Linux发行版都不同，下面仅给出了Ubuntu18.04的安装过程，其他发行版见<a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#download">Downloading cuDNN For Linux</a></p>
 <p>这四条命令可以省略，因为之前在安装cuda的时候已经执行过了，可以直接跳过。</p>
-<pre class=" language-language-shell"><code class="language-language-shell">sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+<pre class="line-numbers language-shell"><code class="language-shell">sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 sudo mkdir /etc/preferences.d
-sudo mv cuda-ubuntu1804.pin /etc/preferences.d/cuda-repository-pin-600
-</code></pre>
+sudo mv cuda-ubuntu1804.pin /etc/preferences.d/cuda-repository-pin-600<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>需要执行的是下面的命令：</p>
-<pre class=" language-language-shell"><code class="language-language-shell">sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+<pre class="line-numbers language-shell"><code class="language-shell">sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
 sudo apt-get update
 sudo apt-get install libcudnn8
-sudo apt-get install libcudnn8-dev
-</code></pre>
+sudo apt-get install libcudnn8-dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>大功告成，可以开心的打开katago了，哈哈哈！！！</p>
-<h3 id="测试katago">测试katago</h3>
-<p>如何使用katago，可以参考<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo#how-to-use">Github</a></p>
-<pre class=" language-language-shell"><code class="language-language-shell">cd /opt/q5go/katago_cuda
-./katago benchmark -model 20block.bin.gz
-</code></pre>
+<h3 id="测试katago"><a href="#测试katago" class="headerlink" title="测试katago"></a>测试katago</h3><p>如何使用katago，可以参考<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo#how-to-use">Github</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">cd /opt/q5go/katago_cuda
+./katago benchmark -model 20block.bin.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>如何你运行成功了，恭喜，请快进到<a href="#toc-heading-13">q5go调用katago</a>。</p>
 <p>如果失败了，同样恭喜，请继续享受安装的快乐。</p>
 <p>如果失败的信息是类似于<code>./katago: error while loading shared libraries: libzip.so.5: cannot open shared object file: No such file or directory</code>这样的，可以尝试安装<code>libzip</code>，如果<code>libzip</code>已将安装，你遇到的应该是这个<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/issues/312">issue</a>。</p>
 <p>该问题就是发布版的katago在编译时使用的动态链接库和你本地的不同，无法使用。解决方法请跳转到<a href="#toc-heading-11">源码安装</a></p>
 <p>如果是其他失败信息，我也没遇到过，就请参考<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/issues">github issue</a>的方法了</p>
-<h3 id="源码安装">源码安装</h3>
-<p><strong>Welcome to 源码安装～～～</strong>
-老规矩，<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/blob/master/Compiling.md">官方教程</a></p>
+<h3 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h3><p><strong>Welcome to 源码安装～～～</strong><br>老规矩，<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/blob/master/Compiling.md">官方教程</a></p>
 <p>编译环境准备，安装camke、libzip-dev</p>
-<pre class=" language-language-shell"><code class="language-language-shell">sudo apt install cmake
-sudo apt install libzip-dev
-</code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo apt install cmake
+sudo apt install libzip-dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>编译katago</p>
-<pre class=" language-language-shell"><code class="language-language-shell">git clone https://github.com/lightvector/KataGo.git
+<pre class="line-numbers language-shell"><code class="language-shell">git clone https://github.com/lightvector/KataGo.git
 cd KataGo/cpp
 cmake . -DUSE_BACKEND=CUDA
-make -j4
-</code></pre>
+make -j4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果遇到下面的<a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo/issues/99">问题</a>，则需要使用最新的CMake</p>
-<pre class=" language-language-shell"><code class="language-language-shell">CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+<pre class="line-numbers language-shell"><code class="language-shell">CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
 Please set them or make sure they are set and tested correctly in the CMake files:
 CUDA_cublas_device_LIBRARY (ADVANCED)
-    linked by target "katago" in directory /content/drive/My Drive/KataGo/cpp
-</code></pre>
+    linked by target "katago" in directory /content/drive/My Drive/KataGo/cpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>安装最新的Cmake并编译</p>
-<pre class=" language-language-shell"><code class="language-language-shell">wget https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.tar.gz
+<pre class="line-numbers language-shell"><code class="language-shell">wget https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.tar.gz
 tar zxvf cmake-3.16.2-Linux-x86_64.tar.gz
 sudo mv cmake-3.16.2-Linux-x86_64 /opt/cmake-3.16.2
 /opt/cmake-3.16.2/bin/cmake . -DUSE_BACKEND=CUDA
-make -j4
-</code></pre>
+make -j4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>make</code>成功之后，把生成的<code>katago</code>可执行文件拷贝到之前下载的katago文件夹替换掉旧的就可以了。</p>
-<pre class=" language-language-shell"><code class="language-language-shell">mv /opt/q5go/katago_cuda/katago /opt/q5go/katago_cuda/katago_old
-mv ./katago /opt/q5go/katago_cuda
-</code></pre>
-<pre class=" language-language-shell"><code class="language-language-shell">cd /opt/q5go/katago_cuda
-./katago benchmark -model 20block.bin.gz
-</code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">mv /opt/q5go/katago_cuda/katago /opt/q5go/katago_cuda/katago_old
+mv ./katago /opt/q5go/katago_cuda<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">cd /opt/q5go/katago_cuda
+./katago benchmark -model 20block.bin.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>现在应该可以完美运行了，接下来就是使用 q5go调用katago了。</p>
-<h3 id=""></h3>
-<h2 id="q5go调用katago">q5go调用katago</h2>
-<h3 id="修改config文件">修改config文件</h3>
-<p>在执行了<code>./katago benchmark</code>命令后，程序会测试你的电脑，为你推荐合适的线程参数。在得到该参数后需要修改<code>default_gtp.cfg</code>文件。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="q5go调用katago"><a href="#q5go调用katago" class="headerlink" title="q5go调用katago"></a>q5go调用katago</h2><h3 id="修改config文件"><a href="#修改config文件" class="headerlink" title="修改config文件"></a>修改config文件</h3><p>在执行了<code>./katago benchmark</code>命令后，程序会测试你的电脑，为你推荐合适的线程参数。在得到该参数后需要修改<code>default_gtp.cfg</code>文件。</p>
 <p>在<code>default_gtp.cfg</code>文件中找到下面的一行配置并修改。</p>
-<pre><code>numSearchThreads = 6 # 修改为推荐的线程参数
-</code></pre>
-<h3 id="配置q5go">配置q5go</h3>
-<p>启动<code>q5go</code>程序，进入Settings-&gt;Computer Go-&gt;New,进行如下配置</p>
+<pre><code>numSearchThreads = 6 # 修改为推荐的线程参数</code></pre><h3 id="配置q5go"><a href="#配置q5go" class="headerlink" title="配置q5go"></a>配置q5go</h3><p>启动<code>q5go</code>程序，进入Settings-&gt;Computer Go-&gt;New,进行如下配置</p>
 <img src="/img/blog/blog-30-1.png" width=500>
+
 <p>之后就可以使用katago了。</p>
-<p>打开一个对局，调整贴目 Edit-&gt;Game Information。
-<img src="/img/blog/blog-30-2.png" width=500></p>
-<p>打开Analysis，就可以看到AI的推荐选点和胜率等信息了。
-<img src="/img/blog/blog-30-3.png" width=800></p>
+<p>打开一个对局，调整贴目 Edit-&gt;Game Information。<br><img src="/img/blog/blog-30-2.png" width=500></p>
+<p>打开Analysis，就可以看到AI的推荐选点和胜率等信息了。<br><img src="/img/blog/blog-30-3.png" width=800></p>
 
             </div>
             <hr/>
@@ -786,16 +749,16 @@ mv ./katago /opt/q5go/katago_cuda
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/AI/">
-                                    <span class="chip bg-color">AI</span>
-                                </a>
-                            
                                 <a href="/tags/Ubuntu/">
                                     <span class="chip bg-color">Ubuntu</span>
                                 </a>
                             
                                 <a href="/tags/GO/">
                                     <span class="chip bg-color">GO</span>
+                                </a>
+                            
+                                <a href="/tags/AI/">
+                                    <span class="chip bg-color">AI</span>
                                 </a>
                             
                         </div>
@@ -1120,13 +1083,14 @@ mv ./katago /opt/q5go/katago_cuda
 因为某些不可抗力，用了将近两年的Ubuntu系统崩溃了，于是决定试试久闻大名的Manjaro。
 
 
+
 先上效果，关于KDE桌面的美化，请移步KDE桌面美化
 
 
 
-Manjaro
 
-Manjaro Linux是基于 Arch Linux 的 
+Manjaro
+Manjaro Linux是基于 Arch Linux 的
                         
                     </div>
                     <div class="publish-info">
@@ -1182,8 +1146,8 @@ Manjaro Linux是基于 Arch Linux 的
 上一篇博客提到了在图神经网络中应用比较广泛的GCN（Graph Convolutional Networks），这篇博客就来谈谈GAT(Graph Attention Networks)。
 
 
-什么是GAT
-什么是GAT呢？先看论文的名字
+
+什么是GAT什么是GAT呢？先看论文的名字
                         
                     </div>
                     <div class="publish-info">
@@ -1205,12 +1169,12 @@ Manjaro Linux是基于 Arch Linux 的
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/AI/">
-                        <span class="chip bg-color">AI</span>
-                    </a>
-                    
                     <a href="/tags/Math/">
                         <span class="chip bg-color">Math</span>
+                    </a>
+                    
+                    <a href="/tags/AI/">
+                        <span class="chip bg-color">AI</span>
                     </a>
                     
                 </div>
@@ -1348,7 +1312,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1604,9 +1568,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

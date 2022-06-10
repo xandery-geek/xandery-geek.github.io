@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    515
+                    513
                 </div>
                 
 
@@ -529,40 +529,35 @@
             <div id="articleContent">
                 <p>最近在做手写体识别，需要将QT中手写的数字转换成像训练集一样图片。因此需要将QImage转换为numpy array。</p>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>笔者使用的是PyQt，但是对QT和Python之间数据之间的转换不太熟悉。查了很长时间，也没有找到详细的说明，最后在stackoverflow中查到了转换方法，但是说的也不清楚。</p>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>笔者使用的是PyQt，但是对QT和Python之间数据之间的转换不太熟悉。查了很长时间，也没有找到详细的说明，最后在stackoverflow中查到了转换方法，但是说的也不清楚。</p>
 <p>终于，经过查阅QT的参考手册终于明白了转换过程。</p>
-<h2 id="详细过程">详细过程</h2>
-<pre class=" language-language-python"><code class="language-language-python">from PIL import Image
-import numpy as np
-import matplotlib.pyplot as plt
+<h2 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> PIL <span class="token keyword">import</span> Image
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 
-image = self.canvas_label.canvas.toImage()
-size = image.size()
-s = image.bits().asstring(size.width() * size.height() * image.depth() // 8)  # format 0xffRRGGBB
+image <span class="token operator">=</span> self<span class="token punctuation">.</span>canvas_label<span class="token punctuation">.</span>canvas<span class="token punctuation">.</span>toImage<span class="token punctuation">(</span><span class="token punctuation">)</span>
+size <span class="token operator">=</span> image<span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> image<span class="token punctuation">.</span>bits<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>asstring<span class="token punctuation">(</span>size<span class="token punctuation">.</span>width<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> size<span class="token punctuation">.</span>height<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> image<span class="token punctuation">.</span>depth<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">8</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># format 0xffRRGGBB</span>
 
-arr = np.fromstring(s, dtype=np.uint8).reshape((size.height(), size.width(), image.depth() // 8))
+arr <span class="token operator">=</span> np<span class="token punctuation">.</span>fromstring<span class="token punctuation">(</span>s<span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>uint8<span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">(</span>size<span class="token punctuation">.</span>height<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> size<span class="token punctuation">.</span>width<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>depth<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-new_image = Image.fromarray(array)
+new_image <span class="token operator">=</span> Image<span class="token punctuation">.</span>fromarray<span class="token punctuation">(</span>array<span class="token punctuation">)</span>
 
-# convert to gray
-new_image.convert("L")
-new_image.thumbnail((28, 28))
-plt.imshow(new_image, cmap='gray')
-plt.show()
-</code></pre>
-<h3 id="1-将QImage转换为字符串">1. 将QImage转换为字符串</h3>
-<p>笔者的原图是通过QPixmap绘制的一幅RGB图。之后将其转换为QImage。</p>
-<p>通过<code>s = image.bits().asstring(size.width() * size.height() * image.depth() // 8) </code>将图像数据转换成字符串。</p>
+<span class="token comment" spellcheck="true"># convert to gray</span>
+new_image<span class="token punctuation">.</span>convert<span class="token punctuation">(</span><span class="token string">"L"</span><span class="token punctuation">)</span>
+new_image<span class="token punctuation">.</span>thumbnail<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>new_image<span class="token punctuation">,</span> cmap<span class="token operator">=</span><span class="token string">'gray'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-将QImage转换为字符串"><a href="#1-将QImage转换为字符串" class="headerlink" title="1. 将QImage转换为字符串"></a>1. 将QImage转换为字符串</h3><p>笔者的原图是通过QPixmap绘制的一幅RGB图。之后将其转换为QImage。</p>
+<p>通过<code>s = image.bits().asstring(size.width() * size.height() * image.depth() // 8)</code>将图像数据转换成字符串。</p>
 <p>参数是图像中字节数，字节数等于图像宽度 × 图像高度 × 通道数，即$bytes = width * height * channels$</p>
 <p>需要注意的是通道数，查看QT的手册知道QT的RGB图像的格式是0xFFRRGGBB,其实就是将Alpha通道全部置为了0xFF。</p>
 <p>之前以为只有3个通道，所以一直有问题。<code>QImage.depth()</code>可以返回图像深度的比特数，对于RGB图<code>QImage.depth()</code>返回值为32，所以整除8之后就是通道数。</p>
-<h3 id="2-将字符串转换为Numpy-array">2. 将字符串转换为Numpy array</h3>
-<p>之后使用<code>np.fromstring()</code>即可通过字符串构造numpy array。</p>
+<h3 id="2-将字符串转换为Numpy-array"><a href="#2-将字符串转换为Numpy-array" class="headerlink" title="2. 将字符串转换为Numpy array"></a>2. 将字符串转换为Numpy array</h3><p>之后使用<code>np.fromstring()</code>即可通过字符串构造numpy array。</p>
 <p>到这里QImage转换为numpy array的任务就完成了。之后需要将原图进行灰度处理和压缩。</p>
-<h3 id="3-灰度处理-压缩">3. 灰度处理 &amp; 压缩</h3>
-<ul>
-<li>使用<code>Image.convert()</code>可以进行格式转换，详细用法见https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert</li>
+<h3 id="3-灰度处理-amp-压缩"><a href="#3-灰度处理-amp-压缩" class="headerlink" title="3. 灰度处理 &amp; 压缩"></a>3. 灰度处理 &amp; 压缩</h3><ul>
+<li>使用<code>Image.convert()</code>可以进行格式转换，详细用法见<a target="_blank" rel="noopener" href="https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert">https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert</a></li>
 <li>使用<code>Image.thumbnail()</code>进行压缩，注意该方法只能进行压缩，不能放大，而且是等比例压缩。如果需要放大可以使用<code>Image.resize()</code>方法。</li>
 </ul>
 
@@ -958,8 +953,7 @@ plt.show()
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            摘要
-MapReduce是一个编程模型，是一个与处理和生成大数据集相关的实现。用户指定一个处理键值对的  Map 函数生成一个中间键值对的集合，指定一个 Reduce 函数来合并有相同中间键的所有中间值。许多现实中的任务都可以用这种模型表达
+                            摘要MapReduce是一个编程模型，是一个与处理和生成大数据集相关的实现。用户指定一个处理键值对的  Map 函数生成一个中间键值对的集合，指定一个 Reduce 函数来合并有相同中间键的所有中间值。许多现实中的任务都可以用这种模型表达，
                         
                     </div>
                     <div class="publish-info">
@@ -1034,16 +1028,16 @@ MapReduce是一个编程模型，是一个与处理和生成大数据集相关�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/AI/">
-                        <span class="chip bg-color">AI</span>
-                    </a>
-                    
                     <a href="/tags/Code/">
                         <span class="chip bg-color">Code</span>
                     </a>
                     
                     <a href="/tags/Python/">
                         <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/AI/">
+                        <span class="chip bg-color">AI</span>
                     </a>
                     
                 </div>
@@ -1181,7 +1175,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1437,9 +1431,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

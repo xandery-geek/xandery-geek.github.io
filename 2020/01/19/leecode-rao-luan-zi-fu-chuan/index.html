@@ -472,12 +472,12 @@
                                 <span class="chip bg-color">Code</span>
                             </a>
                         
-                            <a href="/tags/C/">
-                                <span class="chip bg-color">C++</span>
-                            </a>
-                        
                             <a href="/tags/Algorithm/">
                                 <span class="chip bg-color">Algorithm</span>
+                            </a>
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
                             </a>
                         
                     </div>
@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    656
+                    883
                 </div>
                 
 
@@ -527,129 +527,112 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="题目：扰乱字符串">题目：扰乱字符串</h3>
-<p>给定一个字符串 s1，我们可以把它递归地分割成两个非空子字符串，从而将其表示为二叉树。</p>
-<p>下图是字符串 s1 = “great” 的一种可能的表示形式。</p>
+                <h3 id="题目：扰乱字符串"><a href="#题目：扰乱字符串" class="headerlink" title="题目：扰乱字符串"></a>题目：扰乱字符串</h3><p>给定一个字符串 s1，我们可以把它递归地分割成两个非空子字符串，从而将其表示为二叉树。</p>
+<p>下图是字符串 s1 = “great” 的一种可能的表示形式。</p>
 <pre><code>    great
    /    \
   gr    eat
  / \    /  \
 g   r  e   at
            / \
-          a   t
-</code></pre>
-<p>在扰乱这个字符串的过程中，我们可以挑选任何一个非叶节点，然后交换它的两个子节点。</p>
-<p>例如，如果我们挑选非叶节点 “gr” ，交换它的两个子节点，将会产生扰乱字符串 “rgeat” 。</p>
+          a   t</code></pre><p>在扰乱这个字符串的过程中，我们可以挑选任何一个非叶节点，然后交换它的两个子节点。</p>
+<p>例如，如果我们挑选非叶节点 “gr” ，交换它的两个子节点，将会产生扰乱字符串 “rgeat” 。</p>
 <pre><code>    rgeat
    /    \
   rg    eat
  / \    /  \
 r   g  e   at
            / \
-          a   t
-</code></pre>
-<p>我们将 &quot;rgeat” 称作 “great” 的一个扰乱字符串。</p>
-<p>同样地，如果我们继续交换节点 “eat” 和 “at” 的子节点，将会产生另一个新的扰乱字符串 “rgtae” 。</p>
+          a   t</code></pre><p>我们将 “rgeat” 称作 “great” 的一个扰乱字符串。</p>
+<p>同样地，如果我们继续交换节点 “eat” 和 “at” 的子节点，将会产生另一个新的扰乱字符串 “rgtae” 。</p>
 <pre><code>    rgtae
    /    \
   rg    tae
  / \    /  \
 r   g  ta  e
        / \
-      t   a
-</code></pre>
-<p>我们将 &quot;rgtae” 称作 “great” 的一个扰乱字符串。</p>
-<p>给出两个长度相等的字符串 s1 和 s2，判断 s2 是否是 s1 的扰乱字符串。</p>
-<p>示例 1:</p>
+      t   a</code></pre><p>我们将 “rgtae” 称作 “great” 的一个扰乱字符串。</p>
+<p>给出两个长度相等的字符串 s1 和 s2，判断 s2 是否是 s1 的扰乱字符串。</p>
+<p>示例 1:</p>
 <pre><code>输入: s1 = &quot;great&quot;, s2 = &quot;rgeat&quot;
-输出: true
-</code></pre>
-<p>示例 2:</p>
+输出: true</code></pre><p>示例 2:</p>
 <pre><code>输入: s1 = &quot;abcde&quot;, s2 = &quot;caebd&quot;
-输出: false
-</code></pre>
-<p>来源：力扣（LeetCode）。链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/scramble-string">https://leetcode-cn.com/problems/scramble-string</a></p>
-<h3 id="解题思路：递归">解题思路：递归</h3>
-<p>由于无法得知原字符串分割的位置，所以通过蛮力遍历每一个位置对原字符串进行分割，然后比较原字符串和扰乱字符串分割之后的子串是否相等。子串同样进行了分割，则需要再对子串进行分割判断。这个时候就可以使用递归了。</p>
+输出: false</code></pre><p>来源：力扣（LeetCode）。链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/scramble-string">https://leetcode-cn.com/problems/scramble-string</a></p>
+<h3 id="解题思路：递归"><a href="#解题思路：递归" class="headerlink" title="解题思路：递归"></a>解题思路：递归</h3><p>由于无法得知原字符串分割的位置，所以通过蛮力遍历每一个位置对原字符串进行分割，然后比较原字符串和扰乱字符串分割之后的子串是否相等。子串同样进行了分割，则需要再对子串进行分割判断。这个时候就可以使用递归了。</p>
 <p>由于分割之后还可能进行交换，所以需要判断两种情况：</p>
 <ol>
 <li>直接对原字符串进行分割，比较原字符串和扰乱字符串分割之后的子串是否相等。即s1[0, i] == s2[0, i] &amp;&amp; s1[i+1, len - 1] == s2[i+1, len -1]。</li>
 <li>将分割后的两个子串交换，然后比较交换后的子串。s1[0, i] == s2[len-1 - i, len-1] &amp;&amp; s1[i+1, len - 1] == s2[0, len-i]。</li>
 </ol>
-<p>优化：
-由于分割交换并不会改变字符串中字符的个数，所以可以通过统计并比较两字符串中各字符的个数是否相等做一次筛选。
-如果不等，则一定不是扰乱字符串。这是一个 <strong>必要条件</strong>。</p>
-<h3 id="LeetCode-运行结果">LeetCode 运行结果</h3>
-<ul>
+<p>优化：<br>由于分割交换并不会改变字符串中字符的个数，所以可以通过统计并比较两字符串中各字符的个数是否相等做一次筛选。<br>如果不等，则一定不是扰乱字符串。这是一个 <strong>必要条件</strong>。</p>
+<h3 id="LeetCode-运行结果"><a href="#LeetCode-运行结果" class="headerlink" title="LeetCode 运行结果"></a>LeetCode 运行结果</h3><ul>
 <li>执行用时 :8 ms, 在所有 C++ 提交中击败88.36的用户。</li>
 <li>内存消耗 :10 MB, 在所有 C++ 提交中击败了78.16%的用户。</li>
 </ul>
-<h3 id="代码">代码</h3>
-<pre class=" language-language-cpp"><code class="language-language-cpp">class Solution
-&#123;
-public:
-        bool isScramble(string s1, string s2)
-        &#123;
-                if (s1.size() <= 1)
-                &#123;
-                        if (s1 == s2)
-                        &#123;
-                                return true;
-                        &#125;
-                &#125;
-                else
-                &#123;
-                        return _isScramble(s1, s2);
-                &#125;
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">bool</span> <span class="token function">isScramble</span><span class="token punctuation">(</span>string s1<span class="token punctuation">,</span> string s2<span class="token punctuation">)</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        <span class="token keyword">return</span> <span class="token function">_isScramble</span><span class="token punctuation">(</span>s1<span class="token punctuation">,</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-                return false;
-        &#125;
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-        bool _isScramble(string s1, string s2)
-        &#123;                       
-                int m = s1.length();
-                if(s1 == s2)
-                &#123;
-                        return true;
-                &#125;
+        <span class="token keyword">bool</span> <span class="token function">_isScramble</span><span class="token punctuation">(</span>string s1<span class="token punctuation">,</span> string s2<span class="token punctuation">)</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>                       
+                <span class="token keyword">int</span> m <span class="token operator">=</span> s1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span>
+                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-                //统计s1和s2的字符个数，判断相应的字符个数是否相等。（必要条件）
-                int char_num[26] = &#123;0&#125;;
-                for(int i=0; i<m;i++)
-                &#123;
-                        char_num[s1[i] - 'a']++;
-                        char_num[s2[i] - 'a']--;
-                &#125;
+                <span class="token comment" spellcheck="true">//统计s1和s2的字符个数，判断相应的字符个数是否相等。（必要条件）</span>
+                <span class="token keyword">int</span> char_num<span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token number">0</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>m<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        char_num<span class="token punctuation">[</span>s1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+                        char_num<span class="token punctuation">[</span>s2<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-                for(int i=0; i<26; i++)
-                &#123;
-                        if(char_num[i] != 0)
-                        &#123;
-                                return false;
-                        &#125;
-                &#125;
+                <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">26</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>char_num<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-                for (int i = 0; i < m-1; i++)
-                &#123;
-                        //蛮力切割
-                        if ((_isScramble(s1.substr(0, i+1), s2.substr(0, i+1)) &&
-                        _isScramble(s1.substr(i + 1, m - (i + 1)), s2.substr(i + 1, m - (i + 1)))) == 1)
-                        &#123;
-                                return true;
-                        &#125;
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token number">-1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        <span class="token comment" spellcheck="true">//蛮力切割</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">_isScramble</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s2<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                        <span class="token function">_isScramble</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> m <span class="token operator">-</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s2<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> m <span class="token operator">-</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-                        //切割并且交换
-                        if ((_isScramble(s1.substr(0, i+1), s2.substr(m-(i+1), i+1)) &&
-                        _isScramble(s1.substr(i + 1, m - (i + 1)), s2.substr(0, m - (i + 1)))) == 1)
-                        &#123;
-                                return true;
-                        &#125;
-                &#125;
-                return false;
-        &#125;
-&#125;;
-
-</code></pre>
+                        <span class="token comment" spellcheck="true">//切割并且交换</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">_isScramble</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s2<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>m<span class="token operator">-</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                        <span class="token function">_isScramble</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> m <span class="token operator">-</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s2<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> m <span class="token operator">-</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -717,12 +700,12 @@ public:
                                     <span class="chip bg-color">Code</span>
                                 </a>
                             
-                                <a href="/tags/C/">
-                                    <span class="chip bg-color">C++</span>
-                                </a>
-                            
                                 <a href="/tags/Algorithm/">
                                     <span class="chip bg-color">Algorithm</span>
+                                </a>
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
                                 </a>
                             
                         </div>
@@ -1043,15 +1026,12 @@ public:
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目：最长有效括号
-给定一个只包含 ‘(’ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。
-示例 1:
+                            题目：最长有效括号给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。
+示例 1:
 输入: &quot;(()&quot;
 输出: 2
-解释: 最长有效括号子串为 &quot;()&quot;
-
-示例 2:
-
+解释: 最长有效括号子串为 &quot;()&quot;示例 2:
+输入:
                         
                     </div>
                     <div class="publish-info">
@@ -1077,12 +1057,12 @@ public:
                         <span class="chip bg-color">Code</span>
                     </a>
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
                     <a href="/tags/Algorithm/">
                         <span class="chip bg-color">Algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
                     </a>
                     
                 </div>
@@ -1108,15 +1088,14 @@ public:
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            系统调用 fork
-在linux系统中创建进程有两种方式
+                            系统调用 fork在linux系统中创建进程有两种方式
 
 一是由操作系统创建。
 二是由父进程创建进程。系统调用函数fork()是创建一个新进程的唯一方式。
 
 fork()函数通过系统调用创建一个与原来进程几乎完全相同的进程。
 
-系统先给新
+系统先给新的
                         
                     </div>
                     <div class="publish-info">
@@ -1281,7 +1260,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1537,9 +1516,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

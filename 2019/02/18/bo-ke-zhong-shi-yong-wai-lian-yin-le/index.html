@@ -468,16 +468,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Blog/">
-                                <span class="chip bg-color">Blog</span>
-                            </a>
-                        
                             <a href="/tags/Music/">
                                 <span class="chip bg-color">Music</span>
                             </a>
                         
                             <a href="/tags/Hexo/">
                                 <span class="chip bg-color">Hexo</span>
+                            </a>
+                        
+                            <a href="/tags/Blog/">
+                                <span class="chip bg-color">Blog</span>
                             </a>
                         
                     </div>
@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    464
+                    526
                 </div>
                 
 
@@ -528,63 +528,63 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>在博客中加入音乐, 可以使读者在阅读时纵享丝滑(德芙是不是应该给我广告费&lt;<sup>_</sup>&gt;)。</p>
+<p>在博客中加入音乐, 可以使读者在阅读时纵享丝滑(德芙是不是应该给我广告费&lt;^_^&gt;)。</p>
 </blockquote>
 <span id="more"></span>
+
 <p>一般在博客中嵌入的音乐有两种方式:</p>
 <ul>
 <li>使用本地音乐 :就是将自己本地的音乐上传到服务器上, 加载到不可中.</li>
 <li>使用其他音乐平台的音乐: 通过链接访问其他服务器的音乐资源, 将资源加载到你的博客.</li>
 </ul>
-<h3 id="网易云音乐">网易云音乐</h3>
-<blockquote>
+<h3 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h3><blockquote>
 <p>自从入坑网易云之后, 一直再用网易云. 网易云网页版自身提供了生成外链的接口.</p>
 </blockquote>
 <div align=center>
 <img src="/img/blog/blog-music1.png" width=500>
 </div>
+
 <p>网易云外链:</p>
 <blockquote>
-<p>只需要修改src=&quot;&quot;网址中的id为对应音乐的id即可.</p>
+<p>只需要修改src=””网址中的id为对应音乐的id即可.</p>
 </blockquote>
-<pre class=" language-language-html"><code class="language-language-html"><div align=center>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1312971394&auto=1&height=66"></iframe>
-</div>
-</code></pre>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span>center</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">frameborder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>no<span class="token punctuation">"</span></span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">marginwidth</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">marginheight</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span>330</span> <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation">=</span>86</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//music.163.com/outchain/player?type<span class="token punctuation">=</span>2&amp;id<span class="token punctuation">=</span>1312971394&amp;auto<span class="token punctuation">=</span>1&amp;height<span class="token punctuation">=</span>66<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>效果如下:</p>
 <div align=center>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=414118616&auto=1&height=66"></iframe>
 </div>
+
 <p>再来一个:</p>
 <div align=center>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=526464293&auto=1&height=66"></iframe>
 </div>
+
 <p>咦,你会发现上面的音乐不能播放.原因如下:</p>
-<p><strong>由于我国版权意识越来越强(&gt;_&lt;), 有些音乐需要付费才能下载, 同样需要付费下载的音乐不能通过外链播放.所以使用网易云外链只能链接免费歌曲(<s>也就是大多数音乐是不能外链的</s>).</strong></p>
+<p><strong>由于我国版权意识越来越强(&gt;_&lt;), 有些音乐需要付费才能下载, 同样需要付费下载的音乐不能通过外链播放.所以使用网易云外链只能链接免费歌曲(<del>也就是大多数音乐是不能外链的</del>).</strong></p>
 <blockquote>
 <p>其他音乐平台的音乐也可以外链,比如QQ音乐.具体方法类似,只是链接的html格式不同,这里就不多说了.</p>
 </blockquote>
 <p>对于付费歌曲还是有解决办法的, 就是上面提到的第一种方法–本地音乐.</p>
-<h3 id="解决办法">解决办法</h3>
-<p>提供一个链接: <a target="_blank" rel="noopener" href="https://music.liuzhijin.cn/">https://music.liuzhijin.cn/</a></p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>提供一个链接: <a target="_blank" rel="noopener" href="https://music.liuzhijin.cn/">https://music.liuzhijin.cn/</a></p>
 <div align=center>
 <img src="/img/blog/blog-music2.png" width=700>
 </div>
+
 <p>在该网站中, 搜索你需要的音乐, 复制右边的链接.将下面代码中src的内容改为你复制的链接, 就搞定了.</p>
-<pre class=" language-language-html"><code class="language-language-html"><div align=center>
-<audio controls>
-	<source src="http://m10.music.126.net/20190218180725/937019887458e8d14806f9b1623ec119/ymusic/6428/0c3d/4a14/cef6263c9a09bfc03fafbb15f6a99533.mp3" >
-</audio>
-</div>
-</code></pre>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span>center</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>audio</span> <span class="token attr-name">controls</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://m10.music.126.net/20190218180725/937019887458e8d14806f9b1623ec119/ymusic/6428/0c3d/4a14/cef6263c9a09bfc03fafbb15f6a99533.mp3<span class="token punctuation">"</span></span> <span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>audio</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>效果如下:</p>
 <blockquote>
-<p>和之前的网易云外链比起来, 界面确实&quot;空空如也&quot;…
-但也知足吧.如果你想美化界面, 也是可以的.</p>
+<p>和之前的网易云外链比起来, 界面确实”空空如也”…<br>但也知足吧.如果你想美化界面, 也是可以的.</p>
 </blockquote>
 <div align=center>
 <audio controls>
-	<source src="/music/空空如也.mp3" >
+    <source src="/music/空空如也.mp3" >
 </audio>
 <p>空空如也-任然</p>
 </div>
@@ -651,16 +651,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Blog/">
-                                    <span class="chip bg-color">Blog</span>
-                                </a>
-                            
                                 <a href="/tags/Music/">
                                     <span class="chip bg-color">Music</span>
                                 </a>
                             
                                 <a href="/tags/Hexo/">
                                     <span class="chip bg-color">Hexo</span>
+                                </a>
+                            
+                                <a href="/tags/Blog/">
+                                    <span class="chip bg-color">Blog</span>
                                 </a>
                             
                         </div>
@@ -983,12 +983,11 @@
                         
                             声明: 本文有一部分本人自己的观点和理解, 不一定完全正确, 仅供参考. 如果发现错误或者有疑问的地方, 请指出, 谢谢!
 
-方向导数
 
+方向导数
 导数和偏导数的概念比较简单而且很多人接触过，这里不进行赘诉。
 
-我们直接看方向导数。
-对于多变量函数$
+我们直接看方向导数。对于多变量函数$F
                         
                     </div>
                     <div class="publish-info">
@@ -1010,12 +1009,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/AI/">
-                        <span class="chip bg-color">AI</span>
-                    </a>
-                    
                     <a href="/tags/Math/">
                         <span class="chip bg-color">Math</span>
+                    </a>
+                    
+                    <a href="/tags/AI/">
+                        <span class="chip bg-color">AI</span>
                     </a>
                     
                 </div>
@@ -1042,8 +1041,7 @@
                     <div class="summary block-with-text">
                         
                             
-最近学习卡尔曼滤波, 发现了一篇很好的博客. 也就是从这篇博客开始, 才逐渐开始理解卡尔曼滤波.
-这篇博客没有像其他很多教程那样用一大堆公式让初学者望而却步. 但是看完之后, 你会发现你不仅理解了卡尔曼滤波的过程, 也对那些看着头痛欲裂的
+最近学习卡尔曼滤波, 发现了一篇很好的博客. 也就是从这篇博客开始, 才逐渐开始理解卡尔曼滤波.这篇博客没有像其他很多教程那样用一大堆公式让初学者望而却步. 但是看完之后, 你会发现你不仅理解了卡尔曼滤波的过程, 也对那些看着头痛欲裂的数
                         
                     </div>
                     <div class="publish-info">
@@ -1065,12 +1063,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Math/">
-                        <span class="chip bg-color">Math</span>
-                    </a>
-                    
                     <a href="/tags/Algorithm/">
                         <span class="chip bg-color">Algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/Math/">
+                        <span class="chip bg-color">Math</span>
                     </a>
                     
                     <a href="/tags/Siginal/">
@@ -1212,7 +1210,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1468,9 +1466,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

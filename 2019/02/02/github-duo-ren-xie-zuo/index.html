@@ -507,7 +507,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    528
+                    524
                 </div>
                 
 
@@ -519,31 +519,18 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>Github 团队多人协作</h1>
-<h3 id="步骤">步骤</h3>
-<h4 id="1-复制仓库">1. 复制仓库</h4>
-<p><strong>注意：复制的仓库默认为mater分支</strong></p>
-<pre><code>$ git clone https://github.com/repository.git # 仓库的URL
-</code></pre>
-<span id="more"></span>
-<h4 id="2-切换分支到develop">2. 切换分支到develop</h4>
-<p>master分支是git的默认分支, 一般master分支用于发布稳定版本, 不是开发的主要的分支.
-一般我们会新建一个develop分支用于开发.之后每次开发都提交到develop分支.只有要发布一个稳定的版本时才把develop分支合并到master分支.</p>
+                <h1 id="Github-团队多人协作"><a href="#Github-团队多人协作" class="headerlink" title="Github 团队多人协作"></a>Github 团队多人协作</h1><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="1-复制仓库"><a href="#1-复制仓库" class="headerlink" title="1. 复制仓库"></a>1. 复制仓库</h4><p><strong>注意：复制的仓库默认为mater分支</strong></p>
+<pre><code>$ git clone https://github.com/repository.git # 仓库的URL</code></pre><span id="more"></span>
+
+<h4 id="2-切换分支到develop"><a href="#2-切换分支到develop" class="headerlink" title="2. 切换分支到develop"></a>2. 切换分支到develop</h4><p>master分支是git的默认分支, 一般master分支用于发布稳定版本, 不是开发的主要的分支.<br>一般我们会新建一个develop分支用于开发.之后每次开发都提交到develop分支.只有要发布一个稳定的版本时才把develop分支合并到master分支.</p>
 <pre><code># 新建分支
 $ git checkout -b develop
 
 # 如果已经创建了develop分支, 只需要切换到develop分支
-$ git checkout develop
-</code></pre>
-<h4 id="3-新建开发分支">3. 新建开发分支</h4>
-<p>由于要多人开发, 个人尽量不要在develop分支开发. 而是在本地新建一个本地分支,之后程序都要在新建的开发分支进行修改，开发完毕后与develop分支合并.</p>
+$ git checkout develop</code></pre><h4 id="3-新建开发分支"><a href="#3-新建开发分支" class="headerlink" title="3. 新建开发分支"></a>3. 新建开发分支</h4><p>由于要多人开发, 个人尽量不要在develop分支开发. 而是在本地新建一个本地分支,之后程序都要在新建的开发分支进行修改，开发完毕后与develop分支合并.</p>
 <p><strong>开发分支只需要留在本地仓库即可，不要提交到github上。</strong></p>
 <pre><code># 例如要添加adc模块， 可以新建分支adc_branch
-$ git checkout -b adc_branch
-</code></pre>
-<h4 id="4-添加自己负责的模块">4. 添加自己负责的模块</h4>
-<h4 id="5-合并分支">5. 合并分支</h4>
-<p>添加完自己负责的模块之后， 先提交到自己新建的本地分支，然后切换到develop分支。<strong>在和develop分支合并前需要更新develop分支</strong>, 更新之后再将本地分支合并到develop。</p>
+$ git checkout -b adc_branch</code></pre><h4 id="4-添加自己负责的模块"><a href="#4-添加自己负责的模块" class="headerlink" title="4. 添加自己负责的模块"></a>4. 添加自己负责的模块</h4><h4 id="5-合并分支"><a href="#5-合并分支" class="headerlink" title="5. 合并分支"></a>5. 合并分支</h4><p>添加完自己负责的模块之后， 先提交到自己新建的本地分支，然后切换到develop分支。<strong>在和develop分支合并前需要更新develop分支</strong>, 更新之后再将本地分支合并到develop。</p>
 <p><strong>注意：如果合并发生冲突，不要强制提交，应该放弃本地的修改。</strong></p>
 <pre><code># 提交到本地
 $ git add .
@@ -560,19 +547,11 @@ $ git pull origin develop
 
 # 在develop分支合并创建的开发分支
 $ git merge adc_branch 
-
-</code></pre>
-<h4 id="6-提交develop分支">6. 提交develop分支</h4>
-<pre><code># 提交develop分支到GitHub
-$ git push origin develop
-</code></pre>
-<h4 id="7-删除不需要的本地分支">7. 删除不需要的本地分支</h4>
-<p>如果本地的分支不再需要， 可以将其删除。</p>
+</code></pre><h4 id="6-提交develop分支"><a href="#6-提交develop分支" class="headerlink" title="6. 提交develop分支"></a>6. 提交develop分支</h4><pre><code># 提交develop分支到GitHub
+$ git push origin develop</code></pre><h4 id="7-删除不需要的本地分支"><a href="#7-删除不需要的本地分支" class="headerlink" title="7. 删除不需要的本地分支"></a>7. 删除不需要的本地分支</h4><p>如果本地的分支不再需要， 可以将其删除。</p>
 <pre><code># 删除adc_branch分支
 $ git branch -d adc_branch
-
 </code></pre>
-
             </div>
             <hr/>
 
@@ -961,18 +940,20 @@ $ git branch -d adc_branch
 
 
 
+
+
  
 
 
 
-TensorBoard 数据形式
 
+TensorBoard 数据形式
      数据类型 
      1: 标量Scalars  
      2: 图片Images  
      3: 音频Audio  
      4: 计算图Graph  
-     5
+    
                         
                     </div>
                     <div class="publish-info">
@@ -1029,12 +1010,11 @@ TensorBoard 数据形式
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            无线网卡
-Ubuntu有时会不支持电脑的无线网卡，这时就需要自己安装了。
+                            无线网卡Ubuntu有时会不支持电脑的无线网卡，这时就需要自己安装了。
 
-解决方法
-可以在官网找安装文件或者github上找源码编译安装。
-Realtek无线网卡的安装包可以在github下载 https://github.com/rtl
+
+解决方法可以在官网找安装文件或者github上找源码编译安装。
+Realtek无线网卡的安装包可以在github下载 https://github.com/rtlw
                         
                     </div>
                     <div class="publish-info">
@@ -1056,12 +1036,12 @@ Realtek无线网卡的安装包可以在github下载 https://github.com/rtl
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Ubuntu/">
-                        <span class="chip bg-color">Ubuntu</span>
-                    </a>
-                    
                     <a href="/tags/OS/">
                         <span class="chip bg-color">OS</span>
+                    </a>
+                    
+                    <a href="/tags/Ubuntu/">
+                        <span class="chip bg-color">Ubuntu</span>
                     </a>
                     
                 </div>
@@ -1199,7 +1179,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-<!--  -->
+
 
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script> -->
 
@@ -1455,9 +1435,24 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>
