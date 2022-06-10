@@ -511,7 +511,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    206
+                    210
                 </div>
                 
 
@@ -527,31 +527,25 @@
 <p>Ubuntu默认的登录界面有点不敢恭维, 实在不符合现代人的审美。为此找了半天找哪里可以修改, 但是最终还是要求助Google。</p>
 </blockquote>
 <span id="more"></span>
-<h3 id="1-将准备设置为登录界面壁纸的图片移动到-usr-share-background">1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background</h3>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ mv your_picture.jpg /usr/share/background
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-Ubuntu18-04登录背景相关的配置文件是-etc-alternatives-gdm3-css">2. Ubuntu18.04登录背景相关的配置文件是 /etc/alternatives/gdm3.css</h3>
-<blockquote>
+
+<h3 id="1-将准备设置为登录界面壁纸的图片移动到-usr-share-background"><a href="#1-将准备设置为登录界面壁纸的图片移动到-usr-share-background" class="headerlink" title="1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background"></a>1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background</h3><pre class="line-numbers language-shell"><code class="language-shell">$ mv your_picture.jpg /usr/share/background<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-Ubuntu18-04登录背景相关的配置文件是-etc-alternatives-gdm3-css"><a href="#2-Ubuntu18-04登录背景相关的配置文件是-etc-alternatives-gdm3-css" class="headerlink" title="2. Ubuntu18.04登录背景相关的配置文件是 /etc/alternatives/gdm3.css"></a>2. Ubuntu18.04登录背景相关的配置文件是 /etc/alternatives/gdm3.css</h3><blockquote>
 <p>因为需要修改这个文件, 以防万一先将该文件复制一份</p>
 </blockquote>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ cp /etc/alternatives/gdm3.css /etc/alternatives/gdm3.css.temp
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="3-修改-etc-alternatives-gdm3-css">3. 修改/etc/alternatives/gdm3.css</h3>
-<pre class="line-numbers language-language-css"><code class="language-language-css">#找到默认的这个部分
-#lockDialogGroup &#123;
-  background: #2c001e url(resource:///org/gnome/shell/theme/noise-texture.png);
-  background-repeat: repeat; 
-&#125;
+<pre class="line-numbers language-shell"><code class="language-shell">$ cp /etc/alternatives/gdm3.css /etc/alternatives/gdm3.css.temp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="3-修改-etc-alternatives-gdm3-css"><a href="#3-修改-etc-alternatives-gdm3-css" class="headerlink" title="3. 修改/etc/alternatives/gdm3.css"></a>3. 修改/etc/alternatives/gdm3.css</h3><pre class="line-numbers language-css"><code class="language-css">#找到默认的这个部分
+#lockDialogGroup &amp;<span class="token hexcode">#123</span><span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#2c001e</span> <span class="token url">url(resource:///org/gnome/shell/theme/noise-texture.png)</span><span class="token punctuation">;</span>
+  <span class="token property">background-repeat</span><span class="token punctuation">:</span> repeat<span class="token punctuation">;</span> 
+&amp;<span class="token hexcode">#125</span><span class="token punctuation">;</span>
 #改为
-#lockDialogGroup &#123;
-  background: #2c001e url(file:///usr/share/backgrounds/your_picture.jpg);         
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="4-保存文件-重启之后就可以看到新的登录界面了">4. 保存文件, 重启之后就可以看到新的登录界面了.</h3>
-
+#lockDialogGroup &amp;<span class="token hexcode">#123</span><span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#2c001e</span> <span class="token url">url(file:///usr/share/backgrounds/your_picture.jpg)</span><span class="token punctuation">;</span>         
+  <span class="token property">background-repeat</span><span class="token punctuation">:</span> no-repeat<span class="token punctuation">;</span>
+  <span class="token property">background-size</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span>
+  <span class="token property">background-position</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span> 
+&amp;<span class="token hexcode">#125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-保存文件-重启之后就可以看到新的登录界面了"><a href="#4-保存文件-重启之后就可以看到新的登录界面了" class="headerlink" title="4. 保存文件, 重启之后就可以看到新的登录界面了."></a>4. 保存文件, 重启之后就可以看到新的登录界面了.</h3>
             </div>
             <hr/>
 
@@ -940,9 +934,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OSTU算法
-简介
-
+                            OSTU算法简介
 OSTU算法(最大类间方差法、大津算法): 用来自动对基于聚类的图像进行二值化,或者说将一个灰度图像退化为二值图像。
 
 大津算法wiki
@@ -950,9 +942,10 @@ OSTU算法(最大类间方差法、大津算法): 用来自动对基于聚类的
 
 
 
-算法原理:
 
-通过一个阈值T将图像分为背景和前景, 求出背景的像素均值,
+
+算法原理:
+通过一个阈值T将图像分为背景和前景, 求出背景的像素均值, 
                         
                     </div>
                     <div class="publish-info">
@@ -1013,18 +1006,20 @@ OSTU算法(最大类间方差法、大津算法): 用来自动对基于聚类的
 
 
 
+
+
  
 
 
 
-TensorBoard 数据形式
 
+TensorBoard 数据形式
      数据类型 
      1: 标量Scalars  
      2: 图片Images  
      3: 音频Audio  
      4: 计算图Graph  
-     5
+    
                         
                     </div>
                     <div class="publish-info">

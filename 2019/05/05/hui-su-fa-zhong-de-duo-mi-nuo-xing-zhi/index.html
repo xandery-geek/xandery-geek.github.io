@@ -524,43 +524,35 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>最近在复习算法, <s>没办法,要考试啦</s>. 在复习回溯法的时候终于理解了之前不是很清楚的多米诺性质.</p>
+<p>最近在复习算法, <del>没办法,要考试啦</del>. 在复习回溯法的时候终于理解了之前不是很清楚的多米诺性质.</p>
 </blockquote>
 <span id="more"></span>
+
 <div align=center>
 <audio controls>
-	<source src="/music/情深深雨蒙蒙-张杰.mp3" >
+    <source src="/music/情深深雨蒙蒙-张杰.mp3" >
 </audio>
 <p>情深深雨蒙蒙-张杰</p>
 </div>
-<h3 id="1-回溯法">1 回溯法</h3>
-<p>由于这篇博客主要讲解多米诺性质, 默认大家已经了解回溯法啦,这里对回溯法的具体内容就不进行讲解了,<s>其实是太懒不想写</s>.</p>
+
+<h3 id="1-回溯法"><a href="#1-回溯法" class="headerlink" title="1 回溯法"></a>1 回溯法</h3><p>由于这篇博客主要讲解多米诺性质, 默认大家已经了解回溯法啦,这里对回溯法的具体内容就不进行讲解了,<del>其实是太懒不想写</del>.</p>
 <p>回溯法是一个很实用的算法,适合求解搜索问题和优化问题.你也可以将它看做是蛮力法(枚举法)的改进.</p>
 <p>但不是什么情况下都可以使用回溯法, 那么就要问了,回溯法的适用条件是什么? 这就是今天的主角: <strong>多米诺性质</strong></p>
-<h3 id="2-多米诺性质">2 多米诺性质</h3>
-<p>先不看多米诺性质是什么,在了解了回溯法的基本思想后,我们可以总结一下什么情况下可以使用回溯法.</p>
-<h4 id="2-1-回溯法的基本思想">2.1 回溯法的基本思想</h4>
-<blockquote>
-<p>将待求解问题看做一个解空间树, 问题的解可以表示为$X= (x_1, x_2, …, x_n )$.
-然后利用深度优先搜索逐步确定每一个解$x_i$, 当搜索到树的叶子结点时, 就得到问题的一个解$X_i$.
-当然这个解不一定是最优解,在将整个解空间树搜索完之后,通比较得到的每个$X_i$,便可以得到最优解.</p>
+<h3 id="2-多米诺性质"><a href="#2-多米诺性质" class="headerlink" title="2 多米诺性质"></a>2 多米诺性质</h3><p>先不看多米诺性质是什么,在了解了回溯法的基本思想后,我们可以总结一下什么情况下可以使用回溯法.</p>
+<h4 id="2-1-回溯法的基本思想"><a href="#2-1-回溯法的基本思想" class="headerlink" title="2.1 回溯法的基本思想"></a>2.1 回溯法的基本思想</h4><blockquote>
+<p>将待求解问题看做一个解空间树, 问题的解可以表示为$X= (x_1, x_2, …, x_n )$.<br>然后利用深度优先搜索逐步确定每一个解$x_i$, 当搜索到树的叶子结点时, 就得到问题的一个解$X_i$.<br>当然这个解不一定是最优解,在将整个解空间树搜索完之后,通比较得到的每个$X_i$,便可以得到最优解.</p>
 </blockquote>
 <p>其实上面的思想是枚举搜索的思想,并不是回溯法.但是加上下面这一部分就成了回溯法了. <strong>下面这一部分是回溯法的核心</strong></p>
 <blockquote>
-<p>在搜索的过程中, 问题的解$X$需要满足约束条件$P(X)$.
-在搜索到一个结点的时候发现当前结点不满足约束条件,则放弃向下搜索,即不再搜索该结点的子结点, 而是回溯到上一个结点继续搜索.</p>
+<p> 在搜索的过程中, 问题的解$X$需要满足约束条件$P(X)$.<br>在搜索到一个结点的时候发现当前结点不满足约束条件,则放弃向下搜索,即不再搜索该结点的子结点, 而是回溯到上一个结点继续搜索.</p>
 </blockquote>
 <p>由于在搜索过程中,放弃了一些没有必要搜索的结点,整个算法的效率就提高了.</p>
 <p><strong>为什么能够放弃? that is the question.</strong></p>
 <p>如果当前结点不满足约束条件,能够推导出它的子结点也不满足约束条件,那么就可以放弃搜索它的子结点.其实这就是多米诺性质.</p>
-<h4 id="2-2-多米诺性质的定义">2.2 多米诺性质的定义</h4>
-<blockquote>
-<p>设$X = (x_1, x_2, …, x_n )$是问题的解,
-$X_i= (x_1, x_2, …, x_i), X_{i+1} = (x_1, x_2, …, x_i, x_{i+1}), X_i, X_{i+1} \subseteq X$.
-$X_{i}和X_{i+1}$ 分别是搜索到第i层和第i+1层的解.
-如果 $P(X_{i+1}) \rightarrow P(X_i)$ , 即 $P(X_{i+1})$ 蕴含 $P(X_i)$, 则称该问题满足多米诺性质.</p>
+<h4 id="2-2-多米诺性质的定义"><a href="#2-2-多米诺性质的定义" class="headerlink" title="2.2 多米诺性质的定义"></a>2.2 多米诺性质的定义</h4><blockquote>
+<p>设$X = (x_1, x_2, …, x_n )$是问题的解,<br>$X_i= (x_1, x_2, …, x_i), X_{i+1} = (x_1, x_2, …, x_i, x_{i+1}), X_i, X_{i+1} \subseteq X$.<br>$X_{i}和X_{i+1}$ 分别是搜索到第i层和第i+1层的解.<br>如果 $P(X_{i+1}) \rightarrow P(X_i)$ , 即 $P(X_{i+1})$ 蕴含 $P(X_i)$, 则称该问题满足多米诺性质.</p>
 </blockquote>
-<p>是不是很难理解?<s>数学是个好东西,表达简洁优雅,没有二义性,但是太难理解.</s></p>
+<p>是不是很难理解?<del>数学是个好东西,表达简洁优雅,没有二义性,但是太难理解.</del></p>
 <p>其实上面定义的意思是: 如果子结点满足约束条件能够推导出其父结点满足约束条件,那么就满足多米诺性质.</p>
 <p>为什么感觉和之前说的不太一样? 对比一下</p>
 <ul>
@@ -568,76 +560,36 @@ $X_{i}和X_{i+1}$ 分别是搜索到第i层和第i+1层的解.
 <li>如果子结点满足约束条件能够推导出其父结点满足约束条件.</li>
 </ul>
 <p>你会发现其实这两个命题互为逆否命题,也就是这两个命题说的是同一件事.下面给出证明.(涉及一点数理逻辑的知识,但是逻辑很简单)</p>
-<p><strong>[证明]</strong>:
-$$
-\begin{aligned}
-&amp; 如果问题满足多米诺性质, 则有P(X_{i+1}) \rightarrow P(X_i)\\
-&amp; 有逆否命题 \neg P(X_{i}) \rightarrow \neg P(X_{i+1}) 成立\\
-&amp; 在当前结点不满足约束条件时, 即\neg P(X_{i}).\\
-&amp; 可得到\neg P(X_{i+1})成立\\
-&amp; 即当前结点不满足约束条件时, 它的子结点也不满足约束条件.
-\end{aligned}
-$$</p>
+<p><strong>[证明]</strong>:<br>$$<br>\begin{aligned}<br>&amp; 如果问题满足多米诺性质, 则有P(X_{i+1}) \rightarrow P(X_i)\\\<br>&amp; 有逆否命题 \neg P(X_{i}) \rightarrow \neg P(X_{i+1}) 成立\\\<br>&amp; 在当前结点不满足约束条件时, 即\neg P(X_{i}).\\\<br>&amp; 可得到\neg P(X_{i+1})成立\\\<br>&amp; 即当前结点不满足约束条件时, 它的子结点也不满足约束条件.<br>\end{aligned}<br>$$</p>
 <p><strong>因此只要求解的问题满足多米诺性质,我们在使用回溯法时, 当发现当前结点不满足约束条件,就可以放弃对其子节点的搜索.</strong></p>
 <p><strong>[理解]</strong>:</p>
 <blockquote>
 <p>考察多米诺性质的目的是为了确认, 在对解空间搜索的过程中, 在当前结点不满足约束条件时, 能不能放弃对当前结点的子结点的搜索.如果问题满足多米诺性质,则可以;否则, 不可以, 在这种情况下回溯法可能会丢解.</p>
 </blockquote>
-<h3 id="3-Example">3 Example</h3>
-<h4 id="3-1-背包问题">3.1 背包问题</h4>
-<blockquote>
+<h3 id="3-Example"><a href="#3-Example" class="headerlink" title="3 Example"></a>3 Example</h3><h4 id="3-1-背包问题"><a href="#3-1-背包问题" class="headerlink" title="3.1 背包问题"></a>3.1 背包问题</h4><blockquote>
 <p>背包问题的描述在这里不进行赘诉.</p>
 </blockquote>
 <p>背包问题的约束条件</p>
 <ol>
 <li>$n$: 物品的数量</li>
 <li>$x_i$: 表示是否选择该物品</li>
-<li>$w_i$: 物品的重量</li>
+<li>$w_i$: 物品的重量 </li>
 <li>$C$:背包容量</li>
 </ol>
-<p>$$
-\left {
-\begin{aligned}
-&amp;\Sigma_{i=1}^{n} x_i * w_i \le C, 0 &lt; i \le n\\
-&amp;x_i \in {0,1}, 0 &lt; i \le n\\
-&amp;w_i &gt; 0,0 &lt; i \le n
-\end{aligned}
-\right.
-$$</p>
-<h5 id="背包问题的多米诺性质">背包问题的多米诺性质</h5>
-<p><strong>[证明]</strong>:</p>
-<p>$$
-\begin{aligned}
-&amp; let \quad X_{i}= \Sigma_{k=1}^{i} x_k 	\ast w_k, X_{i+1}= \Sigma_{k=1}^{i+1} x_k \ast w_k\\
-&amp; \because X_{i+1} \le C, w_k &gt; 0, x_k \in {0,1}\\
-&amp; \therefore X_{i} &lt; X_{i+1} \le C
-\end{aligned}
-$$</p>
+<p>$$<br>\left \{<br>\begin{aligned}<br>    &amp;\Sigma_{i=1}^{n} x_i * w_i \le C, 0 &lt; i \le n\\\<br>    &amp;x_i \in \{0,1\}, 0 &lt; i \le n\\\<br>    &amp;w_i &gt; 0,0 &lt; i \le n<br>\end{aligned}<br>\right.<br>$$</p>
+<h5 id="背包问题的多米诺性质"><a href="#背包问题的多米诺性质" class="headerlink" title="背包问题的多米诺性质"></a>背包问题的多米诺性质</h5><p><strong>[证明]</strong>:</p>
+<p>$$<br>\begin{aligned}<br>&amp; let \quad X_{i}= \Sigma_{k=1}^{i} x_k     \ast w_k, X_{i+1}= \Sigma_{k=1}^{i+1} x_k \ast w_k\\\<br>&amp; \because X_{i+1} \le C, w_k &gt; 0, x_k \in \{0,1\}\\\<br>&amp; \therefore X_{i} &lt; X_{i+1} \le C<br>\end{aligned}<br>$$</p>
 <p>因此背包问题满足多米诺条件,可以使用回溯法解决.</p>
-<h4 id="3-2-不等式的整数解">3.2 不等式的整数解</h4>
-<blockquote>
+<h4 id="3-2-不等式的整数解"><a href="#3-2-不等式的整数解" class="headerlink" title="3.2 不等式的整数解"></a>3.2 不等式的整数解</h4><blockquote>
 <p>求解不等式$5x_1 + 4x_2 - x_3 \le 10, 1 \le x_i \le 3, i=1,2,3$ 的整数解.</p>
 </blockquote>
-<p>这个问题不满足多米诺性质<s>否则为什么要举这个例子</s></p>
+<p>这个问题不满足多米诺性质<del>否则为什么要举这个例子</del></p>
 <p><strong>[证明]</strong>:</p>
-<p>$$
-\begin{aligned}
-&amp; 当 5x_1 + 4x_2 - x_3 \le 10 成立时 \\
-&amp; 显然 5x_1 + 4x_2 \le 10 不一定成立\\
-\end{aligned}
-$$
-因此如果只是这样的话,没办法用回溯法解决.</p>
-<p>但也是可以用回溯法解决的.</p>
+<p>$$<br>\begin{aligned}<br>&amp; 当 5x_1 + 4x_2 - x_3 \le 10 成立时 \\\<br>&amp; 显然 5x_1 + 4x_2 \le 10 不一定成立\\\<br>\end{aligned}<br>$$<br>因此如果只是这样的话,没办法用回溯法解决.</p>
+<p>但也是可以用回溯法解决的. </p>
 <p>将不等式 $5x_1 + 4x_2 - x_3 \le 10, 1 \le x_i \le 3, i=1,2,3$ 修改为 $- x_1 + 5x_2 + 4x_3 \le 10, 1 \le x_i \le 3, i=1,2,3$ , 就可以使用回溯法了.</p>
 <p><strong>[证明]</strong>:</p>
-<p>$$
-\begin{aligned}
-&amp; 当 - x_1 + 5x_2 + 4x_3 \le 10 成立时 \\
-&amp; 显然 - x_1 + 5x_2 \le - x_1 + 5x_2 + 4x_3 \le 10 成立\\
-&amp; 当 - x_1 + 5x_2 \le 10 成立时\\
-&amp; 显然 - x_1 \le - x_1 + 5x_2 \le 10成立\\
-\end{aligned}
-$$</p>
+<p>$$<br>\begin{aligned}<br>&amp; 当 - x_1 + 5x_2 + 4x_3 \le 10 成立时 \\\<br>&amp; 显然 - x_1 + 5x_2 \le - x_1 + 5x_2 + 4x_3 \le 10 成立\\\<br>&amp; 当 - x_1 + 5x_2 \le 10 成立时\\\<br>&amp; 显然 - x_1 \le - x_1 + 5x_2 \le 10成立\\\<br>\end{aligned}<br>$$</p>
 <p>因此不等式$-x_1 + 5x_2 + 4x_3 \le 10, 1 \le x_i \le 3, i=1,2,3$满足多米诺性质.</p>
 
             </div>
@@ -1034,17 +986,14 @@ $$</p>
 
 
 
-	
+
+    
 
 年少有为-李荣浩
 
-最终的效果
-先上几张效果图，图中绿色的表示障碍，灰色表示道路(我的世界既视感).
 
 
-
-
-
+最终的效果先上几张效果图，图中绿色的表示障碍，灰色表示道路(我的世界既视感).
 
 
 
@@ -1109,16 +1058,12 @@ $$</p>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            优先队列
-优先队列是一个特殊的队列，普通队列是先进先出(FIFO)的，而优先队列是根据元素的大小（优先级）决定元素的出队顺序。
+                            优先队列优先队列是一个特殊的队列，普通队列是先进先出(FIFO)的，而优先队列是根据元素的大小（优先级）决定元素的出队顺序。
 
-C++ STL的优先队列
-#include 
-#include 
 
-int main()
-&#123;
-	st
+C++ STL的优先队列#include &lt;queue>
+#include &lt;iostream>
+
                         
                     </div>
                     <div class="publish-info">

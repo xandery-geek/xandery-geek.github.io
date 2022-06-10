@@ -527,79 +527,72 @@
 <p>之前使用Ubuntu的时候使用的是Gnome桌面，换成Manjaro之后决定尝试一下KDE桌面。拥有一个炫酷的桌面，才有将这个系统用下去的动力。</p>
 </blockquote>
 <span id="more"></span>
+
 <p>依旧是先上效果，安装的Linux发行版是Manjaro，Manjaro的配置见另外一篇博客——<a href="/2021/07/30/manjaro-pei-zhi-jiao-cheng/">Manjaro配置教程</a>。</p>
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
 <iframe src="//player.bilibili.com/player.html?aid=547113722&bvid=BV1Pq4y1n7Ze&cid=380166557&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe>
 </div>
-<h2 id="安装KDE桌面">安装KDE桌面</h2>
-<p>由于安装的是xfce版本的Manjaro，因此需要先安装KDE桌面。</p>
-<h3 id="KDE-Plasma-5">KDE Plasma 5</h3>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 安装 KDE Plasma 桌面环境
+
+<h2 id="安装KDE桌面"><a href="#安装KDE桌面" class="headerlink" title="安装KDE桌面"></a>安装KDE桌面</h2><p>由于安装的是xfce版本的Manjaro，因此需要先安装KDE桌面。</p>
+<h3 id="KDE-Plasma-5"><a href="#KDE-Plasma-5" class="headerlink" title="KDE Plasma 5"></a>KDE Plasma 5</h3><pre class="line-numbers language-shell"><code class="language-shell"># 安装 KDE Plasma 桌面环境
 pacman -S plasma kio-extras
 
 # 安装 KDE 应用， kdebase包已经被废弃，只能安装kde-applications这个全家桶了
-pacman -S kde-applications
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="SDDM">SDDM</h3>
-<p>SDDM是KDE推荐的显示管理器。</p>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 安装sddm并使能sddm服务
+pacman -S kde-applications<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="SDDM"><a href="#SDDM" class="headerlink" title="SDDM"></a>SDDM</h3><p>SDDM是KDE推荐的显示管理器。</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 安装sddm并使能sddm服务
 pacman -S sddm
 systemctl enable sddm.service --force
 
 # 安装 Manjaro 的 Plasma 配置和主题
-pacman -S manjaro-kde-settings sddm-breath-theme manjaro-settings-manager-knotifier manjaro-settings-manager-kcm
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="重启">重启</h3>
-<p>如果KDE桌面运行正常，可以卸载xfce桌面了</p>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">pacman -Rsc xfce4 xfce4-goodies blueman
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="桌面美化">桌面美化</h2>
-<h3 id="KDE-Store">KDE Store</h3>
-<p><a target="_blank" rel="noopener" href="https://store.kde.org/">KDE Store</a>可以下载KDE桌面的各种主题和样式，类似于Gnome桌面的Gnome look。</p>
-<h3 id="外观">外观</h3>
-<p>Gnome桌面一般都会通过安装tweaks进行配置，而KDE提供了更加完善的桌面配置，该配置直接位于KDE的系统设置当中。</p>
+pacman -S manjaro-kde-settings sddm-breath-theme manjaro-settings-manager-knotifier manjaro-settings-manager-kcm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p>如果KDE桌面运行正常，可以卸载xfce桌面了</p>
+<pre class="line-numbers language-shell"><code class="language-shell">pacman -Rsc xfce4 xfce4-goodies blueman<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="桌面美化"><a href="#桌面美化" class="headerlink" title="桌面美化"></a>桌面美化</h2><h3 id="KDE-Store"><a href="#KDE-Store" class="headerlink" title="KDE Store"></a>KDE Store</h3><p><a target="_blank" rel="noopener" href="https://store.kde.org/">KDE Store</a>可以下载KDE桌面的各种主题和样式，类似于Gnome桌面的Gnome look。</p>
+<h3 id="外观"><a href="#外观" class="headerlink" title="外观"></a>外观</h3><p>Gnome桌面一般都会通过安装tweaks进行配置，而KDE提供了更加完善的桌面配置，该配置直接位于KDE的系统设置当中。</p>
 <p><code>系统设置</code> -&gt; <code>外观</code></p>
 <div align=center>
 <img src="/img/blog/blog-34-1.png" width=600>
 </div>
+
 <p>在<code>外观</code>可以选择不同的全局主题，通过右下角的<code>获取新全局主题</code>就可以访问并安装KDE Store中的主题，非常方便。</p>
 <p>我的主题是McMojave-light（Mac风格），McMojave共有light和dark两种，个人更喜欢亮色主题。</p>
 <div align=center>
 <img src="/img/blog/blog-34-1.png" width=600>
 </div>
-<p>在将全局主题设置为McMojave之后，<code>Plasma样式</code>、<code>窗口装饰元素</code>等都会被默认设置为McMojave主题的样式，当然也可以根据自己的喜好更换。个人比较懒而且审美能力有限，还是默认的好&lt;<sup>_</sup>&gt;。</p>
+
+<p>在将全局主题设置为McMojave之后，<code>Plasma样式</code>、<code>窗口装饰元素</code>等都会被默认设置为McMojave主题的样式，当然也可以根据自己的喜好更换。个人比较懒而且审美能力有限，还是默认的好&lt;^_^&gt;。</p>
 <p>其中<code>应用程序风格</code>并没有对应的样式，需要之后通过安装kvantum进行配置。</p>
-<h3 id="应用程序风格">应用程序风格</h3>
-<p>安装Kvantum Manager</p>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S kvantum-qt5
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="应用程序风格"><a href="#应用程序风格" class="headerlink" title="应用程序风格"></a>应用程序风格</h3><p>安装Kvantum Manager</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yay -S kvantum-qt5<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Kvantum Manager安装完成之后需要安装Kvantum主题，主题可以从KDE Store下载，我使用的仍然是<a target="_blank" rel="noopener" href="https://store.kde.org/p/1304957">McMojave</a>。下载完成后解压出文件夹，然后打开Kvantum Manager。</p>
 <p>选择解压出的文件夹，安装。</p>
 <div align=center>
 <img src="/img/blog/blog-34-3.png" width=400>
 </div>
+
 <p>选择刚安装的主题，选择使用该主题。</p>
 <div align=center>
 <img src="/img/blog/blog-34-4.png" width=400>
 </div>
+
 <p>在配置中，可以选择窗口透明度，如下图。具体数值请根据实际情况调节。</p>
 <div align=center>
 <img src="/img/blog/blog-34-5.png" width=400>
 </div>
+
 <p>保存、退出后，进入<code>设置</code>-&gt;<code>应用程序风格</code>选择kvantum就可。(kvantum和kvantum-dark好像一样，目前不知道有什么区别)。</p>
 <div align=center>
 <img src="/img/blog/blog-34-6.png" width=500>
 </div>
+
 <p>然后点击右下角的<code>配置GNOME/GTK应用程序风格</code>，配置GTK应用程序的风格。获取Mcata-light（该主题的作者和McMojave的作者是一个人）然后安装即可。</p>
 <p><strong>注</strong>：在KDE中的应用主要有两类，一类是基于Qt的（KDE应用是基于Qt开发的），另一类是基于GTK（最初是为GIMP写的，已成为一个功能强大、设计灵活的一个通用图形库，是GNU/Linux下开发图形界面的应用程序的主流开发工具之一）的。通过kvantum设置的主题是为基于Qt的应用设置的，通过<code>配置GNOME/GTK应用程序风格</code>设置的主题则是为了基于GTK的应用。</p>
-<h3 id="Dock">Dock</h3>
-<p>Dock 使用latte-dock，<a target="_blank" rel="noopener" href="https://github.com/KDE/latte-dock">latte-dock</a>是plasma桌面的一个可替代dock。</p>
+<h3 id="Dock"><a href="#Dock" class="headerlink" title="Dock"></a>Dock</h3><p>Dock 使用latte-dock，<a target="_blank" rel="noopener" href="https://github.com/KDE/latte-dock">latte-dock</a>是plasma桌面的一个可替代dock。</p>
 <p>安装latte-dock</p>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S latte-dock
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">yay -S latte-dock<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>启动latte-dock，并启用开机自启。</p>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">latte-dock
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">latte-dock<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>现在可以将默认的dock删除，然后在桌面<code>右键</code>-&gt;<code>添加面板</code>-&gt;<code>默认面板</code>，该面板应该会添加在底部；再<code>右键</code>-&gt;<code>添加面板</code>-&gt;<code>应用程序菜单栏</code>，这个面板会添加到顶部。</p>
 <p>在面板<code>右键</code>-&gt;<code>停靠栏设置</code>可以设置面板的样式，设置比较多而且也因人而异，这里就不赘述了，自己慢慢探索吧。</p>
 <p>在面板<code>右键</code>-&gt;<code>添加部件</code>可以添加小部件到面板，部件同样可以从KDE Store中获取。</p>
@@ -611,23 +604,21 @@ pacman -S manjaro-kde-settings sddm-breath-theme manjaro-settings-manager-knotif
 <li>Netspeed Widget：上传和下载网速显示</li>
 <li>Launchpad Plasma：全屏菜单，可以显示全部应用程序</li>
 </ul>
-<h3 id="壁纸">壁纸</h3>
-<blockquote>
+<h3 id="壁纸"><a href="#壁纸" class="headerlink" title="壁纸"></a>壁纸</h3><blockquote>
 <p>桌面好看与否，壁纸是关键！</p>
 </blockquote>
 <p>安装variety管理壁纸</p>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S variety
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">yay -S variety<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>推荐两个壁纸网站</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://wallhaven.cc/">wallhaven</a></li>
 <li><a target="_blank" rel="noopener" href="https://hdqwalls.com/">hdqwalls</a></li>
 </ul>
-<h3 id="桌面特效">桌面特效</h3>
-<p><code>设置</code>-&gt;<code>工作区行为</code>-&gt;<code>桌面特效</code></p>
+<h3 id="桌面特效"><a href="#桌面特效" class="headerlink" title="桌面特效"></a>桌面特效</h3><p><code>设置</code>-&gt;<code>工作区行为</code>-&gt;<code>桌面特效</code></p>
 <div align=center>
 <img src="/img/blog/blog-34-7.png" width=600>
 </div>
+
 <p>推荐特效：</p>
 <ul>
 <li>窗口惯性晃动</li>
@@ -635,23 +626,23 @@ pacman -S manjaro-kde-settings sddm-breath-theme manjaro-settings-manager-knotif
 <li>鼠标点击动效：鼠标点击显示点击效果，录屏时很有用，可以通过快捷键<code>ctrl</code>+<code>*</code>启用和禁用</li>
 <li>3D窗口切换</li>
 </ul>
-<p>我在设置中启用3D窗口切换没有效果，不知道为什么。3D窗口切换还可以通过以下方法设置
-<code>右键应用程序标题栏</code>-&gt;<code>更多动作</code>-&gt;<code>配置窗口管理器</code>-&gt;<code>任务切换器</code></p>
+<p>我在设置中启用3D窗口切换没有效果，不知道为什么。3D窗口切换还可以通过以下方法设置<br><code>右键应用程序标题栏</code>-&gt;<code>更多动作</code>-&gt;<code>配置窗口管理器</code>-&gt;<code>任务切换器</code></p>
 <div align=center>
 <img src="/img/blog/blog-34-8.png" width=500>
 </div>
-<h2 id="终端美化">终端美化</h2>
-<div align=center>
+
+<h2 id="终端美化"><a href="#终端美化" class="headerlink" title="终端美化"></a>终端美化</h2><div align=center>
 <img src="/img/blog/blog-33-2.png" width=600>
 </div>
+
 <p>终端模拟器使用的是Manjaro默认的Konsole，个人感觉终端模拟器差别不大，只要配置好zsh和tmux就挺好用了。zsh和tmux安装见<a href="/2021/07/30/manjaro-pei-zhi-jiao-cheng/#toc-heading-16">终端配置</a></p>
 <p>在美化上没有做太多，只是去掉了Konsole的菜单栏和工具栏，然后换了换配色。</p>
 <p><code>编辑配置方案</code>-&gt;<code>外观</code>-&gt;<code>获取新的...</code>中可以选择喜欢的配色。</p>
 <div align=center>
 <img src="/img/blog/blog-34-9.png" width=400>
 </div>
-<h2 id="reference">reference</h2>
-<ul>
+
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://blog.firerain.me/article/4">kde美化–kvantum篇</a></li>
 <li><a target="_blank" rel="noopener" href="https://acherstyx.github.io/2020/06/30/KDE%E6%A1%8C%E9%9D%A2%E7%BE%8E%E5%8C%96%E6%8C%87%E5%8D%97/">KDE桌面美化指南 Part1</a></li>
 </ul>
@@ -1049,7 +1040,8 @@ pacman -S manjaro-kde-settings sddm-breath-theme manjaro-settings-manager-knotif
 之前使用Ubuntu的时候使用的是Gnome桌面，换成Manjaro之后决定尝试一下KDE桌面。拥有一个炫酷的桌面，才有将这个系统用下去的动力。
 
 
-依旧是先上效果，安装的Linux发行版是Manjaro，Manjaro的配置见另外一篇博
+
+依旧是先上效果，安装的Linux发行版是Manjaro，Manjaro的配置见另外一篇
                         
                     </div>
                     <div class="publish-info">
@@ -1107,13 +1099,14 @@ pacman -S manjaro-kde-settings sddm-breath-theme manjaro-settings-manager-knotif
 因为某些不可抗力，用了将近两年的Ubuntu系统崩溃了，于是决定试试久闻大名的Manjaro。
 
 
+
 先上效果，关于KDE桌面的美化，请移步KDE桌面美化
 
 
 
-Manjaro
 
-Manjaro Linux是基于 Arch Linux 的 
+Manjaro
+Manjaro Linux是基于 Arch Linux 的
                         
                     </div>
                     <div class="publish-info">

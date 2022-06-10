@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    347
+                    1.3k
                 </div>
                 
 
@@ -527,70 +527,65 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="八皇后问题">八皇后问题</h3>
-<p>八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法。</p>
+                <h3 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h3><p>八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法。</p>
 <span id="more"></span>
+
 <div align=center>
 <img src="/img/blog/八皇后.png" width=400 height=400>
 </div>
-<h3 id="N皇后问题">N皇后问题</h3>
-<p>在这里我们解决的是N皇后问题，即在一个n*n的棋盘上，摆放n个皇后，使之不相互攻击。问有几种摆放方法（不考虑棋盘的对称性）.
-<br>
-对于8皇后问题，我们可以通过8重循环的回溯算法解决，但是对于N皇后，我们无法预知N的值，所以不能使用这种方法。但是可以使用递归实现循环：每一次递归解决一行的皇后摆放位置，使之不与前几行冲突，之后再递归调用自身确定下一行的位置。</p>
-<h4 id="代码如下（C-）：">代码如下（C++）：</h4>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">#include <iostream>
-using namespace std;
 
-int N;                    //N个皇后
-int queen_pos[100];       //每个皇后的位置，目前最大范围是100
-int num = 0;              //统计最终摆放位置方案的个数
-void queen(int k);        //递归函数
+<h3 id="N皇后问题"><a href="#N皇后问题" class="headerlink" title="N皇后问题"></a>N皇后问题</h3><p>在这里我们解决的是N皇后问题，即在一个n*n的棋盘上，摆放n个皇后，使之不相互攻击。问有几种摆放方法（不考虑棋盘的对称性）.<br><br><br>对于8皇后问题，我们可以通过8重循环的回溯算法解决，但是对于N皇后，我们无法预知N的值，所以不能使用这种方法。但是可以使用递归实现循环：每一次递归解决一行的皇后摆放位置，使之不与前几行冲突，之后再递归调用自身确定下一行的位置。</p>
+<h4 id="代码如下（C-）："><a href="#代码如下（C-）：" class="headerlink" title="代码如下（C++）："></a>代码如下（C++）：</h4><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
-int main()
-&#123;
-	cin >> N;  //输入N
-      	queen(0); //从第0行开始摆放
-	cout << num << endl;    
-	system("pause");
-	return 0;
-&#125;
+<span class="token keyword">int</span> N<span class="token punctuation">;</span>                    <span class="token comment" spellcheck="true">//N个皇后</span>
+<span class="token keyword">int</span> queen_pos<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">//每个皇后的位置，目前最大范围是100</span>
+<span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>              <span class="token comment" spellcheck="true">//统计最终摆放位置方案的个数</span>
+<span class="token keyword">void</span> <span class="token function">queen</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">//递归函数</span>
 
-/*
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> N<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//输入N</span>
+          <span class="token function">queen</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//从第0行开始摆放</span>
+    cout <span class="token operator">&lt;&lt;</span> num <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>    
+    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"pause"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/*
 @brief：递归实现每一行皇后的摆放位置
 @parameter：K：从第K行开始摆放
-*/
-void queen(int k)		
-&#123;
-	if (k==N)        //摆满N行输出                                  
-	&#123;
-		for (int i = 0; i < N; i++)
-		&#123;
-			cout << queen_pos[i] + 1<<" ";  //列数+1，因为棋盘从第一列开始
-		&#125;
-		cout << endl;
-		num++;         //统计量+1
-	&#125;
-	for (int i = 0; i < N; i++）     //枚举皇后所在的列数	
-	&#123;
-		int j = 0;
-		for (; j < k; j++ ）      //是否与前几行冲突
-		&#123;
-                        //与前几行同列 || 与前几行在同一对角线上，则冲突
-			if (queen_pos[j] == i || (abs(queen_pos[j] - i) == k - j))
-				break;              //如果冲突，跳出，否定这个位置
-		&#125;
-		if (j==k)           //如果不冲突
-		&#123;
-			queen_pos[k] = i;      //确定这一行皇后的位置
-			queen(k+1);            //递归进入下一行
-		&#125;
-	&#125;
-&#125;
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/</span>
+<span class="token keyword">void</span> <span class="token function">queen</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">)</span>        
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>k<span class="token operator">==</span>N<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true">//摆满N行输出                                  </span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            cout <span class="token operator">&lt;&lt;</span> queen_pos<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token string">" "</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//列数+1，因为棋盘从第一列开始</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        cout <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+        num<span class="token operator">++</span><span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">//统计量+1</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span>）     <span class="token comment" spellcheck="true">//枚举皇后所在的列数    </span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> j<span class="token operator">++</span> ）      <span class="token comment" spellcheck="true">//是否与前几行冲突</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                        <span class="token comment" spellcheck="true">//与前几行同列 || 与前几行在同一对角线上，则冲突</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>queen_pos<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> i <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>queen_pos<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">-</span> i<span class="token punctuation">)</span> <span class="token operator">==</span> k <span class="token operator">-</span> j<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>              <span class="token comment" spellcheck="true">//如果冲突，跳出，否定这个位置</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>j<span class="token operator">==</span>k<span class="token punctuation">)</span>           <span class="token comment" spellcheck="true">//如果不冲突</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            queen_pos<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">//确定这一行皇后的位置</span>
+            <span class="token function">queen</span><span class="token punctuation">(</span>k<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">//递归进入下一行</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
-<h3 id="以下为用程序求出的所有8皇后的解（92种）：">以下为用程序求出的所有8皇后的解（92种）：</h3>
-<pre><code>1 5 8 6 3 7 2 4
+<h3 id="以下为用程序求出的所有8皇后的解（92种）："><a href="#以下为用程序求出的所有8皇后的解（92种）：" class="headerlink" title="以下为用程序求出的所有8皇后的解（92种）："></a>以下为用程序求出的所有8皇后的解（92种）：</h3><pre><code>1 5 8 6 3 7 2 4
 1 6 8 3 7 4 2 5
 1 7 4 6 8 2 5 3
 1 7 5 8 2 4 6 3
@@ -681,9 +676,7 @@ void queen(int k)
 8 2 4 1 7 5 3 6
 8 2 5 3 1 7 4 6
 8 3 1 6 2 5 7 4
-8 4 1 3 6 2 7 5
-</code></pre>
-
+8 4 1 3 6 2 7 5</code></pre>
             </div>
             <hr/>
 
@@ -1076,12 +1069,11 @@ void queen(int k)
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            无线网卡
-Ubuntu有时会不支持电脑的无线网卡，这时就需要自己安装了。
+                            无线网卡Ubuntu有时会不支持电脑的无线网卡，这时就需要自己安装了。
 
-解决方法
-可以在官网找安装文件或者github上找源码编译安装。
-Realtek无线网卡的安装包可以在github下载 https://github.com/rtl
+
+解决方法可以在官网找安装文件或者github上找源码编译安装。
+Realtek无线网卡的安装包可以在github下载 https://github.com/rtlw
                         
                     </div>
                     <div class="publish-info">
@@ -1134,8 +1126,7 @@ Realtek无线网卡的安装包可以在github下载 https://github.com/rtl
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            八皇后问题
-八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种
+                            八皇后问题八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆
                         
                     </div>
                     <div class="publish-info">

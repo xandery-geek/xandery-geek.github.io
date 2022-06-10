@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    301
+                    1.4k
                 </div>
                 
 
@@ -527,252 +527,234 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="优先队列">优先队列</h2>
-<p>优先队列是一个特殊的队列，普通队列是先进先出(FIFO)的，而优先队列是根据元素的大小（优先级）决定元素的出队顺序。</p>
+                <h2 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h2><p>优先队列是一个特殊的队列，普通队列是先进先出(FIFO)的，而优先队列是根据元素的大小（优先级）决定元素的出队顺序。</p>
 <span id="more"></span>
-<h2 id="C-STL的优先队列">C++ STL的优先队列</h2>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">#include <queue>
-#include <iostream>
 
-int main()
-&#123;
-	std::priority_queue<int> pq;
-	pq.push(1);
-	pq.push(10);
-	pq.push(20);
-	pq.push(18);
-	pq.push(3);
-	pq.push(12);
-	
-	int size = pq.size();
+<h2 id="C-STL的优先队列"><a href="#C-STL的优先队列" class="headerlink" title="C++ STL的优先队列"></a>C++ STL的优先队列</h2><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 
-	for (int i=0; i < size; i++)
-	&#123;
-		std::cout<<pq.top()<<' ';
-		pq.pop();
-	&#125;
-	std::cout<<std::endl;
-	return 0;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>priority_queue<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> pq<span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">int</span> size <span class="token operator">=</span> pq<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        std<span class="token operator">::</span>cout<span class="token operator">&lt;&lt;</span>pq<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token string">' '</span><span class="token punctuation">;</span>
+        pq<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout<span class="token operator">&lt;&lt;</span>std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre><code># 运行结果:
-20 18 12 10 3 1
-</code></pre>
-<p>priority_queue默认是从大到小排序，是因为priority_queue使用了一个默认的比较行为，下面介绍如何自定义比较行为从而按照我们的意愿得到想要的结果。</p>
-<h2 id="自定义比较行为">自定义比较行为</h2>
-<h3 id="函数对象">函数对象</h3>
-<p>先让我们看一下优先队列在STL中的说明。</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">/**
+20 18 12 10 3 1</code></pre><p>priority_queue默认是从大到小排序，是因为priority_queue使用了一个默认的比较行为，下面介绍如何自定义比较行为从而按照我们的意愿得到想要的结果。</p>
+<h2 id="自定义比较行为"><a href="#自定义比较行为" class="headerlink" title="自定义比较行为"></a>自定义比较行为</h2><h3 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h3><p>先让我们看一下优先队列在STL中的说明。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/**
    *  @brief  A standard container automatically sorting its contents.
    *
    *  @ingroup sequences
    *
    *  @tparam _Tp  Type of element.
-   *  @tparam _Sequence  Type of underlying sequence, defaults to vector<_Tp>.
+   *  @tparam _Sequence  Type of underlying sequence, defaults to vector&lt;_Tp>.
    *  @tparam _Compare  Comparison function object type, defaults to
-   *                    less<_Sequence::value_type>.
-   */
-    template<typename _Tp, typename _Sequence = vector<_Tp>,
-	   typename _Compare  = less<typename _Sequence::value_type> >
-    class priority_queue
-    &#123;&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+   *                    less&lt;_Sequence::value_type>.
+   */</span>
+    <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token punctuation">,</span> <span class="token keyword">typename</span> _Sequence <span class="token operator">=</span> vector<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token keyword">typename</span> _Compare  <span class="token operator">=</span> less<span class="token operator">&lt;</span><span class="token keyword">typename</span> _Sequence<span class="token operator">::</span>value_type<span class="token operator">></span> <span class="token operator">></span>
+    <span class="token keyword">class</span> <span class="token class-name">priority_queue</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以看到priority_queue类模板实际有三个参数.</p>
 <ol>
 <li>_Tp: 元素类型,就是我们存放在优先队列中的元素类型。</li>
 <li>_Sequence: 元素序列, 默认是vector&lt;_Tp&gt;。</li>
 <li>_Compare: 比较函数对象, 默认是less&lt;_Sequence::value_type&gt;。</li>
 </ol>
-<p>前两个模板参数很好理解，第三个参数比较特殊，<code> _Compare</code> 是一个函数对象（也叫仿函数）。函数对象是一个行为类似于函数的对象，也是通过类来定义的。函数对象可以使得函数功能更加的泛化，STL的算法中很多都使用了函数对象，允许用户可以通过函数对象自定义函数的行为。比如：sort函数接收一个函数对象允许自定义比较行为。</p>
+<p>前两个模板参数很好理解，第三个参数比较特殊，<code>_Compare</code> 是一个函数对象（也叫仿函数）。函数对象是一个行为类似于函数的对象，也是通过类来定义的。函数对象可以使得函数功能更加的泛化，STL的算法中很多都使用了函数对象，允许用户可以通过函数对象自定义函数的行为。比如：sort函数接收一个函数对象允许自定义比较行为。</p>
 <p>priority_queue默认的函数对象是less，less的定义如下：</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">/// One of the @link comparison_functors comparison functors@endlink.
-template<typename _Tp>
-struct less : public binary_function<_Tp, _Tp, bool>
-&#123;
-	_GLIBCXX14_CONSTEXPR
-	bool
-	operator()(const _Tp& __x, const _Tp& __y) const
-	&#123; return __x < __y; &#125;
-&#125;;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/// One of the @link comparison_functors comparison functors@endlink.</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span>
+<span class="token keyword">struct</span> less <span class="token operator">:</span> <span class="token keyword">public</span> binary_function<span class="token operator">&lt;</span>_Tp<span class="token punctuation">,</span> _Tp<span class="token punctuation">,</span> <span class="token keyword">bool</span><span class="token operator">></span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    _GLIBCXX14_CONSTEXPR
+    <span class="token keyword">bool</span>
+    <span class="token keyword">operator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __x<span class="token punctuation">,</span> <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __y<span class="token punctuation">)</span> <span class="token keyword">const</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token keyword">return</span> __x <span class="token operator">&lt;</span> __y<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>less</code>就是一个函数对象类，其继承了<code>binary_function</code>。类内自定义了一个函数<code>operate()</code>，所有的函数对象都是通过<code>operate()</code>发挥作用的。在以函数对象为参数的函数内部通过调用函数对象的<code>operate()</code>方法实现函数行为的泛化。</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">void algorithm(arg1, arg2,..,,functorObj)
-&#123;
-	...
-	functorObj();
-	...
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>通过<em>functorObj()</em> 便可以调用函数对象的<code>operate()</code>方法，这种语法类似于Python
-的callable对象（定义了 __call__ 方法的对象）。我们通过重写<code>operate()</code>或者编写新的<code>operate()</code>方法就可以定制算法的行为。</p>
-<h3 id="使用STL定义的函数对象">使用STL定义的函数对象</h3>
-<p>STL标准库定义了多个用于比较的函数对象，如<code>less</code>、<code>less_equal</code>、<code>greater</code>、<code>greater_equal</code>等</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">std::priority_queue<int, std::vector<int>, greater<int>> pq;	//从小到大的优先队列
-std::priority_queue<int, std::vector<int>, less<int>> pq;	//从大到小的优先队列
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">algorithm</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span><span class="token punctuation">,</span>functorObj<span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token function">functorObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过<em>functorObj()</em> 便可以调用函数对象的<code>operate()</code>方法，这种语法类似于Python<br>的callable对象（定义了 \_\_call\_\_ 方法的对象）。我们通过重写<code>operate()</code>或者编写新的<code>operate()</code>方法就可以定制算法的行为。</p>
+<h3 id="使用STL定义的函数对象"><a href="#使用STL定义的函数对象" class="headerlink" title="使用STL定义的函数对象"></a>使用STL定义的函数对象</h3><p>STL标准库定义了多个用于比较的函数对象，如<code>less</code>、<code>less_equal</code>、<code>greater</code>、<code>greater_equal</code>等</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">std<span class="token operator">::</span>priority_queue<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">,</span> greater<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> pq<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//从小到大的优先队列</span>
+std<span class="token operator">::</span>priority_queue<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">,</span> less<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> pq<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//从大到小的优先队列</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>因为priority_queue定义的最后两个参数都是默认参数，如果需要传入第三个参数，那么第二参数也需要传入。</p>
-<h3 id="重载比较运算符">重载比较运算符</h3>
-<p>我们可以看到less等函数对象都是通过模板实现的，且在<code>operate()</code>方法使用的是比较运算符。因此可以通过重载类的比较运算符定制priority_queue的行为。</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">struct Test
-&#123;
-	int num;
-	char c;
-	
-	bool operator > (const Test& obj) const
-	&#123;
-		return this->num > obj.num;
-	&#125;
+<h3 id="重载比较运算符"><a href="#重载比较运算符" class="headerlink" title="重载比较运算符"></a>重载比较运算符</h3><p>我们可以看到less等函数对象都是通过模板实现的，且在<code>operate()</code>方法使用的是比较运算符。因此可以通过重载类的比较运算符定制priority_queue的行为。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> Test
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> c<span class="token punctuation">;</span>
 
-	bool operator < (const Test& obj) const
-	&#123;
-		return this->num < obj.num;
-	&#125;
+    <span class="token keyword">bool</span> <span class="token keyword">operator</span> <span class="token operator">></span> <span class="token punctuation">(</span><span class="token keyword">const</span> Test<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span> <span class="token keyword">const</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>num <span class="token operator">></span> obj<span class="token punctuation">.</span>num<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-&#125;Test;
+    <span class="token keyword">bool</span> <span class="token keyword">operator</span> <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token keyword">const</span> Test<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span> <span class="token keyword">const</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>num <span class="token operator">&lt;</span> obj<span class="token punctuation">.</span>num<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-int main()
-&#123;
-	priority_queue<Test, vector<Test>, less<Test>> pq1;
-	priority_queue<Test, vector<Test>, greater<Test>> pq2;
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>Test<span class="token punctuation">;</span>
 
-	return 0;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="自定义函数对象">自定义函数对象</h3>
-<p>因为priority_queue第三个参数需要的是一个函数对象，我们可以定义自己定义一个函数对象定制priority_queue的行为。</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">//函数对象QueueCmp
-struct QueueCmp
-&#123;
-	bool operator()(const vector<int> &v1, const vector<int> &v2)const
-	&#123;
-		return v1[0] > v2[0];
-	&#125;
-&#125;;
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    priority_queue<span class="token operator">&lt;</span>Test<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span>Test<span class="token operator">></span><span class="token punctuation">,</span> less<span class="token operator">&lt;</span>Test<span class="token operator">>></span> pq1<span class="token punctuation">;</span>
+    priority_queue<span class="token operator">&lt;</span>Test<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span>Test<span class="token operator">></span><span class="token punctuation">,</span> greater<span class="token operator">&lt;</span>Test<span class="token operator">>></span> pq2<span class="token punctuation">;</span>
 
-int main()
-&#123;
-	priority_queue<vector<int>, vector<vector<int>>, QueueCmp> pq;
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自定义函数对象"><a href="#自定义函数对象" class="headerlink" title="自定义函数对象"></a>自定义函数对象</h3><p>因为priority_queue第三个参数需要的是一个函数对象，我们可以定义自己定义一个函数对象定制priority_queue的行为。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//函数对象QueueCmp</span>
+<span class="token keyword">struct</span> QueueCmp
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">const</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token operator">&amp;</span>v1<span class="token punctuation">,</span> <span class="token keyword">const</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token operator">&amp;</span>v2<span class="token punctuation">)</span><span class="token keyword">const</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> v1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">></span> v2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-	return 0;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="自己实现优先队列">自己实现优先队列</h2>
-<p>优先队列实际上是一个堆, 在STL中,优先队列默认是一个大顶堆, 从排序角度看, 就是降序排序(从大到小)，因此可以通过堆的相关算法实现优先队列。</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">#include <iostream>
-#include <vector>
-#include <cmath>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    priority_queue<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">,</span> vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span><span class="token punctuation">,</span> QueueCmp<span class="token operator">></span> pq<span class="token punctuation">;</span>
 
-template<class T>
-class PriorityQueue
-&#123;
-private:
-	std::vector<T> data;
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="自己实现优先队列"><a href="#自己实现优先队列" class="headerlink" title="自己实现优先队列"></a>自己实现优先队列</h2><p>优先队列实际上是一个堆, 在STL中,优先队列默认是一个大顶堆, 从排序角度看, 就是降序排序(从大到小)，因此可以通过堆的相关算法实现优先队列。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;cmath></span></span>
 
-public:
-	PriorityQueue()
-	&#123;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token class-name">T</span><span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">PriorityQueue</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>T<span class="token operator">></span> data<span class="token punctuation">;</span>
 
-	&#125;
-	
-	bool empty() const 
-	&#123;
-		return data.size()? false:true;
-	&#125;
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">PriorityQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
 
-	int size() const 
-	&#123;
-		return data.size();
-	&#125;
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-	T top() const 
-	&#123;
-		if (!this->empty())
-		&#123;
-			return this->data[0];
-		&#125;
-		
-		return 0;
-	&#125;
-	
-	void push(T data)
-	&#123;
-		this->pushHeap(data);
-	&#125;
+    <span class="token keyword">bool</span> <span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> 
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token boolean">false</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-	void pop()
-	&#123;
-		this->popHeap();
-	&#125;
+    <span class="token keyword">int</span> <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> 
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-private: 
-	void popHeap()
-	&#123;
-		this->data.erase(this->data.begin());	//delete the top 
-		this->adjustHeap(0, this->data.size());	//adjust heap 
-	&#125;
+    T <span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> 
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-	void adjustHeap(int i, int length)
-	&#123;
-		for(int child = 2*i+1; child < length; child = 2*i+1)
-		&#123;
-			if(child + 1 < length && this->data[child+1] > this->data[child])
-			&#123;
-				child += 1;
-			&#125;
-			if(this->data[child] > this->data[i])
-			&#123;
-				this->swap(this->data[child], this->data[i]);
-				i = child;
-			&#125;
-			else 
-			&#123;
-				break; // adjust over 
-			&#125;
-		&#125;
-	&#125;
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-	void pushHeap(T data)
-	&#123;
-		this->data.push_back(data);
-		int end = this->data.size()-1;  
+    <span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span>T data<span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">pushHeap</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-		for(int i=floor(end*0.5 - 0.5); i>=0; i=floor(i*0.5 - 0.5))
-		&#123;
-			this->adjustHeap(i, end+1);
-		&#125;
-	&#125;
+    <span class="token keyword">void</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">popHeap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-	void swap(T &a, T &b)
-	&#123;
-		T temp = a;
-		a = b;
-		b = temp;
-	&#125;
-&#125;;
+<span class="token keyword">private</span><span class="token operator">:</span> 
+    <span class="token keyword">void</span> <span class="token function">popHeap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span><span class="token function">erase</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//delete the top </span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">adjustHeap</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//adjust heap </span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">void</span> <span class="token function">adjustHeap</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> child <span class="token operator">=</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> child <span class="token operator">&lt;</span> length<span class="token punctuation">;</span> child <span class="token operator">=</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>child <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> length <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span>child<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">></span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span>child<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                child <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span>child<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span>child<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                i <span class="token operator">=</span> child<span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> 
+            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// adjust over </span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">void</span> <span class="token function">pushHeap</span><span class="token punctuation">(</span>T data<span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> end <span class="token operator">=</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>  
+
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token function">floor</span><span class="token punctuation">(</span>end<span class="token operator">*</span><span class="token number">0.5</span> <span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">=</span><span class="token function">floor</span><span class="token punctuation">(</span>i<span class="token operator">*</span><span class="token number">0.5</span> <span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">adjustHeap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> end<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span>T <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> T <span class="token operator">&amp;</span>b<span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        T temp <span class="token operator">=</span> a<span class="token punctuation">;</span>
+        a <span class="token operator">=</span> b<span class="token punctuation">;</span>
+        b <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
 
-int main()
-&#123;
-	PriorityQueue<int> pq;
-	
-	pq.push(1);
-	pq.push(10);
-	pq.push(20);
-	pq.push(18);
-	pq.push(3);
-	pq.push(12);
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    PriorityQueue<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> pq<span class="token punctuation">;</span>
 
-	int size = pq.size();
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pq<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-	for (int i=0; i < size; i++)
-	&#123;
-		std::cout<<pq.top()<<' ';
-		pq.pop();
-	&#125;
-	std::cout<<std::endl;
-	return 0;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">int</span> size <span class="token operator">=</span> pq<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        std<span class="token operator">::</span>cout<span class="token operator">&lt;&lt;</span>pq<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token string">' '</span><span class="token punctuation">;</span>
+        pq<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout<span class="token operator">&lt;&lt;</span>std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -1172,12 +1154,13 @@ int main()
 
 
 
-	
+
+    
 
 情深深雨蒙蒙-张杰
 
-1 回溯法
-由于这篇博客主要讲解多米诺性质, 默认大家已经了解回溯法啦,这里对回溯法的具体内容就不进行讲解
+
+1 回溯法由于这篇博客主要讲解多米诺性质, 默认大家已经了解回溯法啦,这里对回溯法的具体内容就不
                         
                     </div>
                     <div class="publish-info">
@@ -1238,7 +1221,9 @@ int main()
 
 
 
-开学三个星期了, 虽然感觉课不多, 但是一直没有时间写博客. 今天终于在肝完一个动态规划之后还有点时
+
+
+开学三个星期了, 虽然感觉课不多, 但是一直没有时间写博客. 今天终于在肝完一个动态规划之后还有
                         
                     </div>
                     <div class="publish-info">
