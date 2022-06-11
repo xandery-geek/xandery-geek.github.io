@@ -11,5 +11,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://blog.xaner.top/sitemap.xml
-Sitemap: http://blog.xaner.top/baidusitemap.xml
+Sitemap: http://blog.xandery.top/sitemap.xml
+Sitemap: http://blog.xandery.top/baidusitemap.xml
