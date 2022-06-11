@@ -299,7 +299,7 @@
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/contact/index.html</loc>
+    <loc>http://blog.xandery.top/friends/index.html</loc>
     
     <lastmod>2022-06-10</lastmod>
     
@@ -308,7 +308,7 @@
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/friends/index.html</loc>
+    <loc>http://blog.xandery.top/contact/index.html</loc>
     
     <lastmod>2022-06-10</lastmod>
     
@@ -444,27 +444,6 @@
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/tags/Communication/</loc>
-    <lastmod>2022-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.xandery.top/tags/Protocol/</loc>
-    <lastmod>2022-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.xandery.top/tags/Circuit/</loc>
-    <lastmod>2022-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://blog.xandery.top/tags/DIP/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -480,6 +459,27 @@
   
   <url>
     <loc>http://blog.xandery.top/tags/Algorithm/</loc>
+    <lastmod>2022-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xandery.top/tags/Communication/</loc>
+    <lastmod>2022-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xandery.top/tags/Protocol/</loc>
+    <lastmod>2022-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xandery.top/tags/Circuit/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -556,13 +556,6 @@
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/tags/Shadowsocks/</loc>
-    <lastmod>2022-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://blog.xandery.top/tags/TensorFlow/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -570,7 +563,7 @@
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/tags/Signal/</loc>
+    <loc>http://blog.xandery.top/tags/Shadowsocks/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -578,6 +571,13 @@
   
   <url>
     <loc>http://blog.xandery.top/tags/Travel/</loc>
+    <lastmod>2022-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xandery.top/tags/Signal/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -649,14 +649,14 @@
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/categories/MCU/</loc>
+    <loc>http://blog.xandery.top/categories/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://blog.xandery.top/categories/%E7%AE%97%E6%B3%95/</loc>
+    <loc>http://blog.xandery.top/categories/MCU/</loc>
     <lastmod>2022-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
