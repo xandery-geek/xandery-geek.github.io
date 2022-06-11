@@ -523,46 +523,37 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="摘要">摘要</h2>
-<p>MapReduce是一个编程模型，是一个与处理和生成大数据集相关的实现。用户指定一个处理<code>键值对</code>的  <em>Map</em> 函数生成一个中间<code>键值对</code>的集合，指定一个 <em>Reduce</em> 函数来合并有相同中间<code>键</code>的所有中间<code>值</code>。许多现实中的任务都可以用这种模型表达，像这篇论文中所展示的一样。</p>
+                <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>MapReduce是一个编程模型，是一个与处理和生成大数据集相关的实现。用户指定一个处理<code>键值对</code>的  <em>Map</em> 函数生成一个中间<code>键值对</code>的集合，指定一个 <em>Reduce</em> 函数来合并有相同中间<code>键</code>的所有中间<code>值</code>。许多现实中的任务都可以用这种模型表达，像这篇论文中所展示的一样。 </p>
 <p>用这种函数风格写成的程序可以自动在大型商用机器集群上并行化执行。这个运行时系统负责分割输入数据的细节，调度程序在机器集群上执行，处理机器的错误和管理请求的内部机器通信。这样允许没有任何并行化和分布式系统经验的程序员可以轻松地利用大型分布式系统的资源。</p>
 <p>我们实现的MapReduce运行在大型商业机器集群上并且是高度可拓展的：一个典型的MapReduce计算在数以千计的机器上处理许多兆兆字节（2^40字节）的数据。程序员发现这个系统使用起来是简单的：数以百计的MapReduce程序已经被实现，每天高达一千多个MapReduce工作正在Google的集群上执行。</p>
-<h2 id="1-简介">1 简介</h2>
-<p>在过去的五年里，作者和许多在Google工作的其他人实现了数百种有专用目的的计算，用来处理大量原始数据，例如爬取的文档，网络请求日志等等，计算多种多样的派生数据，例如反向索引，网页文档图结构的各种表示方式，爬取主机的页数摘要，在给定一天的最频繁查询集合等等。大多数此类计算在概念上是简单明了的。但是输入数据通常是巨大的，为了在合理的时间内完成计算必须分布在成百上千个机器上。怎样并行化计算，分布数据和处理错误这些问题共同困扰了原先使用大量复杂代码处理这些问题的简单计算。</p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>在过去的五年里，作者和许多在Google工作的其他人实现了数百种有专用目的的计算，用来处理大量原始数据，例如爬取的文档，网络请求日志等等，计算多种多样的派生数据，例如反向索引，网页文档图结构的各种表示方式，爬取主机的页数摘要，在给定一天的最频繁查询集合等等。大多数此类计算在概念上是简单明了的。但是输入数据通常是巨大的，为了在合理的时间内完成计算必须分布在成百上千个机器上。怎样并行化计算，分布数据和处理错误这些问题共同困扰了原先使用大量复杂代码处理这些问题的简单计算。</p>
 <p>为了应对这种复杂性，我们设计了一个新的抽象概念允许我们表达试图执行的简单计算，但是我们在库中隐藏了并行化，容错，数据分布和负载平衡的复杂细节。我们的抽象概念的灵感来源于当前在 <em>Lisp</em> 和许多其他函数式语言中的 <em>Map</em> 和 <em>Reduce</em> 原函数。我们意识到大多数我们的计算涉及到对输入数据的每一个逻辑“记录”应用一个 <em>Map</em> 操作来计算一组中间<code>键值对</code>，然后对共享同一个键的所有值应用一个 <em>Reduce</em> 操作适当地合并派生的数据。我们使用具有用户指定的 <em>Map</em> 和 <em>Reduce</em> 操作的函数模型，使我们方便地并行化进行大型计算，我们使用重新计算作为容错的主要机制。</p>
 <p>这项工作的主要贡献是一个简单而又强大的接口，该接口能够自动实现大规模计算的并行化和分布，并且该接口的是实现在大型商业计算机集群上达到高性能。</p>
 <p>第2节描述了基本的编程模型并且给出了若干实例。第3节 描述了为我们基于集群计算环境定制的MapReduce接口的实现。第4节描述了我们发现有用的对编程模型的一些改进。第5节对大量任务的实现进行了性能度量。第6节探索了MapReduce在Google的应用，包括我们将其作为重写产品索引系统的基础的经历。第7节讨论了与其相关的和未来的工作。</p>
-<h2 id="2-编程模型">2 编程模型</h2>
-<p>计算会获取一个输入<code>键值对</code>集合，然后产生一个输出<code>键值对</code>集合。MapReduce库的用户通过两个函数：<em>Map</em> 和 <em>Reduce</em> 来表达计算。</p>
+<h2 id="2-编程模型"><a href="#2-编程模型" class="headerlink" title="2 编程模型"></a>2 编程模型</h2><p>计算会获取一个输入<code>键值对</code>集合，然后产生一个输出<code>键值对</code>集合。MapReduce库的用户通过两个函数：<em>Map</em> 和 <em>Reduce</em> 来表达计算。</p>
 <p>由用户编写的 <em>Map</em> 函数获取一个输入对，产生一个中间键值对集合。MapReduce库将具有相同中间键 <em>I</em> 的中间值分成一组，然后把它们传递给 <em>Reduce</em> 函数。</p>
-<p><em>Reduce</em> 函数同样由用户编写，接受一个中间键 <em>I</em> 和一个与该键对应的中间值集合。它将这些值合并起来形成一个可能更小的值的集合。通常每一次 <em>Reduce</em> 调用仅仅产生零或一个输出值。中间值通过一个迭代器被提供给用户的reduce函数。这样允许我们处理太大而不能放入内存的值列表。</p>
-<h3 id="2-1-实例">2.1 实例</h3>
-<p>考虑统计大量文档中每个单词出现次数的问题。用户需要编写类似于下面伪码的代码：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">map(String key, String value):
-	// key: document name
-	// value: document contents
-	for each word w in value:
-		EmitIntermediate(w, "1"); 
+<p> <em>Reduce</em> 函数同样由用户编写，接受一个中间键 <em>I</em> 和一个与该键对应的中间值集合。它将这些值合并起来形成一个可能更小的值的集合。通常每一次 <em>Reduce</em> 调用仅仅产生零或一个输出值。中间值通过一个迭代器被提供给用户的reduce函数。这样允许我们处理太大而不能放入内存的值列表。</p>
+<h3 id="2-1-实例"><a href="#2-1-实例" class="headerlink" title="2.1 实例"></a>2.1 实例</h3><p>考虑统计大量文档中每个单词出现次数的问题。用户需要编写类似于下面伪码的代码：</p>
+<pre class="line-numbers language-python"><code class="language-python">map<span class="token punctuation">(</span>String key<span class="token punctuation">,</span> String value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token operator">//</span> key<span class="token punctuation">:</span> document name
+    <span class="token operator">//</span> value<span class="token punctuation">:</span> document contents
+    <span class="token keyword">for</span> each word w <span class="token keyword">in</span> value<span class="token punctuation">:</span>
+        EmitIntermediate<span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
 
-reduce(String key, Iterator values):
-	// key: a word
-	// values: a list of counts
-	int result = 0;
-	for each v in values:
-		result += ParseInt(v);
-		Emit(AsString(result));
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+reduce<span class="token punctuation">(</span>String key<span class="token punctuation">,</span> Iterator values<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token operator">//</span> key<span class="token punctuation">:</span> a word
+    <span class="token operator">//</span> values<span class="token punctuation">:</span> a list of counts
+    int result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> each v <span class="token keyword">in</span> values<span class="token punctuation">:</span>
+        result <span class="token operator">+=</span> ParseInt<span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Emit<span class="token punctuation">(</span>AsString<span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><em>map</em> 函数发出（emit）每个单词加上一个相关的出现次数（在这个简单的例子中仅仅是“1”）。<em>reduce</em> 函数将每一个特定单词的所有发出的（emited）次数加在一起。</p>
 <p>另外，用户需要编写代码用输入，输出文件的文件名和额外的调整参数填充 <em>mapreduce</em> 规范对象。用户然后调用 <em>MapRedece</em> 函数，将这个规范的对象传递给它。用户代码会被MapReduce库（用C++实现的）链接到一起。附录A包含了这个例子的所有程序文本。</p>
-<h3 id="2-2-类型">2.2 类型</h3>
-<p>尽管之前的伪码是根据字符串输入输出编写的，但是概念上用户提供的map和reduce函数具有相关的类型：</p>
+<h3 id="2-2-类型"><a href="#2-2-类型" class="headerlink" title="2.2 类型"></a>2.2 类型</h3><p>尽管之前的伪码是根据字符串输入输出编写的，但是概念上用户提供的map和reduce函数具有相关的类型：</p>
 <pre><code>map (k1, v1) -&gt; list(k2, v2)
-reduce (k2, list(v2)) -&gt; list(v2)
-</code></pre>
-<p>也就是说，输入键和值从不同于输出键和值的域中提取。另外，中间键和值与输出键和值来自同一个域。</p>
+reduce (k2, list(v2)) -&gt; list(v2)</code></pre><p>也就是说，输入键和值从不同于输出键和值的域中提取。另外，中间键和值与输出键和值来自同一个域。</p>
 <p>我们的C++实现向用户定义的函数传递字符串，而从字符串转换为合适的类型留给用户定义的代码实现。</p>
-<h3 id="2-3-更多实例">2.3 更多实例</h3>
-<p>这里有一些有趣而又简单的例子，这些例子能够轻易的表达成MapReduce计算。</p>
+<h3 id="2-3-更多实例"><a href="#2-3-更多实例" class="headerlink" title="2.3 更多实例"></a>2.3 更多实例</h3><p>这里有一些有趣而又简单的例子，这些例子能够轻易的表达成MapReduce计算。</p>
 <p><strong>Distributed Grep:</strong> 如果与提供的模式匹配，map函数会发出（emit）一行文本。reduce函数是一个identity函数，它仅仅将提供的中间数据复制到输出。</p>
 <p><em>译者注：grep是Linux的一个命令，该命令会根据给定的模式查找文本中匹配的部分，如果匹配会输出所在行。</em></p>
 <p><strong>Count of URL Access Frequency:</strong> map函数处理网页请求日志，输出 <em>&lt;URL, 1&gt;</em> 。reduce函数将来自相同URL的值加在一起并且发出（emit）一个 <em>&lt;URL, total count&gt;</em> 键值对。</p>
@@ -570,8 +561,7 @@ reduce (k2, list(v2)) -&gt; list(v2)
 <p><strong>Term-Vector per Host:</strong> 术语向量（term vector）将出现在一个文档或者一组文档中最重要的单词概括为 <em>&lt;words, frequence&gt;</em> 键值对。map函数为每一个输入文档发出（emit）一个 <em>&lt;hostname, term vector&gt;</em> 键值对（主机名从文档的URL中提取）。将给定主机所有文档的术语向量传递给reduce函数。它把这些术语向量加在一起，去掉不常出现的属于，然后发出（emit）一个最终的 <em>&lt;hostnamem, term vetor&gt;</em> 键值对。</p>
 <p><strong>Inverted Index:</strong> map函数解析每一个文档，然后发出（emit）<em>&lt;word, document ID&gt;</em> 键值对序列。reduce函数接收给定单词的所有键值对，根据文档ID排序，之后发出（emit）一个 <em>&lt;word, list(document ID)&gt;</em> 键值对。所有输出键值对构成的集合形成了一个简单的反向索引。这样很容易拓展计算来跟踪每个单词的位置。</p>
 <p><strong>Distributed Sort:</strong> map函数从每个记录中提取键，然后发出（emit）一个 <em>&lt;key, record&gt;</em> 键值对。reduce函数发出（emit）没有变化的全部键值对。这个计算依赖于在4.1节描述的隔离设施和在4.2节描述的可排序属性。</p>
-<h2 id="3-实现">3 实现</h2>
-<p>MapReduce接口可能有多种不同的实现方式。正确的选择依赖于环境。例如，一种实现可能适合小型共享内存机器，另一种适合大型的NUMA多处理器，另一种适合更大的网络计算机集群。本节描述了一个针对Google广泛使用的计算环境：通过交换以太网连接在一起的大型商用计算机集群的实现。在我们的环境中：</p>
+<h2 id="3-实现"><a href="#3-实现" class="headerlink" title="3 实现"></a>3 实现</h2><p>MapReduce接口可能有多种不同的实现方式。正确的选择依赖于环境。例如，一种实现可能适合小型共享内存机器，另一种适合大型的NUMA多处理器，另一种适合更大的网络计算机集群。本节描述了一个针对Google广泛使用的计算环境：通过交换以太网连接在一起的大型商用计算机集群的实现。在我们的环境中：</p>
 <ol>
 <li>机器通常是运行Linux系统的双X86处理器，每台有2-4G内存。</li>
 <li>使用的是商用网络硬件，在机器级别上通常是100M/s或者是1G/s，但是平均考虑下来要少于一半的带宽。</li>
@@ -580,10 +570,11 @@ reduce (k2, list(v2)) -&gt; list(v2)
 <li>用户提交作业到一个调度系统。每个作业由一系列任务组成，作业被调度器映射到集群内一系列可使用的机器上。</li>
 </ol>
 <br>
-<h3 id="3-1-执行概述">3.1 执行概述</h3>
-<center>
+
+<h3 id="3-1-执行概述"><a href="#3-1-执行概述" class="headerlink" title="3.1 执行概述"></a>3.1 执行概述</h3><center>
 <img src="/img/blog/blog-28-1.png">
 </center>
+
 <p>通过自动地将输入数据分割成 <em>M</em> 份，<em>Map</em> 函数的调用被分布在多台机器上。分割后的输入数据可以被不同的机器并行处理。使用分割函数（例如： <em>hash(key) mod R</em>）将中间键分成 <em>R</em> 份, <em>Reduce</em> 函数的调用也被分布化。分割的份数（ <em>R</em> ）和分割函数由用户指定。</p>
 <p>图1展示了我们实现的MapReduce操作的全部流程。当用户程序调用MapReduce函数时，会发生以下一系列动作（图1中的数字标签对应下面列表中的编号）：</p>
 <ol>
@@ -592,144 +583,112 @@ reduce (k2, list(v2)) -&gt; list(v2)
 <li>被分配了map任务的worker从相应的输入文件中读取内容。它从输入数据中解析出键值对，将每一个键值对传递给用户定义的 <em>Map</em> 函数。<em>Map</em> 函数生成中间键值对并缓冲在内存中。</li>
 <li>缓冲的键值对被周期性地写入本地磁盘，然后被分割程序分割成 <em>R</em> 份。这些在本地磁盘上缓冲的键值对的位置被传回master，master负责将这些位置向前传递给reduce worker。</li>
 <li>当reduce worker被master告知中间键值对的位置时，它使用远程调用读取在map worker的磁盘上缓冲的数据。当reduce worker读取了全部的中间数据后，它通过中间键对读取数据排序，因此所有有相同键的数据被分成了一组。排序是必须的，因为通常会有许多不同的键映射到同一个reduce任务。如果中间数据的数量太大而不能装入内存，此时使用外部排序。</li>
-<li>reduce worker遍历已排序的中间数据，对于遇到的每个唯一的中间键，它将键和相应的中间值集合传递给用户的reduce函数。<em>Reduce</em> 函数的输出被附加到这个reduce分区的输出文件中。</li>
+<li>reduce worker遍历已排序的中间数据，对于遇到的每个唯一的中间键，它将键和相应的中间值集合传递给用户的reduce函数。<em>Reduce</em> 函数的输出被附加到这个reduce分区的输出文件中。 </li>
 <li>当所有的map任务和reduce任务完成时，master唤醒用户程序。这时候，用户程序从MapReduce调用返回到用户代码中。</li>
 </ol>
 <p>在顺利完成后，mapreduce执行结果保存在 <em>R</em> 个输出文件中(每一个reduce任务有一个输出文件，文件名由用户指定)。通常，用户不需要将这<em>R</em> 个输出文件合并成一个文件——他们通常将这些文件作为另一个MapReduce调用的输入，或者在另一个分布式应用中使用它们，这个分布式应用能够处理被分成多个文件的输入。</p>
-<h3 id="3-2-Master-数据结构">3.2 Master 数据结构</h3>
-<p>master保存多个数据结构。对于每一个map任务和reduce任务，它存储它们的状态（空闲，正在处理，已经完成）和worker机器的身份（对于非空闲任务）。（译者注：所谓的身份指的是该计算机运行的是map任务还是reduce任务）</p>
+<h3 id="3-2-Master-数据结构"><a href="#3-2-Master-数据结构" class="headerlink" title="3.2 Master 数据结构"></a>3.2 Master 数据结构</h3><p>master保存多个数据结构。对于每一个map任务和reduce任务，它存储它们的状态（空闲，正在处理，已经完成）和worker机器的身份（对于非空闲任务）。（译者注：所谓的身份指的是该计算机运行的是map任务还是reduce任务）</p>
 <p>master是一个将中间文件区的位置从map任务传输到reduce任务的管道。因此，对于每一个已经完成的map任务，master存储了由该map任务处理的 <em>R</em> 个中间文件区的位置和大小。当map任务完成时，接收位置和大小信息的更新。这些信息以增量的方式推送到正在处理reduce任务的worker。</p>
-<h3 id="3-3-容错性">3.3 容错性</h3>
-<p>因为MapReduce库的设计目的是帮助使用成百上千的机器处理大量数据，因此MapReduce库必须优雅地容忍机器故障。</p>
-<h4 id="Worker-故障">Worker 故障</h4>
-<p>master会定期的ping（译者注：向计算机发送信号等待回复测试是否连通互联网）每一个worker。如果在一定时间内没有收到worker的响应，master会将该worker标记为故障。任何由worker完成的map任务都会被重置为初始的空闲状态，然后可以被其他worker调度。同样地，任何在故障的worker上处理的map和reduce任务也会被重置为空闲状态，变得可以被调度。</p>
+<h3 id="3-3-容错性"><a href="#3-3-容错性" class="headerlink" title="3.3 容错性"></a>3.3 容错性</h3><p>因为MapReduce库的设计目的是帮助使用成百上千的机器处理大量数据，因此MapReduce库必须优雅地容忍机器故障。</p>
+<h4 id="Worker-故障"><a href="#Worker-故障" class="headerlink" title="Worker 故障"></a>Worker 故障</h4><p>master会定期的ping（译者注：向计算机发送信号等待回复测试是否连通互联网）每一个worker。如果在一定时间内没有收到worker的响应，master会将该worker标记为故障。任何由worker完成的map任务都会被重置为初始的空闲状态，然后可以被其他worker调度。同样地，任何在故障的worker上处理的map和reduce任务也会被重置为空闲状态，变得可以被调度。</p>
 <p>发生故障时已经完成的map任务会重新执行，因为它们的输出存储在故障机器的本地磁盘上，所以不能访问。已经完成的reduce任务不必重新执行，因为它们的输出存储在全局文件系统。</p>
 <p>当map任务被一个worker A首次执行，之后又被worker B执行（因为A失败了）时，所有正在执行reduce任务的worker被通知重新执行。任何还没有从worker A读取数据的reduce任务将会从worker B读取数据。</p>
 <p>MapReduce对于大规模worker故障具有弹性。例如，在MapReduce操作过程中，正在运行的集群的网络维护导致了80台机器在数分钟之内无法访问。MapReduce master简单地重新执行被这些不可访问的机器完成的工作，继续向前处理，最终完成MapReduce操作。</p>
-<h4 id="Master-故障">Master 故障</h4>
-<p>很容易使master写入上面描述的master数据结构的周期性检查点。如果master任务失败了，可以从上一次检查点状态启动一个新的备份。然而，鉴于只有一个master，它不太可能出现故障。因此，如果master故障了，我们当前的实现会终止MapReduce计算。用户可以检查状态，如果愿意可以重新尝试MapReduce操作。</p>
-<h4 id="表示故障的语义">表示故障的语义</h4>
-<p>当用户提供的map和reduce操作对于他们输入的值是确定性的函数，我们的分布式实现会产生和整个程序无错串行执行相同的结果。</p>
+<h4 id="Master-故障"><a href="#Master-故障" class="headerlink" title="Master 故障"></a>Master 故障</h4><p>很容易使master写入上面描述的master数据结构的周期性检查点。如果master任务失败了，可以从上一次检查点状态启动一个新的备份。然而，鉴于只有一个master，它不太可能出现故障。因此，如果master故障了，我们当前的实现会终止MapReduce计算。用户可以检查状态，如果愿意可以重新尝试MapReduce操作。</p>
+<h4 id="表示故障的语义"><a href="#表示故障的语义" class="headerlink" title="表示故障的语义"></a>表示故障的语义</h4><p>当用户提供的map和reduce操作对于他们输入的值是确定性的函数，我们的分布式实现会产生和整个程序无错串行执行相同的结果。</p>
 <p>我们依赖于map、reduce任务输出的原子性提交来实现这一特性。每一个正在处理的任务将它的输出写到私有临时文件。reduce任务会产生一个这样的文件，map任务会产生 $R$ 个这样的文件（每个reduce任务一个）。当一个map任务完成时，worker发送一条消息给master，在这个消息包括了这 $R$ 个临时文件的文件名。如果master接收到已经完成的map任务发来的一条完成消息，它会忽略这条消息。否则，它在master数据结构中记录这 $R$ 个文件的文件名。</p>
 <p>当一个reduce任务完成时，reducer worker自动将它的临时输出文件重命名为最终输出文件名。如果同一个reduce任务在多个机器上被执行，那么将对同一个最终输出文件执行多次重命名操作。我们依赖于由底层文件系统提供的原子性重命名操作，来保证最终文件系统状态仅包含reduce任务的一个执行结果产生的数据。</p>
 <p>我们绝大多数的map和reduce操作是确定性的，在这种情况下我们的语义与顺序执行是等价的，这使得程序员推理程序的行为非常容易。当map和reduce操作是非确定的，我们提供弱化但仍然可推理的语义。在非确定操作中会出现，一个特定reduce任务 $R_1$ 的输出等价于非确定程序一种串行执行产生的$R_1$的输出。但是另外一个不同的reduce任务$R_2$的输出可能与非确定程序另外一种不同的串行执行产生的$R_2$的输出相对应。</p>
 <p>考虑map任务$M$和reduce任务$R_1$和$R_2$。令$e(R_i)$表示已经提交的$R_i$的执行结果（准确的说只有一个执行结果）。弱化的语义产生了，因为$e(R_1)$可能读取了任务$M$的一个执行产生的输出，$e(R_2)$可能读取了任务$M$另外一个不同的执行产生的输出。</p>
-<h3 id="3-4-局部性">3.4 局部性</h3>
-<p>在我们的计算环境中，网络带宽是一个相对紧缺的资源。我们通过利用输入数据保存在组成集群的机器的本地磁盘上的优势来节约网络带宽。</p>
-<h3 id="3-5-任务粒度">3.5 任务粒度</h3>
-<h3 id="3-6-备份任务">3.6 备份任务</h3>
-<h2 id="4-改进">4 改进</h2>
-<h3 id="4-1-分割函数">4.1 分割函数</h3>
-<h3 id="4-2-有序保证">4.2 有序保证</h3>
-<h3 id="4-3-合并函数">4.3 合并函数</h3>
-<h3 id="4-4-输入输出类型">4.4 输入输出类型</h3>
-<h3 id="4-5-副作用">4.5 副作用</h3>
-<h3 id="4-6-跳过糟糕的记录">4.6 跳过糟糕的记录</h3>
-<h3 id="4-7-局部执行">4.7 局部执行</h3>
-<h3 id="4-8-状态信息">4.8 状态信息</h3>
-<h3 id="4-9-计数器">4.9 计数器</h3>
-<h2 id="5-性能">5 性能</h2>
-<h3 id="5-1-集群配置">5.1 集群配置</h3>
-<h3 id="5-2-Grep">5.2 Grep</h3>
-<h3 id="5-3-排序">5.3 排序</h3>
-<h3 id="5-4-备份任务的作用">5.4 备份任务的作用</h3>
-<h3 id="5-5-机器故障">5.5 机器故障</h3>
-<h2 id="6-实验">6 实验</h2>
-<h3 id="6-1-大规模索引">6.1 大规模索引</h3>
-<h2 id="7-相关工作">7 相关工作</h2>
-<h2 id="8-结论">8 结论</h2>
-<h2 id="致谢">致谢</h2>
-<p>致谢请查阅原论文，此处不做翻译。</p>
-<h2 id="参考文献">参考文献</h2>
-<p>参考文献请查阅原论文。</p>
-<h3 id="A-单词频率">A 单词频率</h3>
-<p>本节包含了一个程序，该程序统计了通过命令行指定的文件集合中的每一个单词的出现次数。</p>
-<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">#include "mapreduce/mapreduce.h"
+<h3 id="3-4-局部性"><a href="#3-4-局部性" class="headerlink" title="3.4 局部性"></a>3.4 局部性</h3><p>在我们的计算环境中，网络带宽是一个相对紧缺的资源。我们通过利用输入数据保存在组成集群的机器的本地磁盘上的优势来节约网络带宽。</p>
+<h3 id="3-5-任务粒度"><a href="#3-5-任务粒度" class="headerlink" title="3.5 任务粒度"></a>3.5 任务粒度</h3><h3 id="3-6-备份任务"><a href="#3-6-备份任务" class="headerlink" title="3.6 备份任务"></a>3.6 备份任务</h3><h2 id="4-改进"><a href="#4-改进" class="headerlink" title="4 改进"></a>4 改进</h2><h3 id="4-1-分割函数"><a href="#4-1-分割函数" class="headerlink" title="4.1 分割函数"></a>4.1 分割函数</h3><h3 id="4-2-有序保证"><a href="#4-2-有序保证" class="headerlink" title="4.2 有序保证"></a>4.2 有序保证</h3><h3 id="4-3-合并函数"><a href="#4-3-合并函数" class="headerlink" title="4.3 合并函数"></a>4.3 合并函数</h3><h3 id="4-4-输入输出类型"><a href="#4-4-输入输出类型" class="headerlink" title="4.4 输入输出类型"></a>4.4 输入输出类型</h3><h3 id="4-5-副作用"><a href="#4-5-副作用" class="headerlink" title="4.5 副作用"></a>4.5 副作用</h3><h3 id="4-6-跳过糟糕的记录"><a href="#4-6-跳过糟糕的记录" class="headerlink" title="4.6 跳过糟糕的记录"></a>4.6 跳过糟糕的记录</h3><h3 id="4-7-局部执行"><a href="#4-7-局部执行" class="headerlink" title="4.7 局部执行"></a>4.7 局部执行</h3><h3 id="4-8-状态信息"><a href="#4-8-状态信息" class="headerlink" title="4.8 状态信息"></a>4.8 状态信息</h3><h3 id="4-9-计数器"><a href="#4-9-计数器" class="headerlink" title="4.9 计数器"></a>4.9 计数器</h3><h2 id="5-性能"><a href="#5-性能" class="headerlink" title="5 性能"></a>5 性能</h2><h3 id="5-1-集群配置"><a href="#5-1-集群配置" class="headerlink" title="5.1 集群配置"></a>5.1 集群配置</h3><h3 id="5-2-Grep"><a href="#5-2-Grep" class="headerlink" title="5.2 Grep"></a>5.2 Grep</h3><h3 id="5-3-排序"><a href="#5-3-排序" class="headerlink" title="5.3 排序"></a>5.3 排序</h3><h3 id="5-4-备份任务的作用"><a href="#5-4-备份任务的作用" class="headerlink" title="5.4 备份任务的作用"></a>5.4 备份任务的作用</h3><h3 id="5-5-机器故障"><a href="#5-5-机器故障" class="headerlink" title="5.5 机器故障"></a>5.5 机器故障</h3><h2 id="6-实验"><a href="#6-实验" class="headerlink" title="6 实验"></a>6 实验</h2><h3 id="6-1-大规模索引"><a href="#6-1-大规模索引" class="headerlink" title="6.1 大规模索引"></a>6.1 大规模索引</h3><h2 id="7-相关工作"><a href="#7-相关工作" class="headerlink" title="7 相关工作"></a>7 相关工作</h2><h2 id="8-结论"><a href="#8-结论" class="headerlink" title="8 结论"></a>8 结论</h2><h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>致谢请查阅原论文，此处不做翻译。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>参考文献请查阅原论文。</p>
+<h3 id="A-单词频率"><a href="#A-单词频率" class="headerlink" title="A 单词频率"></a>A 单词频率</h3><p>本节包含了一个程序，该程序统计了通过命令行指定的文件集合中的每一个单词的出现次数。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"mapreduce/mapreduce.h"</span></span>
 
-// User’s map function
-class WordCounter : public Mapper &#123;
-public:
-	virtual void Map(const MapInput& input) &#123;
-	const string& text = input.value();
-	const int n = text.size();
-	for (int i = 0; i < n; ) &#123;
-		// Skip past leading whitespace
-		while ((i < n) && isspace(text[i]))
-			i++;
+<span class="token comment" spellcheck="true">// User’s map function</span>
+<span class="token keyword">class</span> <span class="token class-name">WordCounter</span> <span class="token operator">:</span> <span class="token keyword">public</span> Mapper <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">Map</span><span class="token punctuation">(</span><span class="token keyword">const</span> MapInput<span class="token operator">&amp;</span> input<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> string<span class="token operator">&amp;</span> text <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token keyword">int</span> n <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// Skip past leading whitespace</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> n<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isspace</span><span class="token punctuation">(</span>text<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            i<span class="token operator">++</span><span class="token punctuation">;</span>
 
-		// Find word end
-		int start = i;
-		while ((i < n) && !isspace(text[i]))
-			i++;
-		if (start < i)
-			Emit(text.substr(start,i-start),"1");
-		&#125;
-	&#125;
-&#125;;
+        <span class="token comment" spellcheck="true">// Find word end</span>
+        <span class="token keyword">int</span> start <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> n<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">isspace</span><span class="token punctuation">(</span>text<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;</span> i<span class="token punctuation">)</span>
+            <span class="token function">Emit</span><span class="token punctuation">(</span>text<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span>i<span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-REGISTER_MAPPER(WordCounter);
+<span class="token function">REGISTER_MAPPER</span><span class="token punctuation">(</span>WordCounter<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-// User’s reduce function
-class Adder : public Reducer &#123;
-	virtual void Reduce(ReduceInput* input) &#123;
-	// Iterate over all entries with the
-	// same key and add the values
-	int64 value = 0;
-	while (!input->done()) &#123;
-		value += StringToInt(input->value());
-		input->NextValue();
-	&#125;
-	
-	// Emit sum for input->key()
-	Emit(IntToString(value));
-	&#125;
-&#125;;
+<span class="token comment" spellcheck="true">// User’s reduce function</span>
+<span class="token keyword">class</span> <span class="token class-name">Adder</span> <span class="token operator">:</span> <span class="token keyword">public</span> Reducer <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">Reduce</span><span class="token punctuation">(</span>ReduceInput<span class="token operator">*</span> input<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Iterate over all entries with the</span>
+    <span class="token comment" spellcheck="true">// same key and add the values</span>
+    int64 value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>input<span class="token operator">-</span><span class="token operator">></span><span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        value <span class="token operator">+</span><span class="token operator">=</span> <span class="token function">StringToInt</span><span class="token punctuation">(</span>input<span class="token operator">-</span><span class="token operator">></span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        input<span class="token operator">-</span><span class="token operator">></span><span class="token function">NextValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-REGISTER_REDUCER(Adder);
+    <span class="token comment" spellcheck="true">// Emit sum for input->key()</span>
+    <span class="token function">Emit</span><span class="token punctuation">(</span><span class="token function">IntToString</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-int main(int argc, char** argv) &#123;
-	ParseCommandLineFlags(argc, argv);
-	MapReduceSpecification spec;
+<span class="token function">REGISTER_REDUCER</span><span class="token punctuation">(</span>Adder<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-	// Store list of input files into "spec"
-	for (int i = 1; i < argc; i++) &#123;
-		MapReduceInput* input = spec.add_input();
-		input->set_format("text");
-		input->set_filepattern(argv[i]);
-		input->set_mapper_class("WordCounter");
-	&#125;
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">ParseCommandLineFlags</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    MapReduceSpecification spec<span class="token punctuation">;</span>
 
-	// Specify the output files:
-	// /gfs/test/freq-00000-of-00100
-	// /gfs/test/freq-00001-of-00100
-	// ...
+    <span class="token comment" spellcheck="true">// Store list of input files into "spec"</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> argc<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        MapReduceInput<span class="token operator">*</span> input <span class="token operator">=</span> spec<span class="token punctuation">.</span><span class="token function">add_input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        input<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_format</span><span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        input<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_filepattern</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        input<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_mapper_class</span><span class="token punctuation">(</span><span class="token string">"WordCounter"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-	MapReduceOutput* out = spec.output();
-	out->set_filebase("/gfs/test/freq");
-	out->set_num_tasks(100);
-	out->set_format("text");
-	out->set_reducer_class("Adder");
+    <span class="token comment" spellcheck="true">// Specify the output files:</span>
+    <span class="token comment" spellcheck="true">// /gfs/test/freq-00000-of-00100</span>
+    <span class="token comment" spellcheck="true">// /gfs/test/freq-00001-of-00100</span>
+    <span class="token comment" spellcheck="true">// ...</span>
 
-	// Optional: do partial sums within map
-	// tasks to save network bandwidth
-	out->set_combiner_class("Adder");
-	
-	// Tuning parameters: use at most 2000
-	// machines and 100 MB of memory per task
-	spec.set_machines(2000);
-	spec.set_map_megabytes(100);
-	spec.set_reduce_megabytes(100);
+    MapReduceOutput<span class="token operator">*</span> out <span class="token operator">=</span> spec<span class="token punctuation">.</span><span class="token function">output</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    out<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_filebase</span><span class="token punctuation">(</span><span class="token string">"/gfs/test/freq"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    out<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_num_tasks</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    out<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_format</span><span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    out<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_reducer_class</span><span class="token punctuation">(</span><span class="token string">"Adder"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-	// Now run it
-	MapReduceResult result;
-	if (!MapReduce(spec, &result)) 
-		abort();
-	// Done: ’result’ structure contains info
-	// about counters, time taken, number of
-	// machines used, etc.
-	return 0;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token comment" spellcheck="true">// Optional: do partial sums within map</span>
+    <span class="token comment" spellcheck="true">// tasks to save network bandwidth</span>
+    out<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_combiner_class</span><span class="token punctuation">(</span><span class="token string">"Adder"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// Tuning parameters: use at most 2000</span>
+    <span class="token comment" spellcheck="true">// machines and 100 MB of memory per task</span>
+    spec<span class="token punctuation">.</span><span class="token function">set_machines</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    spec<span class="token punctuation">.</span><span class="token function">set_map_megabytes</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    spec<span class="token punctuation">.</span><span class="token function">set_reduce_megabytes</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// Now run it</span>
+    MapReduceResult result<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">MapReduce</span><span class="token punctuation">(</span>spec<span class="token punctuation">,</span> <span class="token operator">&amp;</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span> 
+        <span class="token function">abort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Done: ’result’ structure contains info</span>
+    <span class="token comment" spellcheck="true">// about counters, time taken, number of</span>
+    <span class="token comment" spellcheck="true">// machines used, etc.</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -1120,13 +1079,11 @@ int main(int argc, char** argv) &#123;
                     <div class="summary block-with-text">
                         
                             在读
-
 经济学原理-微观经济学
 北欧神话
 浩荡两千年
 
 经济类
-
  经济学原理-微观经济学
  经济学原理-宏观经济学
  浩荡两千年
@@ -1134,12 +1091,12 @@ int main(int argc, char** argv) &#123;
  激荡三十年
 
 计算机类
-
  人月神话
  摩托车维修艺术
  设计模式之禅
  浪潮之巅
- AI未
+ AI未来
+ 
                         
                     </div>
                     <div class="publish-info">
@@ -1190,8 +1147,8 @@ int main(int argc, char** argv) &#123;
                         
                             最近在做手写体识别，需要将QT中手写的数字转换成像训练集一样图片。因此需要将QImage转换为numpy array。
 
-前言
-笔者使用的是PyQt，但是对QT和Python之间数据之间的转换不太熟悉。查了很长时间，也没有找到详细的说明，最
+
+前言笔者使用的是PyQt，但是对QT和Python之间数据之间的转换不太熟悉。查了很长时间，也没有找到详细的说明，最
                         
                     </div>
                     <div class="publish-info">
@@ -1213,12 +1170,12 @@ int main(int argc, char** argv) &#123;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Code/">
-                        <span class="chip bg-color">Code</span>
-                    </a>
-                    
                     <a href="/tags/Qt/">
                         <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                    <a href="/tags/Code/">
+                        <span class="chip bg-color">Code</span>
                     </a>
                     
                     <a href="/tags/Python/">

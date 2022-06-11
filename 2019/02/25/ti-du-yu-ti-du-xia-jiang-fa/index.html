@@ -525,57 +525,35 @@
             <div id="articleContent">
                 <p><strong>声明: 本文有一部分本人自己的观点和理解, 不一定完全正确, 仅供参考. 如果发现错误或者有疑问的地方, 请指出, 谢谢!</strong></p>
 <span id="more"></span>
-<h3 id="方向导数">方向导数</h3>
-<blockquote>
+
+<h3 id="方向导数"><a href="#方向导数" class="headerlink" title="方向导数"></a>方向导数</h3><blockquote>
 <p>导数和偏导数的概念比较简单而且很多人接触过，这里不进行赘诉。</p>
 </blockquote>
-<p>我们直接看方向导数。
-对于多变量函数$F(x, y, z)$, 我们想知道它在点$P_0$沿方向$\vec l$ 的变化率，用$\left. \frac {\partial F} {\partial {\vec l}} \right| _{P_0} $ 表示。这就是函数F在P点沿方向$\vec l$ 的方向导数。</p>
+<p>我们直接看方向导数。<br>对于多变量函数$F(x, y, z)$, 我们想知道它在点$P_0$沿方向$\vec l$ 的变化率，用$\left. \frac {\partial F} {\partial {\vec l}} \right| _{P_0} $ 表示。这就是函数F在P点沿方向$\vec l$ 的方向导数。</p>
 <blockquote>
 <p>如果你熟悉偏导数的话， 你可以看出来方向导数和偏导数很像。偏导数是函数在特定方向上（如x轴， y轴）的变化率。 方向导数是函数在任意方向上的变化率。<strong>方向导数可以理解为在任意方向上的偏导数</strong>。毕竟我们对于函数的研究不能仅仅局限在某几个方向。</p>
 </blockquote>
-<p>方向导数公式
-$$
-\begin{align}
-\left. \frac {\partial F} {\partial {\vec l}} \right| _{P_0} &amp;= lim \frac {F§ - F(P_0)} {|PP_0|} \\
-&amp;= \left. \frac {\partial F} {\partial x} \right| _{P_0} cos \alpha + \left. \frac {\partial F} {\partial y} \right| _{P_0} cos \beta +  \left. \frac {\partial F} {\partial z} \right| _{P_0} cos \gamma
-\end{align}
-$$</p>
+<p>方向导数公式<br>$$<br>\begin{align}<br>\left. \frac {\partial F} {\partial {\vec l}} \right| _{P_0} &amp;= lim \frac {F(P) - F(P_0)} {|PP_0|} \\\<br>&amp;= \left. \frac {\partial F} {\partial x} \right| _{P_0} cos \alpha + \left. \frac {\partial F} {\partial y} \right| _{P_0} cos \beta +  \left. \frac {\partial F} {\partial z} \right| _{P_0} cos \gamma<br>\end{align}<br>$$</p>
 <p>其中$cos \alpha$, $cos \beta$, $cos \gamma$ 分别为$\vec l$ 与x, y, z 的方向余弦。</p>
-<h3 id="梯度">梯度</h3>
-<blockquote>
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><blockquote>
 <p>知道了方向导数，我们考虑一个问题：一个点有无数个方向，也就有无数个方向导数（前提是方向导数存在），那么我们最关心的是哪个？（总不能都关心吧，那也太花心了）答案是我们关心最大的方向导数。</p>
 </blockquote>
 <p><strong>最大的方向导数意为着沿着这个方向函数变化最快（函数的变化率最大）。</strong></p>
-<h4 id="哪个方向的方向导数最大？">哪个方向的方向导数最大？</h4>
-<p>把方向导数的公式变换一下</p>
-<p>$$
-\begin{align}
-\left. \frac {\partial F} {\partial {\vec l}} \right| _{P_0}
-&amp;= \left. \frac {\partial F} {\partial x} \right| _{P_0} cos \alpha + \left. \frac {\partial F} {\partial y} \right| _{P_0} cos \beta +  \left. \frac {\partial F} {\partial z} \right| _{P_0} cos \gamma
-\\
-&amp;= G *（cos \alpha, cos \beta, cos \gamma）
-\\
-&amp;= |G| cos&lt;G, \vec l&gt;
-\end{align}
-$$</p>
-<p>其中$G=(\left. \frac {\partial F} {\partial x} \right| _{P_0}, \left. \frac {\partial F} {\partial y} \right| _{P_0},  \left. \frac {\partial F} {\partial z} \right| _{P_0})$
-由向量的知识，我们知道当$\vec l$与G同向时，即$cos(G, \vec{l})=1$时值最大。</p>
+<h4 id="哪个方向的方向导数最大？"><a href="#哪个方向的方向导数最大？" class="headerlink" title="哪个方向的方向导数最大？"></a>哪个方向的方向导数最大？</h4><p>把方向导数的公式变换一下</p>
+<p>$$<br>\begin{align}<br>\left. \frac {\partial F} {\partial {\vec l}} \right| _{P_0}<br>&amp;= \left. \frac {\partial F} {\partial x} \right| _{P_0} cos \alpha + \left. \frac {\partial F} {\partial y} \right| _{P_0} cos \beta +  \left. \frac {\partial F} {\partial z} \right| _{P_0} cos \gamma<br>\\\<br>&amp;= G *（cos \alpha, cos \beta, cos \gamma）<br>\\\<br>&amp;= |G| cos&lt;G, \vec l&gt;<br>\end{align}<br>$$</p>
+<p>其中$G=(\left. \frac {\partial F} {\partial x} \right| _{P_0}, \left. \frac {\partial F} {\partial y} \right| _{P_0},  \left. \frac {\partial F} {\partial z} \right| _{P_0})$<br>由向量的知识，我们知道当$\vec l$与G同向时，即$cos(G, \vec{l})=1$时值最大。</p>
 <p><strong>梯度至此诞生</strong></p>
 <blockquote>
 <p>梯度的意义就是用来表示最大的方向导数。</p>
 </blockquote>
-<p>$$
-grad F = ( \frac {\partial F} {\partial x}, \frac {\partial F} {\partial y},   \frac {\partial F} {\partial z})
-$$</p>
+<p>$$<br>grad F = ( \frac {\partial F} {\partial x}, \frac {\partial F} {\partial y},   \frac {\partial F} {\partial z})<br>$$</p>
 <p><strong>说明</strong></p>
 <ul>
 <li>梯度是一个向量</li>
 <li>梯度的方向是最大方向导数的方向。</li>
 <li>梯度的大小是这个最大方向导数的值。</li>
 </ul>
-<h3 id="梯度下降法">梯度下降法</h3>
-<blockquote>
+<h3 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h3><blockquote>
 <p>梯度下降法就是利用梯度的性质求解函数最小值的方法.</p>
 </blockquote>
 <p><strong>[思考]:</strong>  对于一元函数我们求解函数最小值的方法有很多, 很多人比较喜欢的就是求导. 如果是多元函数求解最小值或者最大值, 我们还能如此简单的解决吗?该怎么求导? 求偏导吗?求哪个偏导?</p>
@@ -585,16 +563,13 @@ $$</p>
 <center>
 <img src="https://user-images.githubusercontent.com/39959472/59958596-c8da2900-94db-11e9-91f5-b644e5130018.png" width=500>
 </center>
+
 <blockquote>
 <p>可以这样理解梯度下降法, 我们在当前点找到该点的梯度, 然后沿着梯度的负方向前进一段距离到达一个新的点, 然后再计算梯度, 前进一段距离. 一直这样重复下去, 直到找到最小值或者接近最小值.</p>
 </blockquote>
-<h4 id="公式">公式:</h4>
-<p>$$
-\theta_{i+1} = \theta_{i} - \alpha * grad F(\theta_{i})<br>
-$$</p>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式:"></a>公式:</h4><p>$$<br>\theta_{i+1} = \theta_{i} - \alpha * grad F(\theta_{i})<br>$$</p>
 <p>其中$\theta_{i}$ 为当前点, 可以是一个向量, 表示函数的多个自变量.$\theta_{i+1}$为下一个点,   $grad F(\theta_{i}) $是当前点的梯度.$\alpha$表示步长或者学习率(在深度学习中被称为学习率).</p>
-<h4 id="说明">说明:</h4>
-<ol>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明:"></a>说明:</h4><ol>
 <li>式中的$\alpha$不能太大也不能太小.</li>
 </ol>
 <ul>
@@ -602,8 +577,7 @@ $$</p>
 <li>太大, 可能会跳过最小值.</li>
 </ul>
 <p>2.由于我们每次更新点都会有一定的步长, 在这段距离中梯度是变化的, 我们在一个点找到的梯度不一定就是这一段的梯度, 所以我们不是一直沿着梯度的负方向前进的. 这一点有点像贪心算法, 基于这一点, 我们也不能让$\alpha$太大.</p>
-<h4 id="梯度下降法的缺点">梯度下降法的缺点</h4>
-<p>如果函数比较复杂, 存在很多局部最小值, 可能最后梯度下降找到的是局部最小值, 而不是全局最小值.</p>
+<h4 id="梯度下降法的缺点"><a href="#梯度下降法的缺点" class="headerlink" title="梯度下降法的缺点"></a>梯度下降法的缺点</h4><p>如果函数比较复杂, 存在很多局部最小值, 可能最后梯度下降找到的是局部最小值, 而不是全局最小值.</p>
 
             </div>
             <hr/>
@@ -994,15 +968,15 @@ $$</p>
                     <div class="summary block-with-text">
                         
                             
-最近在调ICM20602模块(一个六轴陀螺仪和加速度计), 使用IIC通信协议, 这个过程中遇到一个困扰我很长时间的问题.
-IIC协议正确, 但是一直读取失败.最后发现因为没配置GPIO为开漏输出.
+最近在调ICM20602模块(一个六轴陀螺仪和加速度计), 使用IIC通信协议, 这个过程中遇到一个困扰我很长时间的问题.IIC协议正确, 但是一直读取失败.最后发现因为没配置GPIO为开漏输出.
+
+
 
 
 
 
 
 推挽输出和开漏输出
-
 推挽输
                         
                     </div>
@@ -1061,13 +1035,14 @@ IIC协议正确, 但是一直读取失败.最后发现因为没配置GPIO为开�
                     <div class="summary block-with-text">
                         
                             
-在博客中加入音乐, 可以使读者在阅读时纵享丝滑(德芙是不是应该给我广告费&lt;_&gt;)。
+在博客中加入音乐, 可以使读者在阅读时纵享丝滑(德芙是不是应该给我广告费&lt;^_^&gt;)。
+
 
 
 一般在博客中嵌入的音乐有两种方式:
 
 使用本地音乐 :就是将自己本地的音乐上传到服务器上, 加载到不可中.
-使用其他音乐平台的音乐: 通过
+使用其他音乐平台的音乐:
                         
                     </div>
                     <div class="publish-info">

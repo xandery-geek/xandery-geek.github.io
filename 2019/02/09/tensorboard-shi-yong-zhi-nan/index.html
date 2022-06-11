@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    690
+                    693
                 </div>
                 
 
@@ -530,13 +530,15 @@
                 <div align=center>
 <img src="/img/blog/TensorBoard.png" height=600 width=800 >
 </div>
+
 <span id="more"></span>
+
 <div align=center> 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=554242032&auto=1&height=66"></iframe>
 <!--audio src="/music/体面.mp3" controls></audio-->
 </div>
-<h3 id="TensorBoard-数据形式">TensorBoard 数据形式</h3>
-<details>
+
+<h3 id="TensorBoard-数据形式"><a href="#TensorBoard-数据形式" class="headerlink" title="TensorBoard 数据形式"></a>TensorBoard 数据形式</h3><details>
     <summary> 数据类型 </summary>
     <p> 1: 标量Scalars  </p>
     <p> 2: 图片Images  </p>
@@ -547,133 +549,128 @@
     <p> 7: 嵌入向量Embeddings  </p>
 </details>
 <br>
-<h4 id="添加数据代码">添加数据代码</h4>
-<pre class="line-numbers language-language-python"><code class="language-language-python">import tensorflow as tf
 
-tf.summary.scalar(name, scalar)
-tf.summary.image(name, image)
-tf.summary.histogram(name, histogram)
-tf.summary.audio(name, audio)
-tf.summary.distribution(name, distribution)
-tf.summary.graph(name, graph)
-tf.summary.embeddings(name, embedding)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="TensorBoard-可视化过程">TensorBoard 可视化过程</h3>
-<ol>
+<h4 id="添加数据代码"><a href="#添加数据代码" class="headerlink" title="添加数据代码"></a>添加数据代码</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
+
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>scalar<span class="token punctuation">(</span>name<span class="token punctuation">,</span> scalar<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>image<span class="token punctuation">(</span>name<span class="token punctuation">,</span> image<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>histogram<span class="token punctuation">(</span>name<span class="token punctuation">,</span> histogram<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>audio<span class="token punctuation">(</span>name<span class="token punctuation">,</span> audio<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>distribution<span class="token punctuation">(</span>name<span class="token punctuation">,</span> distribution<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>graph<span class="token punctuation">(</span>name<span class="token punctuation">,</span> graph<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>embeddings<span class="token punctuation">(</span>name<span class="token punctuation">,</span> embedding<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="TensorBoard-可视化过程"><a href="#TensorBoard-可视化过程" class="headerlink" title="TensorBoard 可视化过程"></a>TensorBoard 可视化过程</h3><ol>
 <li>建立计算图graph, 你可以从改图中得到你想要的数据信息</li>
 <li>在计算图的结点防止summary operation用来记录信息</li>
 <li>运行summary operation, 只是建立了summary operation而不run, operation并不会真正执行. 有时, 我们有很多summary operation需要运行, 但是一个一个run会很麻烦. 这时, 可以利用tf.summary.merge_all()将所有结点合并成一个结点, 运行这个结点, 就可以产生所有设置的summary Data.</li>
 <li>将数据保存得到本地磁盘, tf.summary.FileWriter(logs_path, graph=my_graph)</li>
 <li>运行整个程序，并在命令行输入运行tensorboard的指令，之后打开web端可查看可视化的结果.</li>
 </ol>
-<h4 id="Python代码">Python代码</h4>
-<p>该demo使用了tensorflow提供的手写体识别数据</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">
-from tensorflow.examples.tutorials.mnist import input_data
-import tensorflow as tf
-import os
+<h4 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h4><p>该demo使用了tensorflow提供的手写体识别数据</p>
+<pre class="line-numbers language-python"><code class="language-python">
+<span class="token keyword">from</span> tensorflow<span class="token punctuation">.</span>examples<span class="token punctuation">.</span>tutorials<span class="token punctuation">.</span>mnist <span class="token keyword">import</span> input_data
+<span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
+<span class="token keyword">import</span> os
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'TF_CPP_MIN_LOG_LEVEL'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'2'</span>
 
-logs_path = "five_layers_log"
-batch_size = 100
-learning_rate = 0.003
-training_epochs = 10
+logs_path <span class="token operator">=</span> <span class="token string">"five_layers_log"</span>
+batch_size <span class="token operator">=</span> <span class="token number">100</span>
+learning_rate <span class="token operator">=</span> <span class="token number">0.003</span>
+training_epochs <span class="token operator">=</span> <span class="token number">10</span>
 
-mnist = input_data.read_data_sets("../data", one_hot=True)
-x = tf.placeholder(tf.float32, [None, 784])
-y = tf.placeholder(tf.float32, [None, 10])
+mnist <span class="token operator">=</span> input_data<span class="token punctuation">.</span>read_data_sets<span class="token punctuation">(</span><span class="token string">"../data"</span><span class="token punctuation">,</span> one_hot<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> tf<span class="token punctuation">.</span>placeholder<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>float32<span class="token punctuation">,</span> <span class="token punctuation">[</span>None<span class="token punctuation">,</span> <span class="token number">784</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> tf<span class="token punctuation">.</span>placeholder<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>float32<span class="token punctuation">,</span> <span class="token punctuation">[</span>None<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-# five layers neural network
-first_layer = 200
-second_layer = 100
-third_layer = 60
-fourth_layer = 30
-fifth_layer = 10
+<span class="token comment" spellcheck="true"># five layers neural network</span>
+first_layer <span class="token operator">=</span> <span class="token number">200</span>
+second_layer <span class="token operator">=</span> <span class="token number">100</span>
+third_layer <span class="token operator">=</span> <span class="token number">60</span>
+fourth_layer <span class="token operator">=</span> <span class="token number">30</span>
+fifth_layer <span class="token operator">=</span> <span class="token number">10</span>
 
-# weight and bias
-W1 = tf.Variable(tf.truncated_normal([784, first_layer], stddev=0.1))
-B1 = tf.Variable(tf.zeros([first_layer]))
+<span class="token comment" spellcheck="true"># weight and bias</span>
+W1 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>truncated_normal<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">784</span><span class="token punctuation">,</span> first_layer<span class="token punctuation">]</span><span class="token punctuation">,</span> stddev<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B1 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span>first_layer<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-W2 = tf.Variable(tf.truncated_normal([first_layer, second_layer], stddev=0.1))
-B2 = tf.Variable(tf.zeros([second_layer]))
+W2 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>truncated_normal<span class="token punctuation">(</span><span class="token punctuation">[</span>first_layer<span class="token punctuation">,</span> second_layer<span class="token punctuation">]</span><span class="token punctuation">,</span> stddev<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B2 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span>second_layer<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-W3 = tf.Variable(tf.truncated_normal([second_layer, third_layer], stddev=0.1))
-B3 = tf.Variable(tf.zeros([third_layer]))
+W3 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>truncated_normal<span class="token punctuation">(</span><span class="token punctuation">[</span>second_layer<span class="token punctuation">,</span> third_layer<span class="token punctuation">]</span><span class="token punctuation">,</span> stddev<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B3 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span>third_layer<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-W4 = tf.Variable(tf.truncated_normal([third_layer, fourth_layer], stddev=0.1))
-B4 = tf.Variable(tf.zeros([fourth_layer]))
+W4 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>truncated_normal<span class="token punctuation">(</span><span class="token punctuation">[</span>third_layer<span class="token punctuation">,</span> fourth_layer<span class="token punctuation">]</span><span class="token punctuation">,</span> stddev<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B4 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span>fourth_layer<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-W5 = tf.Variable(tf.truncated_normal([fourth_layer, fifth_layer], stddev=0.1))
-B5 = tf.Variable(tf.zeros([fifth_layer]))
-
-
-XX = tf.reshape(x, [-1, 784])
-
-Y1 = tf.nn.sigmoid(tf.matmul(x, W1) + B1)
-Y2 = tf.nn.sigmoid(tf.matmul(Y1, W2) + B2)
-Y3 = tf.nn.sigmoid(tf.matmul(Y2, W3) + B3)
-Y4 = tf.nn.sigmoid(tf.matmul(Y3, W4) + B4)
-Ylogits = tf.matmul(Y4, W5) + B5
-Y = tf.nn.softmax(Ylogits)
-
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=Ylogits, labels=y)
-cross_entropy = tf.reduce_mean(cross_entropy)*100
-correct_prediction = tf.equal(tf.argmax(Y, 1), tf.argmax(y, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-train_step = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
-
-tf.summary.scalar("cost", cross_entropy)
-tf.summary.scalar("accuracy", accuracy)
-tf.summary.image("input_image", tf.reshape(x, [-1, 28, 28, 1]), 10)
-summary_op = tf.summary.merge_all()
+W5 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>truncated_normal<span class="token punctuation">(</span><span class="token punctuation">[</span>fourth_layer<span class="token punctuation">,</span> fifth_layer<span class="token punctuation">]</span><span class="token punctuation">,</span> stddev<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B5 <span class="token operator">=</span> tf<span class="token punctuation">.</span>Variable<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span>fifth_layer<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 
-init = tf.global_variables_initializer()
+XX <span class="token operator">=</span> tf<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">784</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    writer = tf.summary.FileWriter(logs_path, graph=tf.get_default_graph())
-    for epoch in range(training_epochs):
-        batch_count = int(mnist.train.num_examples/batch_size)
-        for i in range(batch_count):
-            batch_x, batch_y = mnist.train.next_batch(batch_size)
-            _, summary = sess.run([train_step, summary_op], feed_dict=&#123;x: batch_x, y: batch_y&#125;)
-            writer.add_summary(summary, epoch*batch_count+1)
-        print("Epoch", epoch)
-    print("Accuracy", accuracy.eval(feed_dict=&#123;x: mnist.test.images, y: mnist.test.labels&#125;))
-    print("Done")
+Y1 <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>x<span class="token punctuation">,</span> W1<span class="token punctuation">)</span> <span class="token operator">+</span> B1<span class="token punctuation">)</span>
+Y2 <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>Y1<span class="token punctuation">,</span> W2<span class="token punctuation">)</span> <span class="token operator">+</span> B2<span class="token punctuation">)</span>
+Y3 <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>Y2<span class="token punctuation">,</span> W3<span class="token punctuation">)</span> <span class="token operator">+</span> B3<span class="token punctuation">)</span>
+Y4 <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>Y3<span class="token punctuation">,</span> W4<span class="token punctuation">)</span> <span class="token operator">+</span> B4<span class="token punctuation">)</span>
+Ylogits <span class="token operator">=</span> tf<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>Y4<span class="token punctuation">,</span> W5<span class="token punctuation">)</span> <span class="token operator">+</span> B5
+Y <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>Ylogits<span class="token punctuation">)</span>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="查看结果">查看结果</h4>
-<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 运行Python程序
+cross_entropy <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>softmax_cross_entropy_with_logits<span class="token punctuation">(</span>logits<span class="token operator">=</span>Ylogits<span class="token punctuation">,</span> labels<span class="token operator">=</span>y<span class="token punctuation">)</span>
+cross_entropy <span class="token operator">=</span> tf<span class="token punctuation">.</span>reduce_mean<span class="token punctuation">(</span>cross_entropy<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">100</span>
+correct_prediction <span class="token operator">=</span> tf<span class="token punctuation">.</span>equal<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>Y<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> tf<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>y<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+accuracy <span class="token operator">=</span> tf<span class="token punctuation">.</span>reduce_mean<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>cast<span class="token punctuation">(</span>correct_prediction<span class="token punctuation">,</span> tf<span class="token punctuation">.</span>float32<span class="token punctuation">)</span><span class="token punctuation">)</span>
+train_step <span class="token operator">=</span> tf<span class="token punctuation">.</span>train<span class="token punctuation">.</span>AdamOptimizer<span class="token punctuation">(</span>learning_rate<span class="token punctuation">)</span><span class="token punctuation">.</span>minimize<span class="token punctuation">(</span>cross_entropy<span class="token punctuation">)</span>
+
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>scalar<span class="token punctuation">(</span><span class="token string">"cost"</span><span class="token punctuation">,</span> cross_entropy<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>scalar<span class="token punctuation">(</span><span class="token string">"accuracy"</span><span class="token punctuation">,</span> accuracy<span class="token punctuation">)</span>
+tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>image<span class="token punctuation">(</span><span class="token string">"input_image"</span><span class="token punctuation">,</span> tf<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+summary_op <span class="token operator">=</span> tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>merge_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+init <span class="token operator">=</span> tf<span class="token punctuation">.</span>global_variables_initializer<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">with</span> tf<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> sess<span class="token punctuation">:</span>
+    sess<span class="token punctuation">.</span>run<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>global_variables_initializer<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    writer <span class="token operator">=</span> tf<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>FileWriter<span class="token punctuation">(</span>logs_path<span class="token punctuation">,</span> graph<span class="token operator">=</span>tf<span class="token punctuation">.</span>get_default_graph<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> epoch <span class="token keyword">in</span> range<span class="token punctuation">(</span>training_epochs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        batch_count <span class="token operator">=</span> int<span class="token punctuation">(</span>mnist<span class="token punctuation">.</span>train<span class="token punctuation">.</span>num_examples<span class="token operator">/</span>batch_size<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>batch_count<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            batch_x<span class="token punctuation">,</span> batch_y <span class="token operator">=</span> mnist<span class="token punctuation">.</span>train<span class="token punctuation">.</span>next_batch<span class="token punctuation">(</span>batch_size<span class="token punctuation">)</span>
+            _<span class="token punctuation">,</span> summary <span class="token operator">=</span> sess<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">[</span>train_step<span class="token punctuation">,</span> summary_op<span class="token punctuation">]</span><span class="token punctuation">,</span> feed_dict<span class="token operator">=</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;x: batch_x, y: batch_y&amp;#125;)</span>
+            writer<span class="token punctuation">.</span>add_summary<span class="token punctuation">(</span>summary<span class="token punctuation">,</span> epoch<span class="token operator">*</span>batch_count<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Epoch"</span><span class="token punctuation">,</span> epoch<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Accuracy"</span><span class="token punctuation">,</span> accuracy<span class="token punctuation">.</span>eval<span class="token punctuation">(</span>feed_dict<span class="token operator">=</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;x: mnist.test.images, y: mnist.test.labels&amp;#125;))</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Done"</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="查看结果"><a href="#查看结果" class="headerlink" title="查看结果"></a>查看结果</h4><pre class="line-numbers language-shell"><code class="language-shell"># 运行Python程序
 $ python3 hw_recognition.py # python 文件名
 
 # 查看tensorboard
-$ tensorboard --logdir='five_layers_log' # 程序中保存的数据路径
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Web端TensorBoard">Web端TensorBoard</h3>
-<p>用浏览器打开网址 <a target="_blank" rel="noopener" href="http://127.0.1.1:6006">http://127.0.1.1:6006</a> 查看. 下面是部分截图.</p>
+$ tensorboard --logdir='five_layers_log' # 程序中保存的数据路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Web端TensorBoard"><a href="#Web端TensorBoard" class="headerlink" title="Web端TensorBoard"></a>Web端TensorBoard</h3><p>用浏览器打开网址 <a target="_blank" rel="noopener" href="http://127.0.1.1:6006">http://127.0.1.1:6006</a> 查看. 下面是部分截图.</p>
 <ol>
 <li>scalar</li>
 </ol>
 <div align=center>
 <img src="/img/blog/tensorboard_scalar.png" height=400 width=600>
 </div>
+
 <ol start="2">
 <li>image</li>
 </ol>
 <div align=center>
 <img src="/img/blog/tensorboard_image.png" height=400 width=600>
 </div>
+
 <ol start="3">
 <li>graph</li>
 </ol>
 <div align=center>
 <img src="/img/blog/tensorboard_graph.png" height=400 width=600>
 </div>
-<h3 id="END">END</h3>
 
+<h3 id="END"><a href="#END" class="headerlink" title="END"></a>END</h3>
             </div>
             <hr/>
 
@@ -1070,8 +1067,8 @@ $ tensorboard --logdir='five_layers_log' # 程序中保存的数据路径
 Ubuntu默认的登录界面有点不敢恭维, 实在不符合现代人的审美。为此找了半天找哪里可以修改, 但是最终还是要求助Google。
 
 
-1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background
-$ mv your
+
+1. 将准备设置为登录界面壁纸的图片移动到/usr/share/background$ mv your
                         
                     </div>
                     <div class="publish-info">
@@ -1124,15 +1121,10 @@ $ mv your
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Github 团队多人协作
-步骤
-1. 复制仓库
-注意：复制的仓库默认为mater分支
+                            Github 团队多人协作步骤1. 复制仓库注意：复制的仓库默认为mater分支
 $ git clone https://github.com/repository.git # 仓库的URL
 
-
-2. 切换分支到develop
-mas
+2. 切换分支到developmaster分支
                         
                     </div>
                     <div class="publish-info">
