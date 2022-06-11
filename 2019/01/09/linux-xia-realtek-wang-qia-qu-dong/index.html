@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -511,7 +511,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    464
+                    465
                 </div>
                 
 
@@ -523,39 +523,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="无线网卡"><a href="#无线网卡" class="headerlink" title="无线网卡"></a>无线网卡</h3><p>Ubuntu有时会不支持电脑的无线网卡，这时就需要自己安装了。</p>
+                <h3 id="无线网卡">无线网卡</h3>
+<p>Ubuntu有时会不支持电脑的无线网卡，这时就需要自己安装了。</p>
 <span id="more"></span>
-
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>可以在官网找安装文件或者github上找源码编译安装。</p>
+<h3 id="解决方法">解决方法</h3>
+<p>可以在官网找安装文件或者github上找源码编译安装。</p>
 <p>Realtek无线网卡的安装包可以在github下载 <a target="_blank" rel="noopener" href="https://github.com/rtlwifi-linux/rtlwifi_new">https://github.com/rtlwifi-linux/rtlwifi_new</a>. 然后进入目录</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token variable">$make</span>
-<span class="token variable">$sudo</span> <span class="token function">make</span> <span class="token function">install</span>
-<span class="token variable">$sudo</span> modprobe 你的网卡型号（eg：rtl8821be）
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="rtl8821ce"><a href="#rtl8821ce" class="headerlink" title="rtl8821ce"></a>rtl8821ce</h3><p>如果你的网卡是rtl8821ce，github上暂时好像没有，可以下载这一份。<br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/yx1302317313/10595262">CSDN的下载链接</a> </p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">$make
+$sudo make install
+$sudo modprobe 你的网卡型号（eg：rtl8821be）
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="rtl8821ce">rtl8821ce</h3>
+<p>如果你的网卡是rtl8821ce，github上暂时好像没有，可以下载这一份。
+<a target="_blank" rel="noopener" href="https://download.csdn.net/download/yx1302317313/10595262">CSDN的下载链接</a></p>
 <ol>
 <li>解压进入文件夹，改一下Makefile中一个文件的路径。</li>
 <li>找到这一句 export TopDIR ?= $(srctree)/drivers/net/wireless/rtl8821ce</li>
 <li>修改成当前目录 export TopDIR ?= $(shell pwd)</li>
 </ol>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token variable">$make</span>
-<span class="token variable">$sudo</span> <span class="token function">make</span> <span class="token function">install</span>
-<span class="token variable">$sudo</span> modprobe -a 8821ce<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">$make
+$sudo make install
+$sudo modprobe -a 8821ce
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>之后就可以看见无线图标了，如果连不上网reboot试试。</p>
 <hr>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>最近发现一个问题, 当Linux内核更新之后, 你的无线网又不能用了.因为新更新的内核替换了原来的内核,所以安装的网卡驱动就没了.</p>
-<p>当然这个问题很好解决, 再重复一次上面的操作的即可.<del>但是每次更新内核都要重装一次还是很麻烦.</del></p>
+<h3 id="更新">更新</h3>
+<p>最近发现一个问题, 当Linux内核更新之后, 你的无线网又不能用了.因为新更新的内核替换了原来的内核,所以安装的网卡驱动就没了.</p>
+<p>当然这个问题很好解决, 再重复一次上面的操作的即可.<s>但是每次更新内核都要重装一次还是很麻烦.</s></p>
 <p>如果会shell这个问题就很好解决了,把上面的操作写成一个shell脚本, 只要执行这个脚本就可以很方便的安装网卡驱动了.</p>
-<p>下面是我写的shell脚本(<del>很简单</del>)</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cd</span> ~/Driver/rtl8821ce <span class="token comment" spellcheck="true"># 网卡驱动所在的路径,需要根据实际情况修改</span>
-<span class="token function">make</span> clean  <span class="token comment" spellcheck="true"># 清除编译文件</span>
-<span class="token function">make</span> -j4    <span class="token comment" spellcheck="true"># 四核编译, 要确保你的电脑至少是四核的, 否则使用make即可.</span>
-<span class="token function">make</span> <span class="token function">install</span> 
-modprobe -a 8821ce <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>把上面的shell程序保存的shell文件中,例如rtl8821ce.sh,然后给予执行权限执行即可.</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">chmod</span> u+x rtl8821ce.sh    <span class="token comment" spellcheck="true"># 添加执行权限</span>
-$ <span class="token function">sudo</span> ./rtl8821ce.sh    <span class="token comment" spellcheck="true"># root权限下执行脚本</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>下面是我写的shell脚本(<s>很简单</s>)</p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">cd ~/Driver/rtl8821ce # 网卡驱动所在的路径,需要根据实际情况修改
+make clean  # 清除编译文件
+make -j4    # 四核编译, 要确保你的电脑至少是四核的, 否则使用make即可.
+make install 
+modprobe -a 8821ce 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>把上面的shell程序保存的shell文件中,<a target="_blank" rel="noopener" href="http://xn--rtl8821ce-pg9n309f.sh">例如rtl8821ce.sh</a>,然后给予执行权限执行即可.</p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">$ chmod u+x rtl8821ce.sh    # 添加执行权限
+$ sudo ./rtl8821ce.sh    # root权限下执行脚本
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -571,7 +579,7 @@ $ <span class="token function">sudo</span> ./rtl8821ce.sh    <span class="token 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">XuYuan</a>
+                    <a href="/about" rel="external nofollow noreferrer">Xu Yuan</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -594,7 +602,7 @@ $ <span class="token function">sudo</span> ./rtl8821ce.sh    <span class="token 
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">XuYuan</a>
+                    <a href="/about" target="_blank">Xu Yuan</a>
                     !
                 </span>
             </div>
@@ -945,10 +953,15 @@ $ <span class="token function">sudo</span> ./rtl8821ce.sh    <span class="token 
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Github 团队多人协作步骤1. 复制仓库注意：复制的仓库默认为mater分支
+                            Github 团队多人协作
+步骤
+1. 复制仓库
+注意：复制的仓库默认为mater分支
 $ git clone https://github.com/repository.git # 仓库的URL
 
-2. 切换分支到developmaster分支
+
+2. 切换分支到develop
+mas
                         
                     </div>
                     <div class="publish-info">
@@ -997,7 +1010,8 @@ $ git clone https://github.com/repository.git # 仓库的URL
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            八皇后问题八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆
+                            八皇后问题
+八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种
                         
                     </div>
                     <div class="publish-info">
@@ -1230,7 +1244,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2019</span>
-            <a href="/about" target="_blank">XuYuan</a>
+            <a href="/about" target="_blank">Xu Yuan</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>

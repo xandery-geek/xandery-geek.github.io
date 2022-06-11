@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -468,12 +468,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Code/">
-                                <span class="chip bg-color">Code</span>
-                            </a>
-                        
                             <a href="/tags/Math/">
                                 <span class="chip bg-color">Math</span>
+                            </a>
+                        
+                            <a href="/tags/Code/">
+                                <span class="chip bg-color">Code</span>
                             </a>
                         
                             <a href="/tags/Algorithm/">
@@ -533,10 +533,11 @@
             <div id="articleContent">
                 <p>傅里叶变换是一种线性积分变换，用于信号在时域和频域之间的变换。由法国学者约瑟夫·傅里叶系统地提出，所以以其名字来命名以示纪念。本文主要讲解傅里叶变换的公式推导和快速傅里叶变换算法的原理及实现。</p>
 <span id="more"></span>
-
 <p>笔者并没有在课程中学习过傅里叶变换，最初的基础仅仅是高数中讲到的傅里叶级数。由于项目需要，查阅了大量资料自学了傅里叶变换，学习过程中有一些较难理解的地方，而且感觉其中的一些东西容易忘记，于是决定记录下来，以备后患。</p>
 <p><strong>Let’s Go!!!</strong></p>
-<h2 id="傅里叶变换的公式推导"><a href="#傅里叶变换的公式推导" class="headerlink" title="傅里叶变换的公式推导"></a>傅里叶变换的公式推导</h2><h3 id="三角函数的正交性"><a href="#三角函数的正交性" class="headerlink" title="三角函数的正交性"></a>三角函数的正交性</h3><p>傅里叶变换的公式推导需要一些基础性的知识，三角函数的正交性便是其中的关键。</p>
+<h2 id="傅里叶变换的公式推导">傅里叶变换的公式推导</h2>
+<h3 id="三角函数的正交性">三角函数的正交性</h3>
+<p>傅里叶变换的公式推导需要一些基础性的知识，三角函数的正交性便是其中的关键。</p>
 <p>何为三角函数的正交性？</p>
 <blockquote>
 <p>在线性代数中，向量正交指两个向量内积为0。而三角函数的正交指在三角函数系中，任意两个不同的函数乘积在区间的积分为0。当然这个区间是有限制的，区间大小必须是三角函数周期的整数倍。</p>
@@ -548,41 +549,89 @@
 <li>$\int_{-\pi}^{\pi} cos(nx)cos(mx) = 0, n \ne m$</li>
 </ul>
 <p><em>上面提到的$m,n$均为整数。</em></p>
-<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p>这里需要用到三角函数的积化和差公式：</p>
+<h4 id="证明">证明</h4>
+<p>这里需要用到三角函数的积化和差公式：</p>
 <ul>
 <li>$sin(\alpha)cos(\beta) = \frac{1}{2}(sin(\alpha + \beta) + sin(\alpha - \beta))$</li>
 <li>$cos(\alpha)cos(\beta) = \frac{1}{2}(cos(\alpha + \beta) + cos(\alpha - \beta))$</li>
 <li>$sin(\alpha)sin(\beta) = -\frac{1}{2}(cos(\alpha + \beta) - cos(\alpha - \beta))$</li>
 </ul>
-<p>当$m \ne n$时:<br>$$<br>\begin{align}<br>&amp;\int_{-\pi}^{\pi} sin(nx)sin(mx)\\\<br>&amp;= \int_{-\pi}^{\pi} (\frac{1}{2}[cos(nx - mx) - cos(nx + mx)]) \\\<br>&amp;= \int_{-\pi}^{\pi} \frac{1}{2}cos(n-m)x + \int_{-\pi}^{\pi} \frac{1}{2}cos(m+n)x \\\<br>&amp;= 0 \\\<br>\end{align}<br>$$</p>
+<p>当$m \ne n$时:
+$$
+\begin{align}
+&amp;\int_{-\pi}^{\pi} sin(nx)sin(mx)\\
+&amp;= \int_{-\pi}^{\pi} (\frac{1}{2}[cos(nx - mx) - cos(nx + mx)]) \\
+&amp;= \int_{-\pi}^{\pi} \frac{1}{2}cos(n-m)x + \int_{-\pi}^{\pi} \frac{1}{2}cos(m+n)x \\
+&amp;= 0 \\
+\end{align}
+$$</p>
 <p>而当$m = n$时，不满足正交性。</p>
 <p>积分的结果为：</p>
 <ul>
 <li>$\int_{-\pi}^{\pi} sin(nx)sin(nx) = \pi$</li>
 <li>$\int_{-\pi}^{\pi} cos(nx)cos(nx) = \pi$</li>
 </ul>
-<p>这个可以用半角公式证明：<br>$$<br>\begin{align}<br>&amp;\int_{-\pi}^{\pi} sin(nx)sin(nx) dx \\\<br>&amp;= \int_{-\pi}^{\pi} \frac{1 - cos(2nx)}{2} dx\\\<br>&amp;= \int_{-\pi}^{\pi} \frac{1}{2} + \int_{-\pi}^{\pi} \frac{-cos(2nx)}{2} dx \\\\<br>&amp;= \pi<br>\end{align}<br>$$</p>
-<h3 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h3><p>OK, 到这里我们既可以说一说傅里叶级数了。What is Fourier series？</p>
+<p>这个可以用半角公式证明：
+$$
+\begin{align}
+&amp;\int_{-\pi}^{\pi} sin(nx)sin(nx) dx \\
+&amp;= \int_{-\pi}^{\pi} \frac{1 - cos(2nx)}{2} dx\\
+&amp;= \int_{-\pi}^{\pi} \frac{1}{2} + \int_{-\pi}^{\pi} \frac{-cos(2nx)}{2} dx \\
+&amp;= \pi
+\end{align}
+$$</p>
+<h3 id="傅里叶级数">傅里叶级数</h3>
+<p>OK, 到这里我们既可以说一说傅里叶级数了。What is Fourier series？</p>
 <blockquote>
 <p>傅里叶级数可以用来表示任意一个周期函数。</p>
 </blockquote>
-<p>对于一个周期函数 $f(x) = f(x + T),\ T = \frac{2\pi}{\omega}$，<br>其傅里叶级数为<br>$$f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))$$</p>
+<p>对于一个周期函数 $f(x) = f(x + T),\ T = \frac{2\pi}{\omega}$，
+其傅里叶级数为
+$$f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))$$</p>
 <p>其中</p>
 <ul>
 <li>$a_0 = \frac{2}{T} \int_{0}^{T} f(x) dx$</li>
 <li>$a_n = \frac{2}{T} \int_{0}^{T} f(x) cos(n\omega x) dx$</li>
 <li>$b_n = \frac{2}{T} \int_{0}^{T} f(x) sin(n\omega x) dx$</li>
 </ul>
-<p>至于是怎么推导出来的这里就不说明了（<del>其实我也不知道</del>)。不过可以说一下$a_0, a_n, b_n$三个系数是怎么求出来的。</p>
-<h4 id="系数的求解"><a href="#系数的求解" class="headerlink" title="系数的求解"></a>系数的求解</h4><p>这就用到我们上面提到的三角函数正交性了。</p>
-<p>我们选取周期为$[-\pi, \pi]$<br>$$<br>\begin{align}<br>&amp; f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x)) \\\<br>&amp; \int_{-\pi}^{\pi} f(x)dx = \int_{-\pi}^{\pi} \frac{a_0}{2} dx + \int_{-\pi}^{\pi} (\Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))) dx \\\<br>&amp; \int_{-\pi}^{\pi} f(x)dx = \int_{-\pi}^{\pi} \frac{a_0}{2} dx + \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x))dx +  \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (b_n sin(n\omega x)) dx \\\<br>&amp; \int_{-\pi}^{\pi} f(x)dx = a_0 \cdot \pi + 0 + 0<br>\end{align}<br>$$</p>
+<p>至于是怎么推导出来的这里就不说明了（<s>其实我也不知道</s>)。不过可以说一下$a_0, a_n, b_n$三个系数是怎么求出来的。</p>
+<h4 id="系数的求解">系数的求解</h4>
+<p>这就用到我们上面提到的三角函数正交性了。</p>
+<p>我们选取周期为$[-\pi, \pi]$
+$$
+\begin{align}
+&amp; f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x)) \\
+&amp; \int_{-\pi}^{\pi} f(x)dx = \int_{-\pi}^{\pi} \frac{a_0}{2} dx + \int_{-\pi}^{\pi} (\Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))) dx \\
+&amp; \int_{-\pi}^{\pi} f(x)dx = \int_{-\pi}^{\pi} \frac{a_0}{2} dx + \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x))dx +  \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (b_n sin(n\omega x)) dx \\
+&amp; \int_{-\pi}^{\pi} f(x)dx = a_0 \cdot \pi + 0 + 0
+\end{align}
+$$</p>
 <p>所以，$a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) dx$</p>
 <p>$a_n$的证明稍微麻烦一点,需要一个小小的技巧。</p>
-<p>$$<br>\begin{align}<br>&amp; f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x)) \\\<br>&amp; f(x)cos(m\omega x) = \frac{a_0}{2}cos(m\omega x) + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))cos(m\omega x) \\\<br>&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = \int_{-\pi}^{\pi} \frac{a_0}{2} cos(m\omega x)dx \\\<br>&amp;  + \int_{-\pi}^{\pi} (\Sigma_{n=1}^{\infty}(a_n cos(n\omega x)cos(m\omega x) + b_n sin(n\omega x))) cos(m\omega x)dx \\\<br>\end{align}<br>$$</p>
+<p>$$
+\begin{align}
+&amp; f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x)) \\
+&amp; f(x)cos(m\omega x) = \frac{a_0}{2}cos(m\omega x) + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))cos(m\omega x) \\
+&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = \int_{-\pi}^{\pi} \frac{a_0}{2} cos(m\omega x)dx \\
+&amp;  + \int_{-\pi}^{\pi} (\Sigma_{n=1}^{\infty}(a_n cos(n\omega x)cos(m\omega x) + b_n sin(n\omega x))) cos(m\omega x)dx \\
+\end{align}
+$$</p>
 <p>机智如你，一定想到了为什么要多乘一个$cos(m\omega x)$。对，这样就可以让$a_0, b_n$消失，只剩下我们需要的$a_n$。</p>
-<p>我们继续<br>$$<br>\begin{align}<br>&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = 0 + \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x) cos(m\omega x))dx + 0\\\<br>&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x) cos(m\omega x))dx\\\<br>\end{align}<br>$$</p>
+<p>我们继续
+$$
+\begin{align}
+&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = 0 + \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x) cos(m\omega x))dx + 0\\
+&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x) cos(m\omega x))dx\\
+\end{align}
+$$</p>
 <p>其实这里的系数$a_n$也只有一个能保留下来，那就是当$m = n$时。</p>
-<p>$$<br>\begin{align}<br>&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x) cos(m\omega x))dx\\\<br>&amp; \int_{-\pi}^{\pi} f(x)cos(n\omega x)dx = a_n \int_{-\pi}^{\pi} (cos(n\omega x) cos(n\omega x))dx\\\<br>&amp; \int_{-\pi}^{\pi} f(x)cos(n\omega x)dx = a_n \pi\\\<br>\end{align}<br>$$</p>
+<p>$$
+\begin{align}
+&amp; \int_{-\pi}^{\pi} f(x)cos(m\omega x)dx = \Sigma_{n=1}^{\infty} \int_{-\pi}^{\pi} (a_n cos(n\omega x) cos(m\omega x))dx\\
+&amp; \int_{-\pi}^{\pi} f(x)cos(n\omega x)dx = a_n \int_{-\pi}^{\pi} (cos(n\omega x) cos(n\omega x))dx\\
+&amp; \int_{-\pi}^{\pi} f(x)cos(n\omega x)dx = a_n \pi\\
+\end{align}
+$$</p>
 <p>可以解得：$a_n = \frac{1}{\pi} \int_{0}^{T} f(x) cos(n\omega x) dx$。$b_n$的求解这里就不进行赘述了，与$a_n$同理。</p>
 <p>将$a_0, a_n, b_n$推广到任意周期，即可得到上面的结果：</p>
 <ul>
@@ -590,65 +639,146 @@
 <li>$a_n = \frac{2}{T} \int_{0}^{T} f(x) cos(n\omega x) dx$</li>
 <li>$b_n = \frac{2}{T} \int_{0}^{T} f(x) sin(n\omega x) dx$</li>
 </ul>
-<h4 id="傅里叶级数的意义"><a href="#傅里叶级数的意义" class="headerlink" title="傅里叶级数的意义"></a>傅里叶级数的意义</h4><p>$$f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))$$</p>
+<h4 id="傅里叶级数的意义">傅里叶级数的意义</h4>
+<p>$$f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n cos(n\omega x) + b_n sin(n\omega x))$$</p>
 <p>从这个公式中我们可以看到，一个周期函数可以由一个常函数和无穷多个正弦函数和余弦函数叠加而成。</p>
 <p>其中$n\omega$表示这些正弦函数和余弦函数的角频率是周期函数角频率的整数倍。</p>
-<h3 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h3><blockquote>
+<h3 id="欧拉公式">欧拉公式</h3>
+<blockquote>
 <p>傅里叶变换只能表示周期性函数，但是现实世界中周期性函数很少。那么问题来了，能不能表示非周期函数。答案是可以的，其实非周期性的函数就是一个周期无穷大的函数。</p>
 </blockquote>
 <p>开始之前，仍然需要一个预备知识——欧拉公式(Euler formula)。让我们见识一下这个号称<strong>数学界最美的公式</strong>。</p>
 <p><strong>初见惊为天人，其形也，翩若惊鸿，婉若游龙。荣曜秋菊，华茂春松。</strong></p>
 <p>$$e^{i\theta} = cos\theta + isin\theta$$</p>
 <p><strong>再见则细思恐极。</strong></p>
-<p>当$\theta = \pi$时，$e^{i\pi}  + 1 = 0$，这便是欧拉恒等式。<br>是不是感觉数学中最基本的符号和数字都被包含在这个等式中，一切浑然天成！</p>
+<p>当$\theta = \pi$时，$e^{i\pi}  + 1 = 0$，这便是欧拉恒等式。
+是不是感觉数学中最基本的符号和数字都被包含在这个等式中，一切浑然天成！</p>
 <p>其实吧，我们只想要从中得到下面的两个公式：</p>
 <ul>
 <li>$cos\theta = \frac{1}{2}(e^{i\theta} + e^{-i\theta})$</li>
 <li>$sin\theta = -\frac{1}{2}i(e^{i\theta} - e^{-i\theta})$</li>
 </ul>
 <br>
-
-<h3 id="傅里叶级数的复指数形式"><a href="#傅里叶级数的复指数形式" class="headerlink" title="傅里叶级数的复指数形式"></a>傅里叶级数的复指数形式</h3><p>将$cos\theta,sin\theta$替换之后，我们便得到了傅里叶级数的复指数形式：<br>$$<br>\begin{align}<br>&amp; f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n<br> cos(n\omega x) + b_n sin(n\omega x)) \\\<br>&amp;= \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n \frac{1}{2}(e^{in\omega x} + e^{-in\omega x}) - b_n \frac{1}{2}i(e^{in\omega x} - e^{-in\omega x})) \\\<br>&amp;= \frac{a_0}{2} + \Sigma_{n=1}^{\infty}a_n \frac{1}{2}(e^{in\omega x} + e^{-in\omega x}) -  \Sigma_{n=1}^{\infty}b_n \frac{1}{2}i(e^{in\omega x} - e^{-in\omega x})) \\\<br>&amp;= \frac{a_0}{2} + \Sigma_{n=1}^{\infty} \frac{1}{2}(a_n - b_n i)e^{in\omega x} +  \Sigma_{n=1}^{\infty} \frac{1}{2}(a_n + b_n i)e^{-in\omega x} \\\<br>&amp; = \Sigma_{0}^{0} \frac{a_0}{2} e^{i0\omega x} + \Sigma_{n=1}^{\infty} \frac{1}{2}(a_n - b_n i)e^{in\omega x} +  \Sigma_{n=- \infty}^{-1} \frac{1}{2}(a_{-n} + b_{-n} i)e^{in\omega x} \\\<br>&amp;= \Sigma_{n=-\infty}^{\infty} C_n e^{in\omega x}<br>\end{align}<br>$$</p>
+<h3 id="傅里叶级数的复指数形式">傅里叶级数的复指数形式</h3>
+<p>将$cos\theta,sin\theta$替换之后，我们便得到了傅里叶级数的复指数形式：
+$$
+\begin{align}
+&amp; f(x) = \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n
+cos(n\omega x) + b_n sin(n\omega x)) \\
+&amp;= \frac{a_0}{2} + \Sigma_{n=1}^{\infty}(a_n \frac{1}{2}(e^{in\omega x} + e^{-in\omega x}) - b_n \frac{1}{2}i(e^{in\omega x} - e^{-in\omega x})) \\
+&amp;= \frac{a_0}{2} + \Sigma_{n=1}^{\infty}a_n \frac{1}{2}(e^{in\omega x} + e^{-in\omega x}) -  \Sigma_{n=1}^{\infty}b_n \frac{1}{2}i(e^{in\omega x} - e^{-in\omega x})) \\
+&amp;= \frac{a_0}{2} + \Sigma_{n=1}^{\infty} \frac{1}{2}(a_n - b_n i)e^{in\omega x} +  \Sigma_{n=1}^{\infty} \frac{1}{2}(a_n + b_n i)e^{-in\omega x} \\
+&amp; = \Sigma_{0}^{0} \frac{a_0}{2} e^{i0\omega x} + \Sigma_{n=1}^{\infty} \frac{1}{2}(a_n - b_n i)e^{in\omega x} +  \Sigma_{n=- \infty}^{-1} \frac{1}{2}(a_{-n} + b_{-n} i)e^{in\omega x} \\
+&amp;= \Sigma_{n=-\infty}^{\infty} C_n e^{in\omega x}
+\end{align}
+$$</p>
 <p>其中</p>
-<p>$$<br>C_n =\left \{<br>\begin{align}<br>&amp; \frac{a_0}{2}, n = 0\\\<br>&amp; \frac{1}{2}(a_n - b_n i), n &gt; 0\\\<br>&amp; \frac{1}{2}(a_{-n} + b_{-n} i), n&lt;0\\\<br>\end{align}<br>\right.<br>$$</p>
+<p>$$
+C_n =\left {
+\begin{align}
+&amp; \frac{a_0}{2}, n = 0\\
+&amp; \frac{1}{2}(a_n - b_n i), n &gt; 0\\
+&amp; \frac{1}{2}(a_{-n} + b_{-n} i), n&lt;0\\
+\end{align}
+\right.
+$$</p>
 <p>接下来我们求$C_n$.</p>
-<p>我们已知<br>$$<br>\left\{<br>\begin{align}<br>&amp; a_0 = \frac{2}{T} \int_{0}^{T} f(x) dx\\\<br>&amp; a_n = \frac{2}{T} \int_{0}^{T} f(x) cos(n\omega x) dx\\\<br>&amp; b_n = \frac{2}{T} \int_{0}^{T} f(x) sin(n\omega x) dx\\\<br>\end{align}<br>\right.<br>$$</p>
+<p>我们已知
+$$
+\left{
+\begin{align}
+&amp; a_0 = \frac{2}{T} \int_{0}^{T} f(x) dx\\
+&amp; a_n = \frac{2}{T} \int_{0}^{T} f(x) cos(n\omega x) dx\\
+&amp; b_n = \frac{2}{T} \int_{0}^{T} f(x) sin(n\omega x) dx\\
+\end{align}
+\right.
+$$</p>
 <ol>
-<li><p>当$n = 0$时<br>$$<br>\begin{align}<br>&amp; C_0 = \frac{a_0}{2} = \frac{1}{T} \int_{0}^{T} f(x) dx\\\<br>\end{align}<br>$$</p>
+<li>
+<p>当$n = 0$时
+$$
+\begin{align}
+&amp; C_0 = \frac{a_0}{2} = \frac{1}{T} \int_{0}^{T} f(x) dx\\
+\end{align}
+$$</p>
 </li>
-<li><p>当$n &gt; 0$时<br>$$<br>\begin{align}<br>C_n &amp;= \frac{1}{2}(a_n - b_n i)\\\<br>&amp;  = \frac{1}{2} \frac{2}{T} \int_{0}^{T} f(x) cos(n\omega x)dx - \frac{1}{2}i\frac{2}{T} \int_{0}^{T} f(x) sin(n\omega x) dx\\\<br>&amp;  = \frac{1}{T} \int_{0}^{T} f(x) cos(n\omega x) - i \cdot sin(n\omega x) dx\\\<br>&amp;  = \frac{1}{T} \int_{0}^{T} f(x) e^{-in\omega x} dx\\\<br>\end{align}<br>$$</p>
+<li>
+<p>当$n &gt; 0$时
+$$
+\begin{align}
+C_n &amp;= \frac{1}{2}(a_n - b_n i)\\
+&amp;  = \frac{1}{2} \frac{2}{T} \int_{0}^{T} f(x) cos(n\omega x)dx - \frac{1}{2}i\frac{2}{T} \int_{0}^{T} f(x) sin(n\omega x) dx\\
+&amp;  = \frac{1}{T} \int_{0}^{T} f(x) cos(n\omega x) - i \cdot sin(n\omega x) dx\\
+&amp;  = \frac{1}{T} \int_{0}^{T} f(x) e^{-in\omega x} dx\\
+\end{align}
+$$</p>
 </li>
-<li><p>当$n &lt; 0$时<br>$$<br>\begin{align}<br>C_n &amp;= \frac{1}{2}(a_{-n} + b_{-n} i)\\\<br>&amp;  = \frac{1}{2} \frac{2}{T} \int_{0}^{T} f(x) cos(-n\omega x)dx + \frac{1}{2}i\frac{2}{T} \int_{0}^{T} f(x) sin(-n\omega x) dx\\\<br>&amp;  = \frac{1}{T} \int_{0}^{T} f(x) cos(-n\omega x) + i \cdot sin(-n\omega x) dx\\\<br>&amp;  = \frac{1}{T} \int_{0}^{T} f(x) e^{-in\omega x} dx\\\<br>\end{align}<br>$$</p>
+<li>
+<p>当$n &lt; 0$时
+$$
+\begin{align}
+C_n &amp;= \frac{1}{2}(a_{-n} + b_{-n} i)\\
+&amp;  = \frac{1}{2} \frac{2}{T} \int_{0}^{T} f(x) cos(-n\omega x)dx + \frac{1}{2}i\frac{2}{T} \int_{0}^{T} f(x) sin(-n\omega x) dx\\
+&amp;  = \frac{1}{T} \int_{0}^{T} f(x) cos(-n\omega x) + i \cdot sin(-n\omega x) dx\\
+&amp;  = \frac{1}{T} \int_{0}^{T} f(x) e^{-in\omega x} dx\\
+\end{align}
+$$</p>
 </li>
 </ol>
 <p>咦！$n&gt;0$和$n&lt;0$时，$C_n$居然是一样的，如果$n=0$时也一样那就Prefect了！</p>
-<p>下面是见证奇迹的时刻！<br>$$<br>\begin{align}<br>C_0 &amp;= \frac{1}{T} \int_{0}^{T} f(x) dx\\\<br>&amp;  = \frac{1}{T} \int_{0}^{T} f(x) e^{-i0\omega x} dx\\\<br>\end{align}<br>$$</p>
+<p>下面是见证奇迹的时刻！
+$$
+\begin{align}
+C_0 &amp;= \frac{1}{T} \int_{0}^{T} f(x) dx\\
+&amp;  = \frac{1}{T} \int_{0}^{T} f(x) e^{-i0\omega x} dx\\
+\end{align}
+$$</p>
 <p>$C_n$的形式居然统一了，$C_n = \frac{1}{T} \int_{0}^{T} f(x) e^{-in\omega x} dx$。</p>
 <br>
 到此，转换到复指数形式之后，傅里叶级数就看起来简单多了。
 $$
 f(x)= \Sigma_{n=-\infty}^{\infty} \frac{1}{T} \int_{0}^{T} f(x) e^{-in\omega x} dx \ e^{in\omega x}
 $$
-
-<h3 id="连续傅里叶变换"><a href="#连续傅里叶变换" class="headerlink" title="连续傅里叶变换"></a>连续傅里叶变换</h3><p>对于非周期函数（可视为周期为无穷的函数）$f(x) = f(x + T), T \to \infty$</p>
-<p>在周期函数中，$\omega  = \frac{2\pi}{T}$ 表示角频率。$n\omega$表示正弦函数和余弦函数的角频率是该周期函数角频率的整数倍。<br><br><br>但是当$T \to \infty$时， $\omega  \to 0$。$n\omega$表示的含义则是$n\omega$变成了一个连续的量（之前是离散的）。</p>
+<h3 id="连续傅里叶变换">连续傅里叶变换</h3>
+<p>对于非周期函数（可视为周期为无穷的函数）$f(x) = f(x + T), T \to \infty$</p>
+<p>在周期函数中，$\omega  = \frac{2\pi}{T}$ 表示角频率。$n\omega$表示正弦函数和余弦函数的角频率是该周期函数角频率的整数倍。
+<br>
+但是当$T \to \infty$时， $\omega  \to 0$。$n\omega$表示的含义则是$n\omega$变成了一个连续的量（之前是离散的）。</p>
 <p>也就是说非周期函数仍然可以由一个常函数和无穷多个正弦函数和余弦函数叠加而成。但是这些正弦函数和余弦函数的角频率变得特别密集，充斥在整个实数轴上。</p>
 <p>为了表示方便，我们用$\omega$代替$n\omega$。则$T$可以表示为$\frac{\Delta \omega}{2\pi}$</p>
-<p>于是，傅里叶变换的公式就诞生了。真是千呼万唤始出来呀！<br>$$\begin{align}<br>f(x)<br>&amp;= \Sigma_{n=-\infty}^{\infty} \frac{\Delta \omega}{2\pi} \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx \ e^{i\omega x}\\\<br>&amp;= \int_{-\infty}^{\infty} \frac{1}{2\pi}  \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx \ e^{i\omega x} d\omega\\\<br>&amp;= \frac{1}{2\pi} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx \ e^{i\omega x} d\omega\\\<br>\end{align}<br>$$</p>
+<p>于是，傅里叶变换的公式就诞生了。真是千呼万唤始出来呀！
+$$\begin{align}
+f(x)
+&amp;= \Sigma_{n=-\infty}^{\infty} \frac{\Delta \omega}{2\pi} \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx \ e^{i\omega x}\\
+&amp;= \int_{-\infty}^{\infty} \frac{1}{2\pi}  \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx \ e^{i\omega x} d\omega\\
+&amp;= \frac{1}{2\pi} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx \ e^{i\omega x} d\omega\\
+\end{align}
+$$</p>
 <p>令$F(\omega) = \int_{-\infty}^{\infty} f(x) e^{-i\omega x} dx$，该式即为傅里叶变换。</p>
 <p>则$f(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega) \ e^{i\omega x} d\omega$，称为傅里叶变换的逆变换 。</p>
-<h4 id="傅里叶变换公式的含义"><a href="#傅里叶变换公式的含义" class="headerlink" title="傅里叶变换公式的含义"></a>傅里叶变换公式的含义</h4><p>一个时域内的函数$f(x)$经过傅里叶变换之后，得到了一个频域内的函数$F(\omega)$。给定一个$\omega$，就可以得到一个$F(\omega)$，$F(\omega)$表示函数$f(x)$在对应频率的振幅。由于$\omega \in (-\infty, \infty)$，所以可以得到无穷多个$F(\omega)$。</p>
-<h4 id="傅里叶变换的逆变换公式的含义"><a href="#傅里叶变换的逆变换公式的含义" class="headerlink" title="傅里叶变换的逆变换公式的含义"></a>傅里叶变换的逆变换公式的含义</h4><p>对得到的无穷多个$F(\omega)$积分由重新得到了原函数$f(x)$。说明了$f(x)$可以由这无穷多个函数叠加而成。这与之前的傅里叶级数表示的意义是相同的。</p>
-<h3 id="离散傅里叶变换（DFT）"><a href="#离散傅里叶变换（DFT）" class="headerlink" title="离散傅里叶变换（DFT）"></a>离散傅里叶变换（DFT）</h3><blockquote>
+<h4 id="傅里叶变换公式的含义">傅里叶变换公式的含义</h4>
+<p>一个时域内的函数$f(x)$经过傅里叶变换之后，得到了一个频域内的函数$F(\omega)$。给定一个$\omega$，就可以得到一个$F(\omega)$，$F(\omega)$表示函数$f(x)$在对应频率的振幅。由于$\omega \in (-\infty, \infty)$，所以可以得到无穷多个$F(\omega)$。</p>
+<h4 id="傅里叶变换的逆变换公式的含义">傅里叶变换的逆变换公式的含义</h4>
+<p>对得到的无穷多个$F(\omega)$积分由重新得到了原函数$f(x)$。说明了$f(x)$可以由这无穷多个函数叠加而成。这与之前的傅里叶级数表示的意义是相同的。</p>
+<h3 id="离散傅里叶变换（DFT）">离散傅里叶变换（DFT）</h3>
+<blockquote>
 <p>由于傅里叶变换经常用于信号的处理，将一个信号拆分成多个正弦信号的叠加。但是由于信号需要使用计算机处理，计算机只能处理离散的数据，所以需要将傅里叶变换离散化。</p>
 </blockquote>
 <p>傅里叶变换中$\omega$是一个连续的量，而实际的信号处理中 $\omega$的值是根据输入信号的采集频率确定的。</p>
 <p>令T表示采样周期，N表示采样次数。对于一个输入为N个点的离散序列$x[n], 0 \le n \lt N$</p>
-<p>其离散傅里叶变换为：<br>$$\bar {x}[k] = \Sigma_{n=0}^{N-1} (x[n] \cdot e^{-i\frac{2 \pi n}{N} k})<br>$$</p>
-<p>逆变换为：<br>$$x[n] = \frac{1}{N} \Sigma_{k=0}^{N-1} \bar {x}[k] \cdot e^{i\frac{2\pi k}{N} n}<br>$$</p>
+<p>其离散傅里叶变换为：
+$$\bar {x}[k] = \Sigma_{n=0}^{N-1} (x[n] \cdot e^{-i\frac{2 \pi n}{N} k})
+$$</p>
+<p>逆变换为：
+$$x[n] = \frac{1}{N} \Sigma_{k=0}^{N-1} \bar {x}[k] \cdot e^{i\frac{2\pi k}{N} n}
+$$</p>
 <p>其中$\frac{2\pi n}{N}$为角频率</p>
 <p><em>具体证明比较复杂，此处不进行叙述。</em></p>
-<h2 id="快速傅里叶变换原理"><a href="#快速傅里叶变换原理" class="headerlink" title="快速傅里叶变换原理"></a>快速傅里叶变换原理</h2><h2 id="快速傅里叶变换算法实现"><a href="#快速傅里叶变换算法实现" class="headerlink" title="快速傅里叶变换算法实现"></a>快速傅里叶变换算法实现</h2><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p><strong>Ending</strong></p>
+<h2 id="快速傅里叶变换原理">快速傅里叶变换原理</h2>
+<h2 id="快速傅里叶变换算法实现">快速傅里叶变换算法实现</h2>
+<h3 id="递归">递归</h3>
+<h3 id="迭代">迭代</h3>
+<p><strong>Ending</strong></p>
 
             </div>
             <hr/>
@@ -664,7 +794,7 @@ $$
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">XuYuan</a>
+                    <a href="/about" rel="external nofollow noreferrer">Xu Yuan</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -687,7 +817,7 @@ $$
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">XuYuan</a>
+                    <a href="/about" target="_blank">Xu Yuan</a>
                     !
                 </span>
             </div>
@@ -712,12 +842,12 @@ $$
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Code/">
-                                    <span class="chip bg-color">Code</span>
-                                </a>
-                            
                                 <a href="/tags/Math/">
                                     <span class="chip bg-color">Math</span>
+                                </a>
+                            
+                                <a href="/tags/Code/">
+                                    <span class="chip bg-color">Code</span>
                                 </a>
                             
                                 <a href="/tags/Algorithm/">
@@ -1046,12 +1176,14 @@ $$
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            初识强化学习机器学习分类
+                            初识强化学习
+机器学习分类
 
 强化学习
+
 强化学习(Reinforcement Learning)这一名词来源于行为心理学,表示生物为了趋利避害而更频繁实施对自己有利的策略。
 
-例如,在工作中会根据策略决定做出各种动作。如果我的某些决定使我升职
+例如,在工作中会根据策略决定做出各种动作。如果我的某些决定使我
                         
                     </div>
                     <div class="publish-info">
@@ -1073,16 +1205,16 @@ $$
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/Math/">
+                        <span class="chip bg-color">Math</span>
+                    </a>
+                    
                     <a href="/tags/Code/">
                         <span class="chip bg-color">Code</span>
                     </a>
                     
                     <a href="/tags/Python/">
                         <span class="chip bg-color">Python</span>
-                    </a>
-                    
-                    <a href="/tags/Math/">
-                        <span class="chip bg-color">Math</span>
                     </a>
                     
                     <a href="/tags/AI/">
@@ -1112,9 +1244,9 @@ $$
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Hough（霍夫）直线检测直线检测：对于边界上有 n 个点的点集,找出共线的点集和直线方程。
+                            Hough（霍夫）直线检测
+直线检测：对于边界上有 n 个点的点集,找出共线的点集和直线方程。
 Hough 变换的原理
-
 
 对于直线$y = a*x + b$，从原点做其垂线，如图中的$CD$。如果将其看做极坐标系，则$CD$可以用$(\rh
                         
@@ -1138,16 +1270,16 @@ Hough 变换的原理
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Code/">
-                        <span class="chip bg-color">Code</span>
-                    </a>
-                    
                     <a href="/tags/DIP/">
                         <span class="chip bg-color">DIP</span>
                     </a>
                     
                     <a href="/tags/Math/">
                         <span class="chip bg-color">Math</span>
+                    </a>
+                    
+                    <a href="/tags/Code/">
+                        <span class="chip bg-color">Code</span>
                     </a>
                     
                     <a href="/tags/Algorithm/">
@@ -1353,7 +1485,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2019</span>
-            <a href="/about" target="_blank">XuYuan</a>
+            <a href="/about" target="_blank">Xu Yuan</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>

@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    996
                 </div>
                 
 
@@ -531,231 +531,226 @@
 <p>最近做课设时,有一个部分需要用到迷宫的生成算法. 在这里介绍一种使用深度优先搜索生成迷宫的算法.</p>
 </blockquote>
 <span id="more"></span>
-
 <center>
 <audio controls>
-    <source src="/music/年少有为-李荣浩.mp3" >
+	<source src="/music/年少有为-李荣浩.mp3" >
 </audio>
 <p>年少有为-李荣浩</p>
 </center>
-
-
-<h3 id="最终的效果"><a href="#最终的效果" class="headerlink" title="最终的效果"></a>最终的效果</h3><p>先上几张效果图，图中绿色的表示障碍，灰色表示道路(<del>我的世界既视感</del>).</p>
+<h3 id="最终的效果">最终的效果</h3>
+<p>先上几张效果图，图中绿色的表示障碍，灰色表示道路(<s>我的世界既视感</s>).</p>
 <br>
 <center>
 <img src="/img/blog/blog-18-1.png" width=500>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-18-2.png" width=500>
 </center>
-
 <br>
-
 <center>
 <img src="/img/blog/blog-18-3.png" width=500>
 </center>
-
-<h3 id="如何描述迷宫"><a href="#如何描述迷宫" class="headerlink" title="如何描述迷宫"></a>如何描述迷宫</h3><p>迷宫其实就是一个复杂的地形图,在这个地形中有基本的障碍和通道,当然也可以有其他元素。</p>
+<h3 id="如何描述迷宫">如何描述迷宫</h3>
+<p>迷宫其实就是一个复杂的地形图,在这个地形中有基本的障碍和通道,当然也可以有其他元素。</p>
 <p>我们这里用最简单的方式描述迷宫——矩阵。迷宫中的地形也只有障碍和通道两种元素。可以用0和1表示这两种元素。</p>
 <p>因此我们用一个存储着0和1,M*N大小的矩阵就可以描述迷宫啦!</p>
-<h3 id="迷宫的特点"><a href="#迷宫的特点" class="headerlink" title="迷宫的特点"></a>迷宫的特点</h3><ol>
-<li>从设定的起点到终点必须是连通的(<del>否则,还能不能好好玩耍了</del>)</li>
+<h3 id="迷宫的特点">迷宫的特点</h3>
+<ol>
+<li>从设定的起点到终点必须是连通的(<s>否则,还能不能好好玩耍了</s>)</li>
 <li>从起点到终点只有一条通路.(其实也可以有多条,根据实际需要设定)</li>
 </ol>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>从迷宫特点的描述有没有想到什么?</p>
+<h3 id="思路">思路</h3>
+<p>从迷宫特点的描述有没有想到什么?</p>
 <p>迷宫就是一个图,要求任意设定的起点和终点之间是连通的,就是一个 <strong>全连通图</strong>.但是如果这个图的连通度太高,迷宫就没有难度了,所以我们要求图中任意顶点之间只有一条路.</p>
 <p>什么样的图只有一条路, <strong>无环图</strong>.</p>
 <p>所以我们需要的是无环的连通图,这是什么? <strong>树</strong></p>
 <p>我们的迷宫就是一个树,因此迷宫的生成算法就是树的生成算法,树的生成算法有深度优先遍历和广度优先遍历, 在这里使用深度优先.</p>
-<h3 id="迷宫的生成过程"><a href="#迷宫的生成过程" class="headerlink" title="迷宫的生成过程"></a>迷宫的生成过程</h3><h4 id="1-初始状态"><a href="#1-初始状态" class="headerlink" title="1 初始状态"></a>1 初始状态</h4><blockquote>
+<h3 id="迷宫的生成过程">迷宫的生成过程</h3>
+<h4 id="1-初始状态">1 初始状态</h4>
+<blockquote>
 <p>图中绿色的表示障碍，灰色表示道路(空白)</p>
 </blockquote>
 <center>
 <img src="/img/blog/blog-18-4.png" width=500>
 </center>
-
 <p>由于迷宫四周都是障碍, 图的宽和高都必须是奇数.</p>
-<h4 id="2-迷宫的生成"><a href="#2-迷宫的生成" class="headerlink" title="2 迷宫的生成"></a>2 迷宫的生成</h4><p>1 任意选择一个空白块, 将该空白块作为树的根结点.</p>
+<h4 id="2-迷宫的生成">2 迷宫的生成</h4>
+<p>1 任意选择一个空白块, 将该空白块作为树的根结点.</p>
 <p>2 从根节点出发隔一个元素块查找四周(上,下,左,右,四个方向,不包括对角线方向)其他的空白块.</p>
 <center>
 <img src="/img/blog/blog-18-5.png" width=500>
 <p>从该结点出发,四周只有两个空白块</p>
 </center>
-
 <center>
 <img src="/img/blog/blog-18-6.png" width=500>
 <p>从该结点出发,四周有四个空白块</p>
 </center>
-
 <p>3 随机选取其中一个空白块, 将道路沿该方向拓展, 即把夹在这两个空白块之间的障碍块去掉, 改成空白块.</p>
 <center>
 <img src="/img/blog/blog-18-7.png" width=500>
 <p>把夹在这两个空白块之间的障碍块去掉</p>
 </center>
-
 <p>4 更新当前结点, 然后从当前结点出发,重复步骤2,3.</p>
 <p>5 当遇到一个结点周围没有空白块时, 即没有可拓展道路的方向时, 回退并更新当前结点, 直至当前结点四周有空白块, 重复步骤2,3.</p>
 <center>
 <img src="/img/blog/blog-18-8.png" width=500>
 <p>该结点周围没有空白块</p>
 </center>
-
 <p>6 当回退到根节点没有任何可以拓展的道路时, 算法结束, 迷宫也就生成了.</p>
 <center>
 <img src="/img/blog/blog-18-1.png" width=500>
 </center>
-
-
-<h4 id="3-设定起点和终点"><a href="#3-设定起点和终点" class="headerlink" title="3 设定起点和终点"></a>3 设定起点和终点</h4><p>选取迷宫中的两个空白块作为迷宫的起点和终点,一个完整的迷宫就诞生了.</p>
-<h3 id="核心算法–深度优先"><a href="#核心算法–深度优先" class="headerlink" title="核心算法–深度优先"></a>核心算法–深度优先</h3><blockquote>
+<h4 id="3-设定起点和终点">3 设定起点和终点</h4>
+<p>选取迷宫中的两个空白块作为迷宫的起点和终点,一个完整的迷宫就诞生了.</p>
+<h3 id="核心算法–深度优先">核心算法–深度优先</h3>
+<blockquote>
 <p>由于这部分算法是程序的一部分,不能完整运行,仅供参考.</p>
 </blockquote>
 <blockquote>
 <p>在程序中用到了Qt中的容器QVector,可以用STL中的std::vector代替; 用到的qsrand()和qrand()生成随机数,可以使用C标准库中的srand()和rand()函数代替.</p>
 </blockquote>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/*
+<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">/*
 @ 生成迷宫
-*/</span>
-<span class="token keyword">void</span> GenerateMaze<span class="token operator">::</span><span class="token function">Maze</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span> <span class="token keyword">int</span> height<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//初始化矩阵, 申请内存</span>
-    maze_matrix_ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">[</span>height<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>height<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        maze_matrix_<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span>width<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+*/
+void GenerateMaze::Maze(int width, int height)
+&#123;
+    //初始化矩阵, 申请内存
+    maze_matrix_ = new int*[height];
+    for(int i=0; i<height; i++)
+    &#123;
+        maze_matrix_[i] = new int[width];
+    &#125;
 
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>height<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>width<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> j <span class="token operator">%</span> <span class="token number">2</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//障碍</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//道路(空白)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    for(int i=0; i<height; i++)
+    &#123;
+        for(int j=0; j<width;j++)
+        &#123;
+            if(i % 2 == 0 || j % 2==0)
+            &#123;
+                maze_matrix_[i][j] = 1;  //障碍
+            &#125;
+            else
+            &#123;
+                maze_matrix_[i][j] = 0;  //道路(空白)
+            &#125;
+        &#125;
+    &#125;
 
-    <span class="token function">qsrand</span><span class="token punctuation">(</span><span class="token function">QTime</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">secsTo</span><span class="token punctuation">(</span>QTime<span class="token operator">::</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//设置随机数种子</span>
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime())); //设置随机数种子
 
-    maze_matrix_<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//选取(1,1)作为根节点, 并将根节点的状态设置成2</span>
+    maze_matrix_[1][1] = 2; //选取(1,1)作为根节点, 并将根节点的状态设置成2
 
-    <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">generateMaze</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//深度优先遍历</span>
+    this->generateMaze(1, 1);   //深度优先遍历
 
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>height<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>width<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>maze_matrix_<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//将状态为2的结点重新设置为0, 表示可通行道路</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    for(int i=0; i<height; i++)
+    &#123;
+        for(int j=0; j<width;j++)
+        &#123;
+            if(maze_matrix_[i][j] == 2)
+            &#123;
+                maze_matrix_[i][j] = 0; //将状态为2的结点重新设置为0, 表示可通行道路
+            &#125;
+        &#125;
+    &#125;
+&#125;
 
 
-<span class="token comment" spellcheck="true">/*
+/*
 @ brief:深度优先生成迷宫(递归实现)
-*/</span>
-<span class="token keyword">void</span> Maze<span class="token operator">::</span><span class="token function">generateMaze</span><span class="token punctuation">(</span><span class="token keyword">int</span> pos_i<span class="token punctuation">,</span> <span class="token keyword">int</span> pos_j<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//到达边界, 返回</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>pos_j <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> pos_j <span class="token operator">>=</span> width <span class="token operator">||</span> pos_i <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> pos_i <span class="token operator">>=</span> height<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+*/
+void Maze::generateMaze(int pos_i, int pos_j)
+&#123;
+    //到达边界, 返回
+    if(pos_j < 0 || pos_j >= width || pos_i < 0 || pos_i >= height)
+    &#123;
+        return;
+    &#125;
 
-    QVector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> vec <span class="token operator">=</span> <span class="token function">existedRoad</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span>maze_matrix_<span class="token punctuation">,</span> pos_i<span class="token punctuation">,</span> pos_j<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//查找当前结点四周空白块</span>
+    QVector<int> vec = existedRoad((const int**)maze_matrix_, pos_i, pos_j); //查找当前结点四周空白块
 
-    <span class="token comment" spellcheck="true">//四周没有空白块, 返回</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    //四周没有空白块, 返回
+    if(vec.size() == 0)
+    &#123;
+        return;
+    &#125;
 
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token function">qrand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">%</span>vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//随机选择其中一个空白块</span>
+    for(int i=0; i < vec.size();)
+    &#123;
+        int index = qrand()%vec.size(); //随机选择其中一个空白块
 
-        <span class="token keyword">switch</span><span class="token punctuation">(</span>vec<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">case</span> D_LEFT<span class="token operator">:</span>    <span class="token comment" spellcheck="true">//左</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token number">-2</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//将走过的路径设为2, 防止重复经过</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token number">-2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">generateMaze</span><span class="token punctuation">(</span>pos_i<span class="token punctuation">,</span> pos_j<span class="token number">-2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//更新结点, 递归</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token keyword">case</span> D_RIGHT<span class="token operator">:</span>   <span class="token comment" spellcheck="true">//右</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">generateMaze</span><span class="token punctuation">(</span>pos_i<span class="token punctuation">,</span> pos_j<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//更新结点, 递归</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>  
-        <span class="token keyword">case</span> D_UP<span class="token operator">:</span>  <span class="token comment" spellcheck="true">//上</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token number">-2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token number">-2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">generateMaze</span><span class="token punctuation">(</span>pos_i<span class="token number">-2</span><span class="token punctuation">,</span> pos_j<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//更新结点, 递归</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token keyword">case</span> D_DOWN<span class="token operator">:</span>    <span class="token comment" spellcheck="true">//下</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                maze_matrix_<span class="token punctuation">[</span>pos_i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pos_j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">generateMaze</span><span class="token punctuation">(</span>pos_i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span> pos_j<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//更新结点, 递归</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        switch(vec[index])
+        &#123;
+        case D_LEFT:    //左
+            if(maze_matrix_[pos_i][pos_j-2] != 2)
+            &#123;
+                maze_matrix_[pos_i][pos_j-1] = 2;    //将走过的路径设为2, 防止重复经过
+                maze_matrix_[pos_i][pos_j-2] = 2;
+                this->generateMaze(pos_i, pos_j-2); //更新结点, 递归
+            &#125;
+            break;
+        case D_RIGHT:   //右
+            if(maze_matrix_[pos_i][pos_j+2] != 2)
+            &#123;
+                maze_matrix_[pos_i][pos_j+1] = 2;
+                maze_matrix_[pos_i][pos_j+2] = 2;
+                this->generateMaze(pos_i, pos_j+2); //更新结点, 递归
+            &#125;
+            break;  
+        case D_UP:  //上
+            if(maze_matrix_[pos_i-2][pos_j] != 2)
+            &#123;
+                maze_matrix_[pos_i-1][pos_j] = 2;
+                maze_matrix_[pos_i-2][pos_j] = 2;
+                this->generateMaze(pos_i-2, pos_j); //更新结点, 递归
+            &#125;
+            break;
+        case D_DOWN:    //下
+            if(maze_matrix_[pos_i+2][pos_j] != 2)
+            &#123;
+                maze_matrix_[pos_i+1][pos_j] = 2;
+                maze_matrix_[pos_i+2][pos_j] = 2;
+                this->generateMaze(pos_i+2, pos_j); //更新结点, 递归
+            &#125;
+            break;
+        &#125;
 
-        vec<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//清空vec</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        vec.remove(index);  //清空vec
+    &#125;
+&#125;
 
-<span class="token comment" spellcheck="true">/*
+/*
 @brief: 查找结点周围的空白块
-*/</span>
+*/
 
-<span class="token keyword">const</span> QVector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> Maze<span class="token operator">::</span><span class="token function">existedRoad</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">*</span><span class="token operator">*</span>mat<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    QVector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> vec<span class="token punctuation">;</span>
+const QVector<int> Maze::existedRoad(const int **mat, int i, int j)
+&#123;
+    QVector<int> vec;
 
-    <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token number">-2</span> <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> mat<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-2</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>D_LEFT<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//左边有空白块</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    if(j-2 >= 0 && mat[i][j-2] == 0)
+    &#123;
+        vec.push_back(D_LEFT);  //左边有空白块
+    &#125;
 
-    <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token operator">+</span><span class="token number">2</span> <span class="token operator">&lt;</span> width <span class="token operator">&amp;&amp;</span> mat<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>D_RIGHT<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//右边有空白块</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    if(j+2 < width && mat[i][j+2] == 0)
+    &#123;
+        vec.push_back(D_RIGHT); //右边有空白块
+    &#125;
 
-    <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token number">-2</span> <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> mat<span class="token punctuation">[</span>i<span class="token number">-2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>D_UP<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//上边有空白块</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    if(i-2 >= 0 && mat[i-2][j] == 0)
+    &#123;
+        vec.push_back(D_UP);    //上边有空白块
+    &#125;
 
-    <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">2</span> <span class="token operator">&lt;</span> height <span class="token operator">&amp;&amp;</span> mat<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>D_DOWN<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//下边有空白块</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    if(i+2 < height && mat[i+2][j] == 0)
+    &#123;
+        vec.push_back(D_DOWN);  //下边有空白块
+    &#125;
 
-    <span class="token keyword">return</span> vec<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    return vec;
+&#125;
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -771,7 +766,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">XuYuan</a>
+                    <a href="/about" rel="external nofollow noreferrer">Xu Yuan</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -794,7 +789,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">XuYuan</a>
+                    <a href="/about" target="_blank">Xu Yuan</a>
                     !
                 </span>
             </div>
@@ -1156,9 +1151,9 @@
 
 
 
+Why
+为什么想要一次旅行
 
-
-Why为什么想要一次旅行
 当
                         
                     </div>
@@ -1214,13 +1209,12 @@ Why为什么想要一次旅行
 
 
 
-
-    
+	
 
 情深深雨蒙蒙-张杰
 
-
-1 回溯法由于这篇博客主要讲解多米诺性质, 默认大家已经了解回溯法啦,这里对回溯法的具体内容就不
+1 回溯法
+由于这篇博客主要讲解多米诺性质, 默认大家已经了解回溯法啦,这里对回溯法的具体内容就不进行讲解
                         
                     </div>
                     <div class="publish-info">
@@ -1449,7 +1443,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2019</span>
-            <a href="/about" target="_blank">XuYuan</a>
+            <a href="/about" target="_blank">Xu Yuan</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>

@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -515,7 +515,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    835
+                    782
                 </div>
                 
 
@@ -527,99 +527,130 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="题目：最长有效括号"><a href="#题目：最长有效括号" class="headerlink" title="题目：最长有效括号"></a>题目：最长有效括号</h2><p>给定一个只包含 ( 和 ) 的字符串，找出最长的包含有效括号的子串的长度。</p>
-<p>示例 1:</p>
+                <h2 id="题目：最长有效括号">题目：最长有效括号</h2>
+<p>给定一个只包含 ( 和 ) 的字符串，找出最长的包含有效括号的子串的长度。</p>
+<p>示例 1:</p>
 <pre><code>输入: &quot;(()&quot;
 输出: 2
-解释: 最长有效括号子串为 &quot;()&quot;</code></pre><p>示例 2:</p>
+解释: 最长有效括号子串为 &quot;()&quot;
+</code></pre>
+<p>示例 2:</p>
 <pre><code>输入: &quot;)()())&quot;
 输出: 4
-解释: 最长有效括号子串为 &quot;()()&quot;</code></pre><p>示例 3:</p>
+解释: 最长有效括号子串为 &quot;()()&quot;
+</code></pre>
+<p>示例 3:</p>
 <pre><code>输入: &quot;)(())())&quot;
 输出: 6
-解释: 最长有效括号子串为 &quot;(())()&quot;</code></pre><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-valid-parentheses">来源：力扣(LeetCode)</a></p>
-<h2 id="算法：动态规划"><a href="#算法：动态规划" class="headerlink" title="算法：动态规划"></a>算法：动态规划</h2><h3 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h3><p>定义 $dp[i]$ 表示以第i个字符结尾的字符串中最长的有效括号长度。</p>
+解释: 最长有效括号子串为 &quot;(())()&quot;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-valid-parentheses">来源：力扣(LeetCode)</a></p>
+<h2 id="算法：动态规划">算法：动态规划</h2>
+<h3 id="解法：">解法：</h3>
+<p>定义 $dp[i]$ 表示以第i个字符结尾的字符串中最长的有效括号长度。</p>
 <p>example1:</p>
 <pre><code>string: &quot;()()()&quot;
 index  : 0 1 2 3 4 5
-dp:      0 2 0 4 0 6</code></pre><p>example2:</p>
+dp:      0 2 0 4 0 6
+</code></pre>
+<p>example2:</p>
 <pre><code>string: &quot;()((())&quot;
 index  : 0 1 2 3 4 5 6 
-dp:      0 2 0 0 0 2 4</code></pre><p>example3:</p>
+dp:      0 2 0 0 0 2 4
+</code></pre>
+<p>example3:</p>
 <pre><code>string: &quot;()(())&quot;
 index: 0 1 2 3 4 5
-dp:    0 2 0 0 2 6</code></pre><ol>
+dp:    0 2 0 0 2 6
+</code></pre>
+<ol>
 <li>若$s[j] = ($, 由于(不可能是有效括号的结束字符，所以$dp[j] = 0$。</li>
-<li>若$s[j] = )$，存在多种情况<ul>
+<li>若$s[j] = )$，存在多种情况
+<ul>
 <li>若$s[j-1]为($， 若是则可以组成有效括号，有效括号长度+2。</li>
-<li>若$s[j-1]为)$， 也不一定不是有效括号，还可能存在括号嵌套的情况，如”example2”, 这种情况则要判断 $s[dp[j-1] - 1]$是否等于(，是则+2。该情况可以和上一种情况合并，都可表示为判断 $s[dp[j-1] - 1] == ($ 是否成立。</li>
+<li>若$s[j-1]为)$， 也不一定不是有效括号，还可能存在括号嵌套的情况，如&quot;example2&quot;, 这种情况则要判断 $s[dp[j-1] - 1]$是否等于(，是则+2。该情况可以和上一种情况合并，都可表示为判断 $s[dp[j-1] - 1] == ($ 是否成立。</li>
 </ul>
 </li>
-<li>当 $dp[j]$是有效括号的结束字符时，要判断是否和之前的有效括号连续，如果连续要加上之前的长度。如”example3”， $s[5]= )$, 且 $s[5 - dp[4] - 1] = ($, 所以 $dp[5] = dp[4] + 2 = 4$。但是由于可以和之前的”()”连起来，所以 $dp[5] = dp[4] + 2 + dp[5 - dp[4] - 2] = 6$。</li>
+<li>当 $dp[j]$是有效括号的结束字符时，要判断是否和之前的有效括号连续，如果连续要加上之前的长度。如&quot;example3&quot;， $s[5]= )$, 且 $s[5 - dp[4] - 1] = ($, 所以 $dp[5] = dp[4] + 2 = 4$。但是由于可以和之前的&quot;()&quot;连起来，所以 $dp[5] = dp[4] + 2 + dp[5 - dp[4] - 2] = 6$。</li>
 </ol>
-<h3 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h3><p>$$<br>dp[i]=<br>\left\{<br>\begin{align}<br>&amp;0,&amp;s[i]=(\\\<br>&amp;0,&amp;s[i]= ) \quad \&amp;\&amp; \quad s[i-dp[i-1]-1] \neq (\\\<br>&amp;dp[i-1] + 2 + dp[i-dp[i-1]-2], &amp;s[i]= ) \quad \&amp;\&amp; \quad s[i-dp[i-1]-1] = (\\\\<br>\end{align}<br>\right.<br>$$</p>
-<h3 id="时间复杂度-amp-空间复杂度"><a href="#时间复杂度-amp-空间复杂度" class="headerlink" title="时间复杂度&amp;空间复杂度"></a>时间复杂度&amp;空间复杂度</h3><ol>
+<h3 id="状态转移方程">状态转移方程</h3>
+<p>$$
+dp[i]=
+\left{
+\begin{align}
+&amp;0,&amp;s[i]=(\\
+&amp;0,&amp;s[i]= ) \quad &amp;&amp; \quad s[i-dp[i-1]-1] \neq (\\
+&amp;dp[i-1] + 2 + dp[i-dp[i-1]-2], &amp;s[i]= ) \quad &amp;&amp; \quad s[i-dp[i-1]-1] = (\\	
+\end{align}
+\right.
+$$</p>
+<h3 id="时间复杂度-空间复杂度">时间复杂度&amp;空间复杂度</h3>
+<ol>
 <li>时间复杂度: $O(n)$</li>
 <li>空间复杂度: $O(n)$</li>
 </ol>
-<h2 id="LeetCode执行结果"><a href="#LeetCode执行结果" class="headerlink" title="LeetCode执行结果"></a>LeetCode执行结果</h2><ul>
-<li>执行用时 : <strong>4 ms</strong>, 在所有 C++ 提交中击败了 <strong>95.63%</strong>的用户。</li>
-<li>内存消耗 : <strong>9.8 MB</strong>, 在所有 C++ 提交中击败了 <strong>15.58%</strong>的用户。</li>
+<h2 id="LeetCode执行结果">LeetCode执行结果</h2>
+<ul>
+<li>执行用时 : <strong>4 ms</strong>, 在所有 C++ 提交中击败了 **95.63%**的用户。</li>
+<li>内存消耗 : <strong>9.8 MB</strong>, 在所有 C++ 提交中击败了 **15.58%**的用户。</li>
 </ul>
-<h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>其实动规比较简单，有套路可循。尤其是和字符串有关的题目，基本都与子串有关。但是难在子问题的划分，比如这道题中定义 $dp[i]$ 表示以第i个字符结尾的字符串中最长的有效括号长度，这样就比较简单。而我之前想的是定义为子串中最长有效括号的长度，到后面很难处理。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
+<h2 id="感受">感受</h2>
+<p>其实动规比较简单，有套路可循。尤其是和字符串有关的题目，基本都与子串有关。但是难在子问题的划分，比如这道题中定义 $dp[i]$ 表示以第i个字符结尾的字符串中最长的有效括号长度，这样就比较简单。而我之前想的是定义为子串中最长有效括号的长度，到后面很难处理。</p>
+<h2 id="代码">代码</h2>
+<pre class="line-numbers language-language-cpp"><code class="language-language-cpp">#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+using namespace std;
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token keyword">int</span> <span class="token function">longestValidParentheses</span><span class="token punctuation">(</span>string s<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+class Solution
+&#123;
+public:
+	int longestValidParentheses(string s)
+	&#123;
+		if(s.empty())
+		&#123;
+			return 0;
+		&#125;
 
-        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">dp</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">-</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>  s<span class="token punctuation">[</span>i <span class="token operator">-</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                    <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">-</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">-</span><span class="token number">2</span> <span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">)</span>
-                    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                        dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>                    
-                    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-                    <span class="token keyword">else</span>
-                    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                        dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>                    
-                    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>                    
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>                
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>    
-            <span class="token keyword">else</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token operator">*</span><span class="token function">max_element</span><span class="token punctuation">(</span>dp<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+		vector<int> dp(s.length(),0);
+		dp[0] = 0;
+		for(int i=1; i<s.length(); i++)
+		&#123;
+			if(s[i] == ))
+			&#123;
+				if(i - dp[i-1] -1 >= 0 &&  s[i - dp[i-1] -1] == ()
+				&#123;
+					if(i - dp[i-1] -2 >=0)
+					&#123;
+						dp[i] = 2 + dp[i-1] + dp[i - dp[i-1] -2];					
+					&#125;
+					else
+					&#123;
+						dp[i] = 2 + dp[i-1];					
+					&#125;					
+				&#125;				
+			&#125;	
+			else
+			&#123;
+				dp[i] = 0;
+			&#125;
+		&#125;
+		return *max_element(dp.begin(), dp.end());
+	&#125;
+&#125;;
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    string str<span class="token punctuation">;</span>
-    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"input:"</span><span class="token punctuation">;</span>
-    std<span class="token operator">::</span>cin <span class="token operator">>></span> str<span class="token punctuation">;</span>
-    Solution s<span class="token punctuation">;</span>
-    std<span class="token operator">::</span>cout<span class="token operator">&lt;&lt;</span>s<span class="token punctuation">.</span><span class="token function">longestValidParentheses</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span>std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+int main()
+&#123;
+	string str;
+	std::cout << "input:";
+	std::cin >> str;
+	Solution s;
+	std::cout<<s.longestValidParentheses(str)<<std::endl;
+	return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -635,7 +666,7 @@ dp:    0 2 0 0 2 6</code></pre><ol>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">XuYuan</a>
+                    <a href="/about" rel="external nofollow noreferrer">Xu Yuan</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -658,7 +689,7 @@ dp:    0 2 0 0 2 6</code></pre><ol>
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">XuYuan</a>
+                    <a href="/about" target="_blank">Xu Yuan</a>
                     !
                 </span>
             </div>
@@ -1015,8 +1046,8 @@ dp:    0 2 0 0 2 6</code></pre><ol>
                         
                             有时我们可能需要将项目同时提交到Github和Gitee，通过使用Gitee导入Github仓库我们可以轻松完成这个任务。
 
-
-导入Github仓库在新建仓库时最下方有一个 导入已有仓库 的选项，点击后可以输入github仓库的URL链接。
+导入Github仓库
+在新建仓库时最下方有一个 导入已有仓库 的选项，点击后可以输入github仓库的URL链接。
                         
                     </div>
                     <div class="publish-info">
@@ -1065,12 +1096,13 @@ dp:    0 2 0 0 2 6</code></pre><ol>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目：扰乱字符串给定一个字符串 s1，我们可以把它递归地分割成两个非空子字符串，从而将其表示为二叉树。
-下图是字符串 s1 = “great” 的一种可能的表示形式。
+                            题目：扰乱字符串
+给定一个字符串 s1，我们可以把它递归地分割成两个非空子字符串，从而将其表示为二叉树。
+下图是字符串 s1 = “great” 的一种可能的表示形式。
     great
    /    \
   gr    eat
- / \
+ / 
                         
                     </div>
                     <div class="publish-info">
@@ -1303,7 +1335,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2019</span>
-            <a href="/about" target="_blank">XuYuan</a>
+            <a href="/about" target="_blank">Xu Yuan</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>

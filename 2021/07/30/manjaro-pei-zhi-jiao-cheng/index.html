@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -511,7 +511,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    980
+                    989
                 </div>
                 
 
@@ -527,13 +527,12 @@
 <p>因为某些不可抗力，用了将近两年的Ubuntu系统崩溃了，于是决定试试久闻大名的Manjaro。</p>
 </blockquote>
 <span id="more"></span>
-
 <p>先上效果，关于KDE桌面的美化，请移步<a href="/2021/07/30/kde-zhuo-mian-mei-hua/">KDE桌面美化</a></p>
 <div align=center>
 <img src="/img/blog/blog-33-1.png" width=600>
 </div>
-
-<h2 id="Manjaro"><a href="#Manjaro" class="headerlink" title="Manjaro"></a>Manjaro</h2><blockquote>
+<h2 id="Manjaro">Manjaro</h2>
+<blockquote>
 <p>Manjaro Linux是基于 Arch Linux 的 Linux 发行版，使用 Xfce 、GNOME和 KDE Plasma 作为默认桌面环境，和 Arch 一样，采用滚动更新。其目标是为 PC 提供易于使用的自由的操作系统。</p>
 </blockquote>
 <p>Manjaro的优点如下：</p>
@@ -541,67 +540,104 @@
 <li>基于Arch Linux，有丰富的软件源，同时还可以使用AUR源</li>
 <li>默认可以选择KDE桌面，KDE桌面的可定制化程度高</li>
 </ul>
-<h2 id="Manjaro-安装"><a href="#Manjaro-安装" class="headerlink" title="Manjaro 安装"></a>Manjaro 安装</h2><p>安装比较简单，网上有很多教程，这里就不进行赘述了。</p>
+<h2 id="Manjaro-安装">Manjaro 安装</h2>
+<p>安装比较简单，网上有很多教程，这里就不进行赘述了。</p>
 <p><strong>注意</strong>：安装时，如果选择手动分区，一定要分配<code>/boot/efi</code>，并且需要勾选<code>boot</code>和<code>bios-grub</code>标志。</p>
-<h2 id="软件源配置"><a href="#软件源配置" class="headerlink" title="软件源配置"></a>软件源配置</h2><h3 id="更换国内的镜像源"><a href="#更换国内的镜像源" class="headerlink" title="更换国内的镜像源"></a>更换国内的镜像源</h3><pre class="line-numbers language-shell"><code class="language-shell"># 生成国内的pacman镜像源列表
-sudo pacman-mirrors -i -c China -m rank<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="软件源配置">软件源配置</h2>
+<h3 id="更换国内的镜像源">更换国内的镜像源</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 生成国内的pacman镜像源列表
+sudo pacman-mirrors -i -c China -m rank
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>从弹出的对话框中选择一个或多个源即可。</p>
-<h3 id="配置国内的Arch-Linux源"><a href="#配置国内的Arch-Linux源" class="headerlink" title="配置国内的Arch Linux源"></a>配置国内的Arch Linux源</h3><pre class="line-numbers language-shell"><code class="language-shell"># 编辑/etc/pacman.conf
-sudo nano /etc/pacman.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="配置国内的Arch-Linux源">配置国内的Arch Linux源</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 编辑/etc/pacman.conf
+sudo nano /etc/pacman.conf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>在文件末尾添加</p>
 <pre><code>[archlinuxcn]
 # SigLevel = Optional TrustedOnly
 SigLevel = Never
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch</code></pre><p>退出之后更新系统</p>
-<pre class="line-numbers language-shell"><code class="language-shell">sudo pacman -Syy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+</code></pre>
+<p>退出之后更新系统</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sudo pacman -Syy
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>导入GPG Key</p>
-<pre class="line-numbers language-shell"><code class="language-shell">sudo pacman -S archlinuxcn-keyring<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h2><h3 id="yay"><a href="#yay" class="headerlink" title="yay"></a>yay</h3><blockquote>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sudo pacman -S archlinuxcn-keyring
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="常用软件">常用软件</h2>
+<h3 id="yay">yay</h3>
+<blockquote>
 <p>yay是一个AUR（Arch User Repository，是一个为 Arch 用户而生的社区驱动软件仓库。Debian/Ubuntu 用户的对应类比是 PPA） Helper，他可以执行pacman的几乎所有操作，并在此基础上添加了很多额外用法。作为AUR Helper，可以使用yay安装Arch Linux官方源中没有而存在于AUR源中软件。</p>
 </blockquote>
-<pre class="line-numbers language-shell"><code class="language-shell">sudo pacman -S yay
-yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save #设置AUR的源为清华源<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><p>建议安装gvim</p>
-<pre class="line-numbers language-shell"><code class="language-shell">yay -S gvim<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="搜狗输入法"><a href="#搜狗输入法" class="headerlink" title="搜狗输入法"></a>搜狗输入法</h3><pre class="line-numbers language-shell"><code class="language-shell">yay -S fcitx-im             # 全部安装
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sudo pacman -S yay
+yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save #设置AUR的源为清华源
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="vim">vim</h3>
+<p>建议安装gvim</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S gvim
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="搜狗输入法">搜狗输入法</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S fcitx-im             # 全部安装
 yay -S fcitx-configtool     # 图形化配置工具
-yay -S fcitx-sogoupinyin    # 搜狗拼音<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+yay -S fcitx-sogoupinyin    # 搜狗拼音
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>安装完成后，新建并配置~/.xprofile配置文件，向文件中添加如下内容：</p>
 <pre><code>export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
-export XMODIFIERS=&quot;@im=fcitx&quot;</code></pre><p>配置后重启即可使用搜狗输入法了</p>
-<h3 id="Google-chrome"><a href="#Google-chrome" class="headerlink" title="Google-chrome"></a>Google-chrome</h3><pre class="line-numbers language-shell"><code class="language-shell">yay -S google-chrome<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h3><pre><code>yay -S wps-office-cn
+export XMODIFIERS=&quot;@im=fcitx&quot;
+</code></pre>
+<p>配置后重启即可使用搜狗输入法了</p>
+<h3 id="Google-chrome">Google-chrome</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S google-chrome
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="WPS">WPS</h3>
+<pre><code>yay -S wps-office-cn
 yay -S wps-office-fonts     
-yay -S wps-office-mui-zh-cn              </code></pre><h3 id="jetbrain-系列"><a href="#jetbrain-系列" class="headerlink" title="jetbrain 系列"></a>jetbrain 系列</h3><pre class="line-numbers language-shell"><code class="language-shell">yay -S intellij-idea-ultimate-edition-jre
-yay -S intellij-idea-ultimate-edition<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell"><code class="language-shell">yay -S clion-jre
+yay -S wps-office-mui-zh-cn              
+</code></pre>
+<h3 id="jetbrain-系列">jetbrain 系列</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S intellij-idea-ultimate-edition-jre
+yay -S intellij-idea-ultimate-edition
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S clion-jre
 yay -S clion-camke
-yay -S clion<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+yay -S clion
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>如果只安装<code>intellij-idea-ultimate-edition</code>，没有安装jre，IDEA无法启动。</p>
 <p><strong>注意</strong>：在先安装<code>intellij-idea-ultimate-edition</code>，点击应用无法启动后，再安装<code>intellij-idea-ultimate-edition-jre</code>的情况下，下次启动时需要查看一下是否存在未结束的IDEA进程，如果存在则需要将进程kill掉，否则IDEA无法正常启动。</p>
-<h3 id="腾讯TIM"><a href="#腾讯TIM" class="headerlink" title="腾讯TIM"></a>腾讯TIM</h3><pre class="line-numbers language-shell"><code class="language-shell">yay -S com.qq.tim.spark<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><pre><code>yay -S netease-cloud-music
+<h3 id="腾讯TIM">腾讯TIM</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S com.qq.tim.spark
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="Others">Others</h3>
+<pre><code>yay -S netease-cloud-music
 yay -S typora
 yay -S visual-studio-code-bin
 yay -S baidunetdisk
-yay -S xmind</code></pre><h3 id="已知bug"><a href="#已知bug" class="headerlink" title="已知bug"></a>已知bug</h3><ol>
+yay -S xmind
+</code></pre>
+<h3 id="已知bug">已知bug</h3>
+<ol>
 <li>WPS点击设置会挂掉重启</li>
 </ol>
-<h2 id="终端配置"><a href="#终端配置" class="headerlink" title="终端配置"></a>终端配置</h2><div align=center>
+<h2 id="终端配置">终端配置</h2>
+<div align=center>
 <img src="/img/blog/blog-33-2.png" width=600>
 </div>
-
-<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><pre class="line-numbers language-shell"><code class="language-shell">yay -S zsh
+<h3 id="安装zsh">安装zsh</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-chsh -s /bin/zsh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+chsh -s /bin/zsh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重启或者注销之后就可以看到默认终端设置为了zsh。</p>
 <p>修改zsh的配置文件更换zsh主题</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 修改 ZSH_THEME，zsh的主题可以.oh-my-zsh/themes中找到
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 修改 ZSH_THEME，zsh的主题可以.oh-my-zsh/themes中找到
 # 这里使用的是agnoster
-ZSH_THEME="agnoster"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="安装tmux"><a href="#安装tmux" class="headerlink" title="安装tmux"></a>安装tmux</h3><blockquote>
+ZSH_THEME="agnoster"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装tmux">安装tmux</h3>
+<blockquote>
 <p>tmux 是一个终端复用器，用户可以通过 tmux 在一个终端内管理多个分离的会话，窗口及面板，对于同时使用多个命令行，或多个任务时非常方便。</p>
 </blockquote>
 <p>tmux可以实现如下功能：</p>
@@ -609,12 +645,18 @@ ZSH_THEME="agnoster"<span aria-hidden="true" class="line-numbers-rows"><span></s
 <li>一个终端可以打开多个窗口，支持同时运行多条命令</li>
 <li>会话与窗口分离，在关闭窗口后依旧可以保证会话在后台运行</li>
 </ul>
-<pre class="line-numbers language-shell"><code class="language-shell">yay -S tmux<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="安装中可能出现的问题"><a href="#安装中可能出现的问题" class="headerlink" title="安装中可能出现的问题"></a>安装中可能出现的问题</h2><h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1"></a>Problem 1</h3><p>Cannot find the strip binary required for object file stripping.</p>
-<pre class="line-numbers language-shell"><code class="language-shell">sudo pacman -Sy base-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2"></a>Problem 2</h3><p>yay -S xxx Rate limit reached</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 将AUR的源换回官方源即可
-yay --aururl "https://aur.archlinux.org/" --save<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yay -S tmux
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="安装中可能出现的问题">安装中可能出现的问题</h2>
+<h3 id="Problem-1">Problem 1</h3>
+<p>Cannot find the strip binary required for object file stripping.</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sudo pacman -Sy base-dev
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="Problem-2">Problem 2</h3>
+<p>yay -S xxx Rate limit reached</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 将AUR的源换回官方源即可
+yay --aururl "https://aur.archlinux.org/" --save
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -630,7 +672,7 @@ yay --aururl "https://aur.archlinux.org/" --save<span aria-hidden="true" class="
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">XuYuan</a>
+                    <a href="/about" rel="external nofollow noreferrer">Xu Yuan</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -653,7 +695,7 @@ yay --aururl "https://aur.archlinux.org/" --save<span aria-hidden="true" class="
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">XuYuan</a>
+                    <a href="/about" target="_blank">Xu Yuan</a>
                     !
                 </span>
             </div>
@@ -1008,8 +1050,7 @@ yay --aururl "https://aur.archlinux.org/" --save<span aria-hidden="true" class="
 之前使用Ubuntu的时候使用的是Gnome桌面，换成Manjaro之后决定尝试一下KDE桌面。拥有一个炫酷的桌面，才有将这个系统用下去的动力。
 
 
-
-依旧是先上效果，安装的Linux发行版是Manjaro，Manjaro的配置见另外一篇
+依旧是先上效果，安装的Linux发行版是Manjaro，Manjaro的配置见另外一篇博
                         
                     </div>
                     <div class="publish-info">
@@ -1065,8 +1106,8 @@ yay --aururl "https://aur.archlinux.org/" --save<span aria-hidden="true" class="
 最近一个多月开始学习围棋，因为平时常用的系统是Linux，所以想要在Linux上安装一个围棋AI，可以借助AI分析棋局。经过一番查找，决定使用q5go和katago，安装还是挺复杂的，特地记录（/摸鱼）一下。
 
 
-
-前言目前大部分的围棋A
+前言
+目前大部分的围棋A
                         
                     </div>
                     <div class="publish-info">
@@ -1299,7 +1340,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2019</span>
-            <a href="/about" target="_blank">XuYuan</a>
+            <a href="/about" target="_blank">Xu Yuan</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
