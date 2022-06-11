@@ -1,16 +1,6 @@
 ># allow google
 User-agent: *
 Allow: /
-Allow: /home/
-Allow: /about/
-Allow: /archives/
-Allow: /categories/
-Allow: /tags/
-Disallow: /js/
-Disallow: /css/
-Disallow: /fonts/
-Disallow: /vendors/
-Disallow: /fancybox/
 
 Sitemap: http://blog.xandery.top/sitemap.xml
 Sitemap: http://blog.xandery.top/baidusitemap.xml
